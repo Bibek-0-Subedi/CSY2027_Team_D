@@ -1,5 +1,6 @@
 <?php
     session_start();
+    $pdo = new PDO('mysql:host=localhost;dbname=csy2027groupassignment','root','');
 ?>
 <html>
     <head>
@@ -10,7 +11,14 @@
     <body>
         <div id="datebar">
             <div>11:11:11 Feb 09 2020</div>
-            <div><a href="loginStudent.php">Login</a></div>
+            <?php
+                if(isset($_SESSION['adminSessionId']) || isset($_SESSION['leaderSessionId']) || isset($_SESSION['lecturerSessionId']) || isset($_SESSION['studentSessionId'])){ ?>
+                    <div><a href="logout.php">Logout</a></div>
+               <?php }
+               else { ?>
+                    <div><a href="loginStudent.php">Login</a></div>
+              <?php }  
+            ?>
         </div>
         <div id="nav">
             <div id="navlogo">
@@ -49,11 +57,9 @@
                             <li><a href="#">Module</a></li>                    
                       <?php }
                         else if(isset($_SESSION['lecturerSessionId'])){ ?> 
-                            <li><a href="adminDash.php">Admission</a></li>
-                            <li><a href="#">Student</a></li>
-                            <li><a href="#">Staff</a></li>
                             <li><a href="#">Course</a></li>
-                            <li><a href="#">Module</a></li>                    
+                            <li><a href="#">Module</a></li>
+                            <li><a href="#">Assignment</a></li>
                           <?php } 
                         else if(isset($_SESSION['studentSessionId'])){ ?> 
                             <li><a href="adminDash.php">Admission</a></li>
