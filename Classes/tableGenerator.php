@@ -1,7 +1,7 @@
 <?php
     //table generator class definition
     class TableGenerator{
-        public $tableHeading;
+        public $tableHead= [];
         public $dataRow = [];
         public function SetHeadings($tableHeading){
             $this->tableHead = $tableHeading; 
@@ -18,10 +18,12 @@
             $table .= '</tr>';
             foreach($this->dataRow as $row){ 
                 $table .= '<tr>';
-                    foreach($row as $value){
+                foreach($row as $key=>$value){
+                    if(is_string($key)){
                         $table .= '<td>' . $value.'</td>';
                     }
-                $table .= '</tr>';    
+                }
+                $table .= '</tr>'; 
             }
             $table .= '</table>';
             return $table;

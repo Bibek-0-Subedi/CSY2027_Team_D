@@ -39,7 +39,7 @@
     }
 
 ?>
-<html>
+
     <main>
         <form action="" method="POST" class="loginform">
             <label>USERNAME</label><br>
@@ -53,5 +53,4 @@
     <?php
         include 'footer.php';
     ?>
-</html>
 

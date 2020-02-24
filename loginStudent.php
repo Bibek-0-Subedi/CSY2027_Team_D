@@ -3,7 +3,7 @@
 //    admin - adminSessionId CourseLeader leaderSessionId , lecturer lecturerSessionId, student studentSessionId
 
 ?>
-<html>
+
     <!-- <p>this is test</p> -->
     <main>
         <form method="POST" class="loginform">
@@ -18,5 +18,4 @@
     <?php
         include 'footer.php';
     ?>
-</html>
 

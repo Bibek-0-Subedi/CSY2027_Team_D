@@ -1,4 +1,4 @@
-<html>
+
     <div id="footer">
         <p>
             <a href="#">About Us</a>
@@ -11,4 +11,5 @@
         </p>
          
     </div>
+    </body>
 </html>
