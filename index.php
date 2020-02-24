@@ -1,7 +1,7 @@
 <?php
     include 'header.php';
 ?>
-<html>
+
     <main>
         <div class="landingLogin">
             <a href="loginStaff.php" class="loginButton">Staff Login</a>
@@ -11,5 +11,5 @@
     <?php
         include 'footer.php';
     ?>
-</html>
+
 
