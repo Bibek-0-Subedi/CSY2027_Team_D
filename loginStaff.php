@@ -1,14 +1,9 @@
 <?php
     include 'header.php';
-
-//    admin - adminSessionId CourseLeader leaderSessionId , lecturer lecturerSessionId, student studentSessionId
+    $userCheck = new Databasetable('staff');
     if(isset($_POST['Login'])){
-        $stmt = $pdo->prepare("SELECT * FROM staff WHERE email = :email");
-        $criteria = [
-            'email' => $_POST['email']
-        ];
-        $stmt->execute($criteria);
-        $user = $stmt->fetch();
+        $userExist = $userCheck->find('email',$_POST['email']);
+        $user = $userExist->fetch();
         if($user['type'] == 1){
             if($user['password'] == $_POST['password']){
                 $_SESSION['adminSessionId'] = $user['staff_id'];
@@ -40,17 +35,18 @@
 
 ?>
 
-    <main>
-        <form action="" method="POST" class="loginform">
-            <label>USERNAME</label><br>
-            <input type="text" name="email"><br><br>
-            <label>PASSWORD</label><br>
-            <input type="text" name="password"><br><br>
-            <a href="#">Forget Your Password</a><br><br>
-            <input type="submit" name="Login" value="Login" class="loginButton">
-        </form>
-    </main>
-    <?php
-        include 'footer.php';
-    ?>
-
+<div class="container-fluid loginform">
+    <form action="" method="POST">
+        <div class="form-group col-md-3">
+            <label>Username</label>
+            <input type="email" class="form-control" name="email">
+            <small class="form-text text-muted">Email Address provided by the University</small>
+        </div>
+        <div class="form-group col-md-3">
+            <label>Password</label>
+            <input type="password" class="form-control" name="password">
+        </div>
+        <a href="#" class="mx-sm-3">Forgot your Password</a><br><br>
+        <button type="submit" class="btn uniBtn mx-sm-3" name="Login">Login</button>
+    </form>
+</div>

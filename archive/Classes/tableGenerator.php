@@ -11,7 +11,7 @@
         }
 
         public function getHTML(){
-            $table = '<table class = "table"><tr>';
+            $table = '<table class = "dashTable"><tr>';
             foreach($this->tableHead as $tableHeading){ 
                 $table .= '<th>' . $tableHeading . '</th>';
             }

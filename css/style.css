@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+
+html, body{
+    height: 100%;
+    width: 100%;
+    font-family: 'Ubuntu';
+}
+
+.timebar{
+    background-color: #3f3f3f;
+}
+
+.navbar {
+    padding: 0.2rem;
+}
+
+.navbar-nav li{
+    padding-right: 55px;
+}
+
+.nav-link {
+    font-size: 30px;
+}
+
+footer {
+    background-color: #3f3f3f;
+    color: white;
+}
+
+.horzline{
+    border-top: 1px solid;
+    background-color: white;
+    width: 80%;
+}
+
+.horzlineCopyright{
+    border-top: 1px solid;
+    background-color: white;
+    width: 100%;
+}
+
+h5{
+    margin-top: 15px;
+}
+
+.uniBtn{
+    background-color: #8AC6B7;
+}
+.loginform{
+    margin: 10% 0 0 35%;
+}
+
+
+/* admin header css properties */
+.adminHead{
+    background-color: #8AC6B7;
+    height: 50px;
+}
+.adminSidebar {
+    height: 100vh;
+    background-color: #3f3f3f;
+}
+
+.bt-border{
+    border-bottom: 1px solid #8AC6B7;
+}
+
+/* main content CSS properties */
+.bg-content{
+    background-color: whitesmoke;
+    box-shadow: 1px 1px 2px #3f3f3f;
+}
