@@ -1,31 +1,20 @@
 <?php
     include 'session.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <title>Woodlands University College</title>
-</head>
 <body>
-    <nav class="navbar navbar-light timebar">
+    <div class="navbar navbar-light timebar">
     <!-- <a class="navbar-brand">Navbar</a> -->
     <p class="ml-auto">Feb 09,2020</p>
     <form class="form-inline ml-auto">
         <input class="form-control mr-sm-2" type="search" placeholder="Search">
         <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
     </form>
-    </nav>
+    </div>
     <!-- nav bar -->
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #8AC6B7;">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.php"><img src="img/Logo.jpg" class="img-fluid" alt="Logo"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-linkDropdown" >
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-linkDropdown" aria-label="Toggle navigation " aria-controls="navbarSupportedContent" aria-expanded="false" >
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="nav-linkDropdown">
@@ -53,3 +42,4 @@
             </div>
         </div>
     </nav>
+

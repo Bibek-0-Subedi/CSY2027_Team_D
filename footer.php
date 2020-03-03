@@ -1,4 +1,5 @@
 
+</body>
 <footer>
     <div class="container-fluid padding row text-center">
         <div class="col-md-4">

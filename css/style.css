@@ -22,10 +22,18 @@ html, body{
     font-size: 30px;
 }
 
-footer {
+ /* begin Footer CSS properties */
+footer{
     background-color: #3f3f3f;
     color: white;
 }
+.adminFooter{
+    text-align: center;
+    min-height: 40px;
+    padding-top: 4px;
+    border-top: 1px solid #8AC6B7;
+}
+/* end Footer CSS Properties */
 
 .horzline{
     border-top: 1px solid;
@@ -57,16 +65,43 @@ h5{
     height: 50px;
 }
 .adminSidebar {
-    height: 100vh;
+    height: 91vh;
     background-color: #3f3f3f;
+}
+.admin-container{
+    display: flex;
+    flex-direction: row;
+}
+
+@media (max-width: 991px){
+    .admin-container{
+        flex-direction: column;
+    }
+    .adminSidebar{
+        height: auto !important;
+    }
 }
 
 .bt-border{
     border-bottom: 1px solid #8AC6B7;
 }
 
-/* main content CSS properties */
+/* begin main content CSS properties */
 .bg-content{
     background-color: whitesmoke;
     box-shadow: 1px 1px 2px #3f3f3f;
 }
+
+.notification{
+    background-color: whitesmoke;
+    box-shadow: 1px 1px 2px #3f3f3f;
+    border-left: 10px solid wheat;
+    min-height: 70px;
+}
+
+ /* end main content CSS Properties */
+
+ /* begin index CSS Properties */
+ 
+ 
+ /* end index CSS Properties */

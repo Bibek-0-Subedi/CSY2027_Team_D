@@ -19,8 +19,11 @@
   }
 ?>
   <!-- begin admission container -->
-  <div class="row pl-sm-2 pr-sm-2 mt-2">
-    <div class="container-fluid">
+  <div class="container-fluid ">
+    <div class="pl-sm-2 pr-sm-2 mt-2">
+      <div class="row mb-1">
+          <h3>Admission</h3>
+      </div>
       <!-- begin csv upload -->
       <div class="row bg-content pl-sm-1">
         <form action="" method="post" enctype='multipart/form-data'>
@@ -31,6 +34,9 @@
             <input type="submit" name="upload" value="Upload" class="btn-primary">
           </div>
         </form>
+      </div>
+      <div class="row mt-3">
+        <a href="addStudent.php" class="btn btn-primary">Add Student</a>
       </div>
       <!-- end csv upload  -->
       <!-- begin filter and search post -->
@@ -60,7 +66,6 @@
       <!-- end filter and search post  -->
       <!-- begin table structure -->
       <div class="row mt-3 bg-content pl-sm-1">
-          table should be here
           <?php
             $table = new TableGenerator();
             $tableHead = [
@@ -90,4 +95,7 @@
     </div>
   </div>
   <!-- end admission container -->
-</div>
+<?php 
+    include 'adminFooter.php';
+?>
+    

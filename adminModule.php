@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="pl-sm-2 pr-sm-2 mt-2">
             <div class="row">
-                <h3>Staff</h3>
+                <h3>Module</h3>
             </div>
             <!-- begin quick notification panel  -->
             <div class="row mt-1 notification">
