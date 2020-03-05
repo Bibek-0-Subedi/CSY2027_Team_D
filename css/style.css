@@ -102,6 +102,21 @@ h5{
  /* end main content CSS Properties */
 
  /* begin index CSS Properties */
- 
+ .loginButton{
+    min-width: 90%;
+    min-height: 50px;
+    font-size: 25px;
+ }
  
  /* end index CSS Properties */
+
+ /* begin casefile css properties */
+ .form-container{
+    background-color: gainsboro;
+ }
+ .preview-container{
+    min-height: 85vh;
+    background-color: azure;
+ }
+
+ /* end casefile css properties */

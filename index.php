@@ -1,27 +1,102 @@
 <?php 
     include 'header.php';
 ?>
-    <div class="container-fluid" style="height: 85vh;">
+    <div class="container-fluid">
         <div class="row mt-2">
             <div class="container-fluid">
                 <div class="row">
                     <!-- begin first column -->
-                    <div class="col-lg-5 bg-dark">
-                        first column
+                    <div class="col-lg-5 p-3" >
+                        <div class="card">
+                            <div class="card-header ">
+                                    <h4>Events & Notice</h4>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                        <div class="card mt-3">
+                            <div class="card-header ">
+                                    <h4>Events & Notice</h4>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            </div>
+                            <div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Cras justo odio</li>
+                                    <li class="list-group-item">Dapibus ac facilisis in</li>
+                                    <li class="list-group-item">Vestibulum at eros</li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                            
+                        </div>
+                        <div class="card mt-3">
+                            <div class="card-header ">
+                                    <h4>Events & Notice</h4>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Cras justo odio</li>
+                                    <li class="list-group-item">Dapibus ac facilisis in</li>
+                                    <li class="list-group-item">Vestibulum at eros</li>
+                                </ul>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
                     </div>
                     <!-- end first column -->
                     <!-- begin second column -->
-                    <div class="col-lg-4 bg-success">
-                        second column
+                    <div class="col-lg-4 p-3 ">
+                        <div class="card">
+                            <div class="card-header ">
+                                    <h4>Events & Notice</h4>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                        <div class="card mt-3">
+                            <div class="card-header ">
+                                    <h4>Events & Notice</h4>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
                     </div>
                     <!-- end second column -->
                     <!-- begin third column -->
-                    <div class="col-lg-3 bg-dark p-3">
-                        <div class="row ml-auto mr-auto">
-                            <a class="btn btn-primary" href="loginStaff.php" role="button">Staff Login</a>
-                        </div>
-                        <div class="row mt-4 ml-auto">
-                            <a class="btn btn-primary" href="loginStudent.php" role="button">Student Login</a>
+                    <div class="col-lg-3 p-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">You are not logged in</h5>
+                                <p class="card-text">Please go to the following links to Log in to the system</p>
+                                <a href="loginStaff.php" class="btn uniBtn loginButton">Staff Login</a><br><br>
+                                <a href="loginStudent.php" class="btn uniBtn loginButton ">Student Login</a>
+                             </div>
                         </div>
                     </div>
                     <!-- end third column -->
