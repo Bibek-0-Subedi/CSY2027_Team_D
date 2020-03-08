@@ -13,7 +13,7 @@
                 $arr[$mydata[$count]] = $value;
                 $count++;
             }
-            $students->insert($arr);
+            $students->save($arr, 'admission_id');
         }
     }
   }
