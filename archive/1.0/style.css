@@ -1,0 +1,132 @@
+body{
+    margin: 0; padding: 0;
+}
+#datebar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    background-color: black;
+    color: honeydew;
+    height: 30px;
+}
+
+#datebar div{
+    padding: 5px;
+    margin-right: 20px; 
+}
+
+#datebar div a{
+    color: honeydew;
+    text-decoration: none;
+}
+#nav {
+    display: flex;
+    justify-content: space-between;
+    background-color: #C0E4F4;
+    margin-bottom: 15px;
+}
+
+#navlogo {
+    /* background-color: #B1F9D8; */
+    display: flex;
+    flex-direction: row;
+}
+#navlogo img{
+    width: 300px;
+    height: 150px;
+    padding: 5px;
+}
+
+#navlogo h1{
+    margin-top: 70px;
+    margin-left: 40px;
+}
+
+#nav nav ul {
+    display: flex;  
+    font-size: 35px;
+    list-style: none;
+}
+
+#nav nav ul li{
+    margin: 35px 25px 15px 15px;
+}
+
+#nav nav ul li a{
+    text-decoration: none;
+    color: black;
+}
+
+main{
+    min-height: 750px;
+}
+
+/* CSS for the footer of the application */
+
+#footer{
+    height: 50px;
+    background-color: black;
+    text-align: center;
+    padding: 5px;
+    color: honeydew;
+}
+
+#footer a{
+    color: honeydew;
+    text-decoration: none;
+}
+
+/* CSS for the Button used within the application */
+
+.Button{
+    border-color: #2d767f;
+    margin: 5px 10px 10px 15px;
+    height: 45px;
+    font-size: large;
+}
+
+.Button:hover{
+    background-color: #2d767f;
+}
+
+/* CSS for the Login form */
+
+.loginform{
+    margin-left: 38%;
+    margin-top: 10%;
+}
+.loginform label{
+    font-size: xx-large;
+}
+
+.loginform input[type=text]{
+    height: 50px;
+    width: 450px;
+    font-size: large;
+}
+
+.loginform a{
+    margin-left: 300px;
+}
+
+.loginButton {
+    height: 45px;
+    width: 100px;
+    font-size: large;
+}
+
+.landingLogin{
+    display: flex;
+    flex-direction: column;
+}
+
+.landingLogin a{
+    width: 200px;
+    text-decoration: none;
+    background-color:  #2d767f;  
+    border-radius: 10px;
+    color: white;
+    padding: .5em;
+    margin:3px;
+    font-size: 30px;
+}
