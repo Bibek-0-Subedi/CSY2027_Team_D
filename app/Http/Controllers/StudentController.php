@@ -6,5 +6,33 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    //
+    public function show(Staff $staff)
+    {
+        # code...
+    }
+
+    public function create()
+    {
+        # code...
+    }
+
+    public function store()
+    {
+        # code...
+    }
+
+    public function edit(Staff $staff)
+    {
+        # code...
+    }
+
+    public function update(Staff $staff)
+    {
+        # code...
+    }
+
+    public function destory(Staff $staff)
+    {
+        # code...
+    }
 }
