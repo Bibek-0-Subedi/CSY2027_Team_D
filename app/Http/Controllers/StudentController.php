@@ -6,32 +6,34 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    public function show(Staff $staff)
+    public function show(Student $student)
     {
-        # code...
+        return view('student.show', ['student' => $student]);
     }
 
     public function create()
     {
-        # code...
+        return view('student.add');
     }
 
     public function store()
     {
-        # code...
+        //Store Code
+        return redirect('/student');
     }
 
-    public function edit(Staff $staff)
+    public function edit(Student $student)
     {
-        # code...
+        return view('student.edit', ['student' => $student])
     }
 
-    public function update(Staff $staff)
+    public function update(Student $student)
     {
-        # code...
+        //Update Code
+        return redirect($student->path());
     }
 
-    public function destory(Staff $staff)
+    public function destory(Student $student)
     {
         # code...
     }
