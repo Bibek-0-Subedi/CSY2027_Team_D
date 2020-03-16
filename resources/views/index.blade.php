@@ -1,4 +1,4 @@
-@extends('layouts/layout')
+@extends('layouts.layout')
 
 @section('siteContent')
     <div class="container-fluid">
@@ -94,7 +94,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">You are not logged in</h5>
                                 <p class="card-text">Please go to the following links to Log in to the system</p>
-                                <a href="auth/login" class="btn uniBtn loginButton">Staff Login</a><br><br>
+                                <a href="/login" class="btn uniBtn loginButton">Staff Login</a><br><br>
                                 <a href="loginStudent.php" class="btn uniBtn loginButton ">Student Login</a>
                             </div>
                         </div>

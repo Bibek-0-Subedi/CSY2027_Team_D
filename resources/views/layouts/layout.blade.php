@@ -17,8 +17,8 @@
 </head>
 <body>
     {{-- if no admission session --}}
-    @include('layouts/siteNav')
+    {{-- @include('layouts/siteNav') --}}
     {{-- if admission session --}}
-    {{-- @include('layouts/adminNav') --}}
+    @include('layouts/adminNav')
 </body>
 </html>

@@ -17,6 +17,9 @@ Route::get('/', function () {
     return view('index');
 });
 
+//Login Routes
+// Route::get('/staff', 'StaffController@show');
+
 // Staff Routes
 Route::get('/staff', 'StaffController@show');
 Route::get('/staff/add', 'StaffController@create');
