@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Student;
 
 class StudentController extends Controller
 {
@@ -24,7 +25,7 @@ class StudentController extends Controller
 
     public function edit(Student $student)
     {
-        return view('student.edit', ['student' => $student])
+        return view('student.edit', ['student' => $student]);
     }
 
     public function update(Student $student)
