@@ -37,7 +37,14 @@ Route::get('/student/{student}/edit', 'StudentController@edit');
 Route::put('/student/{student}', 'StudentController@update');
 Route::delete('/student/{student}', 'StudentController@destory');
 
-//
+//Admission Routes
+Route::get('/admin/admission', 'AdmissionController@index');
+Route::get('/admin/dashboard', function(){
+    return view('admin.dashboard');
+});
+
+Route::post('/admission', 'AdmissionController@storeCSV');
+
 
 Auth::routes();
 

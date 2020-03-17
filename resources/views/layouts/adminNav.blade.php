@@ -3,7 +3,7 @@
     <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#nav-linkDropdown" >
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a href="#" class="navbar-brand d-block bt-border text-black text-center py-2"><img src="img/logo-icon.jpg" alt="logoIcon">  Woodlands University College</a>
+    <a href="#" class="navbar-brand d-block bt-border text-black text-center py-2"><img src="/img/logo-icon.jpg" alt="logoIcon">  Woodlands University College</a>
     <?php
         if(isset($_SESSION['adminSessionId'])){
             $adminStaff = new Databasetable('staff');
@@ -27,10 +27,10 @@
         <div class="collapse navbar-collapse mb-auto adminSidebarTest" id="nav-linkDropdown">
             <ul class="navbar-nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link tp-3 mb-2 text-white" href="adminDash.php">Dashboard</a>
+                    <a class="nav-link tp-3 mb-2 text-white" href="/admin/dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link tp-3 mb-2 text-white" href="adminAdmission.php">Admission</a>
+                    <a class="nav-link tp-3 mb-2 text-white" href="/admin/admission">Admission</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link tp-3 mb-2 text-white" href="adminStudent.php"></i> Student</a>

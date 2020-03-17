@@ -20,5 +20,10 @@
     {{-- @include('layouts/siteNav') --}}
     {{-- if admission session --}}
     @include('layouts/adminNav')
+
+    <footer class="adminFooter">
+        <p>Copyright © 2020 Woodland University</p>                
+    </footer>
+
 </body>
 </html>
