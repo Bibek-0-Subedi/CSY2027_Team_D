@@ -1,5 +1,5 @@
 <?php
-
+<<<<<<< HEAD
     class Admin extends CI_Model{
         public function __construct()
         {
@@ -21,16 +21,16 @@
             }
         }
     }
+=======
 
-
-
+class Admin extends CI_Model {
 
     
-
-
-
-
-
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->database();
+    }
 
     public function csvUpload($csvFile){
         $csvHandle = fopen($csvFile['tmp_name'], "r");
@@ -91,4 +91,4 @@
 
 
 ?>
-
+>>>>>>> 1821e243be91f2c9c25ba50246465b3a96a6edd6

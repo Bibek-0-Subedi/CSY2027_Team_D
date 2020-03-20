@@ -69,17 +69,18 @@
           <?php
             $table = new TableGenerator();
             $tableHead = [
-              'admission_id',
-              'application_no',
-              'student_firstname',
-              'student_surname',
-              'contact_no',
-              'address',
-              'email',
-              'offer',
-              'admission_status',
-              'department_id',
-              'course_id'
+              'Id',
+              'Assigned Id',
+              'Status',
+              'Firstname',
+              'Middle',
+              'Surname',
+              'Temporary Address	',
+              'Permanent Address',
+              'Contact',
+              'Course Code',
+              'Email',
+              'qualification',
             ]; 
             $table->SetHeadings($tableHead);
             $data = $students->findAll()->fetchAll();

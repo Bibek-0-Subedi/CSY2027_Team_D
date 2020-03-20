@@ -8,6 +8,12 @@ $route['admin/student'] = 'admins/student';
 $route['admin/staff'] = 'admins/staff';
 $route['admin/course'] = 'admins/course';
 $route['admin/module'] = 'admins/module';
+
+
+$route['admin/uploadCSV'] = 'admins/uploadCSV';
+
+
+
 $route['admin/login'] = 'admins/login';
 $route['admin/logout'] = 'admins/logout';
 
