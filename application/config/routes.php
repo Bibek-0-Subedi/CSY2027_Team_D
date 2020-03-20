@@ -8,6 +8,7 @@ $route['admin/student'] = 'admins/student';
 $route['admin/staff'] = 'admins/staff';
 $route['admin/course'] = 'admins/course';
 $route['admin/module'] = 'admins/module';
+$route['admin/uploadCSV'] = 'admins/uploadCSV';
 
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';

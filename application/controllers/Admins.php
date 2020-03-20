@@ -1,7 +1,15 @@
 <?php
 
 class Admins extends CI_Controller {
+
     
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Admin');
+    }
+    
+
     public function loadViews($page, $title, $data = []){
         $this->load->view('layouts/header', ['title' => $title]);
         $this->load->view('admin/'.$page, $data);
@@ -17,7 +25,9 @@ class Admins extends CI_Controller {
     }
 
     public function admission() {
-        $this->loadViews('admission', 'Admission');
+        
+        $data['admissions'] = $this->Admin->tableGenerator();
+        $this->loadViews('admission', 'Admission',$data);
     }
 
     public function login() {
@@ -40,9 +50,17 @@ class Admins extends CI_Controller {
         $this->loadViews('module', 'Module');
     }
 
-    
-
-
+    public function uploadCSV()
+    {
+        if($this->input->post('upload')){
+            $csvFileName = explode(".", $_FILES['UCASDetail']['name']);
+            if(end($csvFileName) == "csv"){
+                $this->Admin->csvUpload($_FILES['UCASDetail']);
+                    
+            }
+        }
+        redirect('admin/admission');
+    }
 }
 
 

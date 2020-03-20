@@ -5,7 +5,7 @@
       </div>
       <!-- begin csv upload -->
       <div class="row bg-content pl-sm-1">
-        <form action="" method="post" enctype='multipart/form-data'>
+        <form action="uploadCSV" method="post" enctype='multipart/form-data'>
           <div class="form-group">
             <label>Upload Student Details </label>
             <input type="file" class="form-control-file" name="UCASDetail">
@@ -45,7 +45,10 @@
       <!-- end filter and search post  -->
       <!-- begin table structure -->
       <div class="row mt-3 bg-content pl-sm-1">
-         
+        <?php
+            echo ($admissions);
+
+        ?>
       </div>
       <!-- end table structure -->
     </div>
