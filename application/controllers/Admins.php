@@ -14,7 +14,11 @@ class Admins extends CI_Controller {
         $this->load->view('layout/header', ['title' => $title]);
         $this->load->view('layout/adminNav');
         $this->load->view('admin/'.$page, $data);
-        $this->load->view('layout/footer');
+
+        $this->load->view('layouts/adminfooter');
+
+
+
     }
 
     public function index() {
@@ -36,7 +40,9 @@ class Admins extends CI_Controller {
         $this->form_validation->set_rules('password', 'Password', 'required');
 
         if ($this->form_validation->run() === FALSE) {
-            $this->loadViews('admission', 'Admission');
+            $this->load->view('layouts/header');
+            $this->load->view('layouts/siteNav');
+            $this->load->view('page/adminlogin');
         }
         else {
             $email = $this->input->post('email');
@@ -45,11 +51,43 @@ class Admins extends CI_Controller {
             $staff_id = $this->admin->login($email,$password);
 
             if ($staff_id) {
-                echo 'good till now';
+                $staff_data = array(
+                    'id' => $staff_id['id'],
+                    'name' => $staff_id['firstname'],
+                    'email' => $email,
+                    'type' => $staff_id['type']
+                );
+                $this->session->set_userdata($staff_data);
+                switch ($staff_id['type']) {
+                    case '1':
+                        redirect('admin/dashboard');
+                        break;
+                    case '2':
+                        redirect('leader/dashboard');
+                        break;
+                    case '3':
+                        redirect('tutor/dashboard');
+                        break;                        
+                }
+            }
+            else {
+                redirect('admin/login');
             }
         }
 
-        $this->loadViews('admission', 'Admission');
+    }
+    public function logout()
+    {
+        $this->session->unset_userdata('id');
+        $this->session->unset_userdata('name');
+        $this->session->unset_userdata('email');
+        $this->session->unset_userdata('type');
+
+        redirect('/');
+
+
+
+
 
     }
 

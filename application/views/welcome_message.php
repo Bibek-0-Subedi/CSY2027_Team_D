@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-$this->load->view('layout/header');
-$this->load->view('layout/siteNav');
+$this->load->view('layouts/header');
+$this->load->view('layouts/siteNav');
 ?>
 <div class="container-fluid">
 <div class="row mt-2">
@@ -97,7 +97,7 @@ $this->load->view('layout/siteNav');
 						<h5 class="card-title">You are not logged in</h5>
 						<p class="card-text">Please go to the following links to Log in to the system</p>
 						<a href="<?php echo base_url();?>admin/login" class="btn uniBtn loginButton">Staff Login</a><br><br>
-						<a href="<?php echo base_url();?>loginStudent" class="btn uniBtn loginButton ">Student Login</a>
+						<a href="<?php echo base_url();?>student/login" class="btn uniBtn loginButton ">Student Login</a>
 					 </div>
 				</div>
 			</div>
@@ -107,5 +107,5 @@ $this->load->view('layout/siteNav');
 </div>
 </div>
 <?php
-$this->load->view('layout/footer');
+$this->load->view('layouts/footer');
 ?>
