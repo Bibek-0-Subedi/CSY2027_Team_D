@@ -1,4 +1,4 @@
-</body>
+</div>
 <footer>
     <div class="container-fluid padding row text-center">
         <div class="col-md-4">
@@ -28,6 +28,7 @@
         </div>
     </div>
 </footer>
+</body>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
 </html>
