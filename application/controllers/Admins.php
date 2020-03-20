@@ -11,10 +11,10 @@ class Admins extends CI_Controller {
     
 
     public function loadViews($page, $title, $data = []){
-        $this->load->view('layouts/header', ['title' => $title]);
-        $this->load->view('layouts/adminNav');
+        $this->load->view('layout/header', ['title' => $title]);
+        $this->load->view('layout/adminNav');
         $this->load->view('admin/'.$page, $data);
-        $this->load->view('layouts/footer');
+        $this->load->view('layout/footer');
     }
 
     public function index() {
@@ -51,9 +51,6 @@ class Admins extends CI_Controller {
 
         $this->loadViews('admission', 'Admission');
 
-
-
-
     }
 
     public function student() {
@@ -78,7 +75,6 @@ class Admins extends CI_Controller {
             $csvFileName = explode(".", $_FILES['UCASDetail']['name']);
             if(end($csvFileName) == "csv"){
                 $this->Admin->csvUpload($_FILES['UCASDetail']);
-                    
             }
         }
         redirect('admin/admission');
