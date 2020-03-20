@@ -1,15 +1,7 @@
 <?php
 
 class Admins extends CI_Controller {
-
     
-    public function __construct()
-    {
-        parent::__construct();
-        $this->load->model('Admin');
-    }
-    
-
     public function loadViews($page, $title, $data = []){
         $this->load->view('layouts/header', ['title' => $title]);
         $this->load->view('layouts/adminNav');
@@ -26,9 +18,7 @@ class Admins extends CI_Controller {
     }
 
     public function admission() {
-        
-        $data['admissions'] = $this->Admin->tableGenerator();
-        $this->loadViews('admission', 'Admission',$data);
+        $this->loadViews('admission', 'Admission');
     }
 
     public function login() {
@@ -48,12 +38,12 @@ class Admins extends CI_Controller {
                 echo 'good till now';
             }
         }
-
+=======
         $this->loadViews('admission', 'Admission');
-
-
-
-
+>>>>>>> 7359380c773338f9ab35b1666daef9f542e32578
+=======
+        $this->loadViews('admission', 'Admission');
+>>>>>>> 7359380c773338f9ab35b1666daef9f542e32578
     }
 
     public function student() {
@@ -72,17 +62,9 @@ class Admins extends CI_Controller {
         $this->loadViews('module', 'Module');
     }
 
-    public function uploadCSV()
-    {
-        if($this->input->post('upload')){
-            $csvFileName = explode(".", $_FILES['UCASDetail']['name']);
-            if(end($csvFileName) == "csv"){
-                $this->Admin->csvUpload($_FILES['UCASDetail']);
-                    
-            }
-        }
-        redirect('admin/admission');
-    }
+    
+
+
 }
 
 
