@@ -3,6 +3,9 @@
 class Students extends CI_Controller {
     
     public function loadViews($page, $title, $data = []){
+        if(!$this->session->userdata('student_logged')){
+            redirect('student/login');
+        }
         $this->load->view('layouts/header', ['title' => $title]);
         $this->load->view('layouts/siteNav');
         $this->load->view('student/'.$page, $data);
