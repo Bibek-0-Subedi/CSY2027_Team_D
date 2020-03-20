@@ -10,6 +10,10 @@ $route['admin/course'] = 'admins/course';
 $route['admin/module'] = 'admins/module';
 $route['admin/uploadCSV'] = 'admins/uploadCSV';
 
+//route for assignment
+$route['assignment/index'] = 'assignments/index';
+$route['assignment/add'] = 'assignments/add';
+$route['assignment/edit'] = 'assignments/edit';
 
 $route['admin/login'] = 'admins/login';
 
