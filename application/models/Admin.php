@@ -20,17 +20,6 @@
                 return false;
             }
         }
-    }
-
-
-
-
-    
-
-
-
-
-
 
     public function csvUpload($csvFile){
         $csvHandle = fopen($csvFile['tmp_name'], "r");

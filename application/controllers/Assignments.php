@@ -3,10 +3,10 @@
 class Assignments extends CI_Controller {
 
 	 public function loadViews($page, $title, $data = []) {
-        $this->load->view('layout/header', ['title' => $title]);
-        $this->load->view('layout/adminNav');
+        $this->load->view('layouts/header', ['title' => $title]);
+        $this->load->view('layouts/adminNav');
         $this->load->view('assignment/'.$page, $data);
-        $this->load->view('layout/footer');
+        $this->load->view('layouts/footer');
     }
 
 	public function index() {
@@ -21,4 +21,3 @@ class Assignments extends CI_Controller {
 		$this->loadViews('edit', 'Assignment Edition');
 	}
 }
-?>

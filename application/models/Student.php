@@ -1,5 +1,5 @@
 <?php
-<<<<<<< HEAD
+
     class Student extends CI_Model{
         public function __construct()
         {
