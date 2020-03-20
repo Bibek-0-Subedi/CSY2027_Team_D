@@ -4,7 +4,10 @@ class Admins extends CI_Controller {
     
     public function loadViews($page, $title, $data = []){
         $this->load->view('layouts/header', ['title' => $title]);
+<<<<<<< HEAD
         $this->load->view('layouts/adminNav');
+=======
+>>>>>>> 7359380c773338f9ab35b1666daef9f542e32578
         $this->load->view('admin/'.$page, $data);
         $this->load->view('layouts/footer');
     }
@@ -22,6 +25,7 @@ class Admins extends CI_Controller {
     }
 
     public function login() {
+<<<<<<< HEAD
         $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
 
@@ -38,6 +42,9 @@ class Admins extends CI_Controller {
                 echo 'good till now';
             }
         }
+=======
+        $this->loadViews('admission', 'Admission');
+>>>>>>> 7359380c773338f9ab35b1666daef9f542e32578
     }
 
     public function student() {

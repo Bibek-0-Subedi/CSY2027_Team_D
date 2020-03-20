@@ -10,16 +10,22 @@ html, body{
     background-color: #3f3f3f;
     display: flex;
     flex-direction: row;
+<<<<<<< HEAD
     justify-content: space-between;
 }
 .logout-link{
     display: flex;
     flex-direction: row;
 }
+=======
+}
+
+>>>>>>> 7359380c773338f9ab35b1666daef9f542e32578
 .layout-search{
     display: flex;
     flex-direction: row;
 }
+<<<<<<< HEAD
 @media (max-width: 600px){
     .timebar div h5 {
         display: none;
@@ -36,6 +42,8 @@ html, body{
     color: seashell;
     border-bottom: 2px solid cadetblue ;
 }
+=======
+>>>>>>> 7359380c773338f9ab35b1666daef9f542e32578
 
 .navbar {
     padding: 0.2rem;
