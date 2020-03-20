@@ -62,9 +62,11 @@ class Admins extends CI_Controller {
         $this->loadViews('module', 'Module');
     }
 
+    public function assignment(){
+        $this->loadViews('assignment', 'Assignment');
+    }
+
     
-
-
 }
 
 

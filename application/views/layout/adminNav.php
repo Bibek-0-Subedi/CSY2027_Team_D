@@ -10,26 +10,29 @@
     <!-- begin side bar  -->
     <div class="navbar navbar-expand-lg adminSidebar d-block">
         <div class="collapse navbar-collapse mb-auto adminSidebarTest" id="nav-linkDropdown">
-            <ul class="navbar-nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link tp-3 mb-2 text-white" href="adminDash.php">Dashboard</a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link tp-3 mb-2 text-white" href="adminAdmission.php">Admission</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link tp-3 mb-2 text-white" href="adminStudent.php"></i> Student</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link tp-3 mb-2 text-white" href="adminStaff.php">Staff</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link tp-3 mb-2 text-white" href="adminCourse.php">Course</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link tp-3 mb-2 text-white" href="adminModule.php">Module</a>
-                </li>
-            </ul>
+        <ul class="navbar-nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link tp-3 mb-2 text-white" href="<?= site_url() ?>admin/dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link tp-3 mb-2 text-white" href="<?= site_url() ?>admin/admission">Admission</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link tp-3 mb-2 text-white" href="<?= site_url() ?>admin/student"></i> Student</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link tp-3 mb-2 text-white" href="<?= site_url() ?>admin/staff">Staff</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link tp-3 mb-2 text-white" href="<?= site_url() ?>admin/course">Course</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link tp-3 mb-2 text-white" href="<?= site_url() ?>admin/module">Module</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link tp-3 mb-2 text-white" href="<?= site_url() ?>assignment/index">Assignment</a>
+                    </li>
+                </ul>
         </div>        
     </div>
     <!-- end side bar  -->
