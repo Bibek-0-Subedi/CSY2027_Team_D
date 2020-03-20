@@ -8,9 +8,9 @@
             }
             $data['title'] = ucfirst($page);
 
-            $this->load->view('layout/header');
-            $this->load->view('layout/siteNav');
+            $this->load->view('layouts/header');
+            $this->load->view('layouts/siteNav');
             $this->load->view('page/' . $page);
-            $this->load->view('layout/footer');
+            $this->load->view('layouts/footer');
         }
     }
