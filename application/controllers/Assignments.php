@@ -3,10 +3,10 @@
 class Assignments extends CI_Controller {
 
 	 public function loadViews($page, $title, $data = []) {
-        $this->load->view('layout/header', ['title' => $title]);
-        $this->load->view('layout/adminNav');
+        $this->load->view('layouts/header', ['title' => $title]);
+        $this->load->view('layouts/siteNav');
         $this->load->view('assignment/'.$page, $data);
-        $this->load->view('layout/footer');
+        $this->load->view('layouts/footer');
     }
 
 	public function index() {
@@ -19,6 +19,14 @@ class Assignments extends CI_Controller {
 
 	public function edit() {
 		$this->loadViews('edit', 'Assignment Edition');
+	}
+
+	public function view() {
+		$this->loadViews('view', 'Assignment View');
+	}
+
+	public function upload() {
+		$this->loadViews('upload', 'Assignment Upload');
 	}
 }
 ?>

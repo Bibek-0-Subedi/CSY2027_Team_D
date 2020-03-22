@@ -52,8 +52,24 @@
                     </li>
                 <?php } elseif(($this->session->userdata('type')) == 3) { ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Tutor</a>
+                        <a class="nav-link" href="<?= site_url() ?>tutor/dashboard">Tutor Dashboard</a>
+                    </li>  
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Module</a>
+                    </li>  
+                     <li class="nav-item">
+                        <a class="nav-link" href="#">Student</a>
+                    </li>  
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pat</a>
+                    </li>  
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= site_url() ?>assignment/index">Assignment</a>
+                    </li>  
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Attendance</a>
                     </li>    
+
                 <?php } else { ?>    
                 <!-- begin for guest user -->
                     <li class="nav-item ">

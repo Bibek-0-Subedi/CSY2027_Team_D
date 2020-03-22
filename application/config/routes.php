@@ -16,6 +16,8 @@ $route['admin/uploadCSV'] = 'admins/uploadCSV';
 $route['assignment/index'] = 'assignments/index';
 $route['assignment/add'] = 'assignments/add';
 $route['assignment/edit'] = 'assignments/edit';
+$route['assignment/view'] = 'assignments/view';
+$route['assignment/upload'] = 'assignments/upload';
 
 
 $route['admin/login'] = 'admins/login';
