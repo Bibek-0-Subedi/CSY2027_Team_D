@@ -16,7 +16,7 @@
                 $table .= '<th>' . $tableHeading . '</th>';
             }
             $table .= '</thead>';
-            foreach($this->dataRow as $row){ 
+            foreach($this->dataRow as $row){
                 $table .= '<tr>';
                 foreach($row as $key=>$value){
                     if(is_string($key)){
@@ -30,3 +30,4 @@
         }
     }
 
+?>

@@ -1,41 +1,47 @@
 <?php
 
-class Admins extends CI_Controller {
+class Admins extends CI_Controller
+{
 
-    
+
     public function __construct()
     {
         parent::__construct();
         $this->load->model('Admin');
     }
-    
 
-    public function loadViews($page, $title, $data = []){
-        $this->load->view('layout/header', ['title' => $title]);
-        $this->load->view('layout/adminNav');
-        $this->load->view('admin/'.$page, $data);
+
+    public function loadViews($page, $title, $data = [])
+    {
+        if(($this->session->userdata('type')) != 1){
+            redirect('admin/login');
+        }
+        $this->load->view('layouts/header', ['title' => $title]);
+        $this->load->view('layouts/adminNav');
+        $this->load->view('admin/' . $page, $data);
 
         $this->load->view('layouts/adminfooter');
-
-
-
     }
 
-    public function index() {
+    public function index()
+    {
         $title['title'] = 'admin';
     }
 
-    public function dashboard() {
+    public function dashboard()
+    {
         $this->loadViews('dashboard', 'Dashboard');
     }
 
-    public function admission() {
-        
+    public function admission()
+    {
+
         $data['admissions'] = $this->Admin->tableGenerator();
-        $this->loadViews('admission', 'Admission',$data);
+        $this->loadViews('admission', 'Admission', $data);
     }
 
-    public function login() {
+    public function login()
+    {
         $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
 
@@ -43,12 +49,11 @@ class Admins extends CI_Controller {
             $this->load->view('layouts/header');
             $this->load->view('layouts/siteNav');
             $this->load->view('page/adminlogin');
-        }
-        else {
+        } else {
             $email = $this->input->post('email');
             $password = $this->input->post('password');
 
-            $staff_id = $this->admin->login($email,$password);
+            $staff_id = $this->admin->login($email, $password);
 
             if ($staff_id) {
                 $staff_data = array(
@@ -67,14 +72,12 @@ class Admins extends CI_Controller {
                         break;
                     case '3':
                         redirect('tutor/dashboard');
-                        break;                        
+                        break;
                 }
-            }
-            else {
+            } else {
                 redirect('admin/login');
             }
         }
-
     }
     public function logout()
     {
@@ -84,41 +87,36 @@ class Admins extends CI_Controller {
         $this->session->unset_userdata('type');
 
         redirect('/');
-
-
-
-
-
     }
 
-    public function student() {
+    public function student()
+    {
         $this->loadViews('student', 'Student');
     }
 
-    public function staff() {
+    public function staff()
+    {
         $this->loadViews('staff', 'Staff');
     }
 
-    public function course() {
+    public function course()
+    {
         $this->loadViews('course', 'Course');
     }
 
-    public function module() {
+    public function module()
+    {
         $this->loadViews('module', 'Module');
     }
 
     public function uploadCSV()
     {
-        if($this->input->post('upload')){
+        if ($this->input->post('upload')) {
             $csvFileName = explode(".", $_FILES['UCASDetail']['name']);
-            if(end($csvFileName) == "csv"){
+            if (end($csvFileName) == "csv") {
                 $this->Admin->csvUpload($_FILES['UCASDetail']);
             }
         }
         redirect('admin/admission');
     }
 }
-
-
-
-?>
