@@ -1,9 +1,19 @@
 <!-- begin nav head -->
 <div class="navbar navbar-expand-lg navbar-light adminHead">
-    <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#nav-linkDropdown" >
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <a href="#" class="navbar-brand d-block bt-border text-black text-center py-2"><img src="<?php echo base_url();?>assets/img/logo-icon.jpg" alt="logoIcon">  Woodlands University College</a>
+    <div>
+        <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#nav-linkDropdown" >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a href="#" class="navbar-brand d-block bt-border text-black text-center py-2"><img src="<?php echo base_url();?>assets/img/logo-icon.jpg" alt="logoIcon">  Woodlands University College</a>
+    </div>
+    <div class="logout-link">
+        <?php if (($this->session->userdata('type')) == 1) :?>
+            <h3><?php echo $this->session->userdata('name') ;?></h3>
+            <form class="form layout-search" method="post" action="<?php echo base_url();?>admin/logout">
+                <button class="btn" type="submit"><i class="fa fa-power-off" style="font-size: 20px; color: red"></i></button>
+            </form>                                            
+        <?php endif;?>
+    </div>
 </div>
 <!-- end nav head -->
 <div class="admin-container">

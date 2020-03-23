@@ -22,6 +22,9 @@ class Admins extends CI_Controller
 
     public function loadViews($page, $title, $data = [])
     {
+        if(($this->session->userdata('type')) != 1){
+            redirect('admin/login');
+        }
         $this->load->view('layouts/header', ['title' => $title]);
         if($this->session->userdata('type') == 1){
             $this->load->view('layouts/adminNav');

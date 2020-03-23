@@ -1,11 +1,11 @@
 <div class="timebar">
     <div>
-        <h5>Current Date</h5>
+        <h4>Current Date</h4>
     </div>
     <div class="logout-link">
         <?php if ($this->session->userdata('student_logged')) :?>
-            <h3><?php echo $this->session->userdata('name') ;?></h3>
-            <form class="form layout-search" method="post" action="<?php echo base_url();?>admin/logout">
+            <h4><?php echo $this->session->userdata('name') ;?></h4>
+            <form class="form layout-search" method="post" action="<?php echo base_url();?>student/logout">
                 <button class="btn" type="submit"><i class="fa fa-power-off" style="font-size: 20px; color: red"></i></button>
             </form>                                            
         <?php endif;?>
@@ -52,8 +52,24 @@
                     </li>
                 <?php } elseif(($this->session->userdata('type')) == 3) { ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Tutor</a>
+                        <a class="nav-link" href="<?= site_url() ?>tutor/dashboard">Tutor Dashboard</a>
+                    </li>  
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Module</a>
+                    </li>  
+                     <li class="nav-item">
+                        <a class="nav-link" href="#">Student</a>
+                    </li>  
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pat</a>
+                    </li>  
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= site_url() ?>assignment/index">Assignment</a>
+                    </li>  
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Attendance</a>
                     </li>    
+
                 <?php } else { ?>    
                 <!-- begin for guest user -->
                     <li class="nav-item ">

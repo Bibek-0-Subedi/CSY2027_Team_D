@@ -61,7 +61,7 @@
             'Firstname',
             'Middle',
             'Surname',
-            'Temporary Address	',
+            'Temporary Address  ',
             'Permanent Address',
             'Contact',
             'Course Code',
@@ -97,4 +97,3 @@
 
 
 ?>
-

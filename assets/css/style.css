@@ -10,9 +10,8 @@ html, body{
     background-color: #3f3f3f;
     display: flex;
     flex-direction: row;
-
-
     justify-content: space-between;
+    min-height: 40px;
 }
 .logout-link{
     display: flex;
@@ -99,7 +98,11 @@ h5{
 .adminHead{
     background-color: #8AC6B7;
     height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
+
 .adminSidebar {
     height: 91vh;
     background-color: #3f3f3f;
