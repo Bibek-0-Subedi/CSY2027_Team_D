@@ -1,6 +1,6 @@
-<?php echo validation_errors(); ?>
+<!-- <?php //echo validation_errors(); ?>
 <div class="container-fluid loginform">
-    <?php echo form_open('admins/login') ;?>
+    <?php //echo form_open('admin/login') ;?>
         <div class="form-group col-md-3">
             <label>Username</label>
             <input type="email" class="form-control" name="email">
@@ -13,4 +13,4 @@
         <a href="#" class="mx-sm-3">Forgot your Password</a><br><br>
         <button type="submit" class="btn uniBtn mx-sm-3" name="Login">Login</button>
     </form>
-</div>
+</div> -->

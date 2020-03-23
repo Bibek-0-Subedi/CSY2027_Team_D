@@ -19,6 +19,9 @@
             foreach($this->dataRow as $row){
                 $table .= '<tr>';
                 foreach($row as $key=>$value){
+                    if(($key == 'assigned_id') && empty($value)){
+                        $value = '<a href="casefile/'.$row["admission_id"].'">Create Id</a>';
+                    }
                     if(is_string($key)){
                         $table .= '<td>' . $value.'</td>';
                     }
