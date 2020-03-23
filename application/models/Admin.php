@@ -3,18 +3,27 @@
     class Admin extends CI_Model{
         public function __construct()
         {
-            $this->load->database();    
+            $this->load->database();
+            
         }
+
         public function login($email, $password)
         {
             // extracting the staff with given email and password
             $staff = $this->db->get_where('staff', array(
-                'email' => $email,
-                'password' => $password
+                'email' => $email
             ));
             //checking the number of rows of the checked credentials and returning the id to the controller
             if ($staff->num_rows() == 1) {
-                return $staff->row_array(0);
+                if($staff->row(0)->role == 1){
+                    if(password_verify($password, $staff->row(0)->password)){
+                        return $staff->row_array(0);
+                    }else{
+                        return false;
+                    }
+                }else{
+                    return false;
+                }
             }
             else {
                 return false;
@@ -72,6 +81,14 @@
             }       
         }
         return $this->TableGenerator->getHTML();
+    }
+
+    public function getStudentData($id)
+    {
+        $this->db->join('courses', 'courses.course_code = admissions.course_code', 'left');
+        $result = $this->db->where('admission_id', $id)->get('admissions');
+        return $result->row_array();
+        
     }
 
 }

@@ -4,6 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['admin'] = 'admins/index';
 $route['admin/dashboard'] = 'admins/dashboard';
 $route['admin/admission'] = 'admins/admission';
+$route['admin/casefile/(:any)'] = 'admins/casefile/$1';
+$route['admin/login'] = 'admins/login';
+$route['admin/logout'] = 'admins/logout';
 $route['admin/student'] = 'admins/student';
 $route['admin/staff'] = 'admins/staff';
 $route['admin/course'] = 'admins/course';
@@ -18,8 +21,6 @@ $route['assignment/add'] = 'assignments/add';
 $route['assignment/edit'] = 'assignments/edit';
 
 
-$route['admin/login'] = 'admins/login';
-$route['admin/logout'] = 'admins/logout';
 
 //route for the pages
 $route['(:any)'] = 'pages/view/$1';

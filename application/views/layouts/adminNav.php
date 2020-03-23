@@ -29,6 +29,9 @@
                     <li class="nav-item">
                         <a class="nav-link tp-3 mb-2 text-white" href="<?= site_url() ?>admin/module">Module</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link tp-3 mb-2 text-white" href="<?= site_url() ?>admin/logout">Logout</a>
+                    </li>
                 </ul>
         </div>        
     </div>

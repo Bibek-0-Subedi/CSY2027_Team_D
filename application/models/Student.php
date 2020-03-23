@@ -22,23 +22,6 @@
         }
     }
 
-
-
-
-
-
-
-    
-
-
-       
-
-
-    
-    
-
-
-
 /* End of file Student.php */
 
 
