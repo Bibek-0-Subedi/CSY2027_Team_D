@@ -1,6 +1,6 @@
 <?php echo validation_errors(); ?>
 <div class="container-fluid loginform">
-    <h2>Admin Login</h2>
+    <h2>Staff Login</h2>
     <?php echo form_open('admin/login') ;?>
         <div class="form-group col-md-3">
             <label>Username</label>

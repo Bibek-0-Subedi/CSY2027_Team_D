@@ -34,7 +34,7 @@ class Admins extends CI_Controller
 
     public function index()
     {
-        $title['title'] = 'admin';
+        
     }
 
     public function dashboard()
@@ -53,8 +53,6 @@ class Admins extends CI_Controller
     {
         if($this->session->userdata('type') == 1){
             header('Location:dashboard');
-        }else{
-            
         }
 
         $this->form_validation->set_rules('email', 'Email', 'required');
