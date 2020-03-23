@@ -132,8 +132,8 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-
+<<<<<<< HEAD
 $autoload['model'] = array('admin', 'admission', 'student');
-
-
-
+=======
+$autoload['model'] = array('admin', 'admission', 'student');
+>>>>>>> 6fb30c175b84f49da8e042846933054a8b3537fd
