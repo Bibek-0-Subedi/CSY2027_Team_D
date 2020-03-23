@@ -193,6 +193,17 @@ CREATE TABLE `students` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `staff_modules`
+--
+
+CREATE TABLE `staff_modules` (
+  `staff_id` int(8) NOT NULL,
+  `module_code` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `student_modules`
 --
 
@@ -289,6 +300,13 @@ ALTER TABLE `staff`
 ALTER TABLE `students`
   ADD PRIMARY KEY (`student_id`),
   ADD KEY `fk_stu_admissions` (`admission_id`);
+
+--
+-- Indexes for table `staff_modules`
+--
+ALTER TABLE `staff_modules`
+  ADD KEY `fk_stfmod_modules` (`module_code`),
+  ADD KEY `fk_stfmod_students` (`staff_id`);
 
 --
 -- Indexes for table `student_modules`
@@ -395,6 +413,14 @@ ALTER TABLE `pat`
 --
 ALTER TABLE `students`
   ADD CONSTRAINT `fk_stu_admissions` FOREIGN KEY (`admission_id`) REFERENCES `students` (`student_id`) ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `staff_modules`
+--
+ALTER TABLE `staff_modules`
+  ADD CONSTRAINT `fk_stfmod_modules` FOREIGN KEY (`module_code`) REFERENCES `modules` (`module_code`) ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_stfmod_staff` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`) ON UPDATE NO ACTION;
+COMMIT;
 
 --
 -- Constraints for table `student_modules`
