@@ -2,6 +2,12 @@
 
 class Tutors extends CI_Controller {
     
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Tutor');
+    }
+
     public function loadViews($page, $title, $data = []){
 
         if(($this->session->userdata('type')) != 3){
@@ -16,4 +22,17 @@ class Tutors extends CI_Controller {
         $this->loadViews('dashboard', 'Dashboard');
     }
 
+    public function module() {
+        $data['module'] = $this->Tutor->select();
+        $this->loadViews('module', 'Module', $data);
+        
+    }
+
+    public function getForm() {
+
+        $data['module'] = $this->Tutor->select();
+        $this->loadViews('module', 'Module', $data);
+    }
+
+   
 }

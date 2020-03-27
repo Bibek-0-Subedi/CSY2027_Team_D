@@ -71,6 +71,11 @@ class Admins extends CI_Controller
                 $staff_data = array(
                     'id' => $staff_id['staff_id'],
                     'name' => $staff_id['firstname'],
+                    'middlename' => $staff_id['middlename'],
+                    'surname' => $staff_id['surname'],
+                    'address' => $staff_id['address'],
+                    'subject' => $staff_id['subject'],
+                    'contact' => $staff_id['contact'],
                     'email' => $email,
                     'type' => $staff_id['role']
                 );

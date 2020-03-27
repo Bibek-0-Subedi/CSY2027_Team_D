@@ -2,11 +2,18 @@
 <?php if(($this->session->userdata('type')) == 3) {?>
 <h2> LIST OF ASSIGNMENTS </h2>
 
+
+
+ 
+        <?php
+            echo ($assignments);
+
+        ?>
+      
+
 <a href="<?= site_url() ?>assignment/view"> View Uploaded Assignments </a><br><br>
 
 <a href="<?= site_url() ?>assignment/add"> Add Assignment </a><br><br>
-
-<a href="<?= site_url() ?>assignment/edit"> Edit Assignment </a><br><br>
 
 <a href="<?= site_url() ?>assignment/upload"> Upload Assignment </a><br><br>
 
