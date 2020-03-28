@@ -80,7 +80,7 @@ class Admins extends CI_Controller
                         redirect('admin/dashboard');
                         break;
                     case '2':
-                        redirect('leader/dashboard');
+                        redirect('admin/dashboard');
                         break;
                     case '3':
                         redirect('tutor/dashboard');
