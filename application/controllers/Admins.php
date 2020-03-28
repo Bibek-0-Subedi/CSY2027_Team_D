@@ -30,6 +30,7 @@ class Admins extends CI_Controller
         }
         $this->load->view('admin/' . $page, $data);
         $this->load->view('layouts/adminfooter');
+        $this->load->view('layouts/footer');
     }
 
     public function index()
@@ -44,8 +45,7 @@ class Admins extends CI_Controller
 
     public function admission()
     {
-
-        $data['admissions'] = $this->admin->tableGenerator();
+        $data['admissions'] = $this->admin->tableGenerator($this->admin->getAdmissions());
         $this->loadViews('admission', 'Admission', $data);
     }
 
@@ -108,7 +108,8 @@ class Admins extends CI_Controller
 
     public function student()
     {
-        $this->loadViews('student', 'Student');
+        $data['students'] = $this->admin->tableGenerator($this->admin->getStudents());
+        $this->loadViews('student', 'Students', $data);
     }
 
     public function staff()
@@ -124,6 +125,11 @@ class Admins extends CI_Controller
     public function module()
     {
         $this->loadViews('module', 'Module');
+    }
+
+    public function add()
+    {
+        $this->loadViews('add', 'Add Student');
     }
 
     public function uploadCSV()

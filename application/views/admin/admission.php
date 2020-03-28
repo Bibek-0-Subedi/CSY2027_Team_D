@@ -15,7 +15,7 @@
         </form>
       </div>
       <div class="row mt-3">
-        <a href="addStudent.php" class="btn btn-primary">Add Student</a>
+        <a href="add" class="btn btn-primary">Add Student</a>
       </div>
       <!-- end csv upload  -->
       <!-- begin filter and search post -->

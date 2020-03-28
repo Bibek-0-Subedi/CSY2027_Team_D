@@ -24,11 +24,11 @@
                                     <label class="form-check-label">Conditional Offer</label>
                                 </div>
                                 <div class="mt-4">
-                                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal">Create Case File</button>
+                                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#emailDraft">Create Case File</button>
                                 </div>
                             </form>
                             <div class="mt-2">
-                                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#emailDraft" >Send Offer Letter</button>
+                                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal">Send Offer Letter</button>
                             </div>
                         </div>
                         <!-- end left container form  -->
@@ -66,7 +66,7 @@
     //include 'adminFooter.php';
 ?>
 <!-- begin Modal for Email Draft  -->
-<div class="modal fade" id="emailDraft" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+<div class="modal fade" id="emailDraft" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">

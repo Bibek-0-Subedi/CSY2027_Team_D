@@ -66,7 +66,7 @@
         
     }
     
-    public function tableGenerator()
+    public function tableGenerator($data)
     {
         $tableHead = [
             'Id',
@@ -86,8 +86,6 @@
         $this->load->model('TableGenerator');
 
         $this->TableGenerator->setHeadings($tableHead);
-
-        $data = $this->getAdmissions();
             
         foreach($data as $row){
             if(is_string(key($row))){
@@ -103,6 +101,12 @@
         $result = $this->db->where('admission_id', $id)->get('admissions');
         return $result->row_array();
         
+    }
+
+    public function getStudents()
+    {
+        $result = $this->db->where('assigned_id != 0')->get('admissions'); //Students table should be used
+        return $result->result_array();
     }
 
 }
