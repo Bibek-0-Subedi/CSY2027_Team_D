@@ -2,6 +2,13 @@
 
 <h2> view uploaded assignment </h2>
 
+
+        <?php
+            echo ($assignments);
+
+        ?>
+      
+
 <?php } 
 
 else {

@@ -21,7 +21,21 @@
                     }else{
                         return false;
                     }
-                }else{
+                }elseif($staff->row(0)->role == 2){
+                    if(password_verify($password, $staff->row(0)->password)){
+                        return $staff->row_array(0);
+                    }else{
+                        return false;
+                    }
+                }elseif($staff->row(0)->role == 3){
+                    if(password_verify($password, $staff->row(0)->password)){
+                        return $staff->row_array(0);
+                    }else{
+                        return false;
+                    }
+                }
+
+                else{
                     return false;
                 }
             }

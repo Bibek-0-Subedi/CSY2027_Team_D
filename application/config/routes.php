@@ -18,9 +18,11 @@ $route['admin/uploadCSV'] = 'admins/uploadCSV';
 //route for assignment
 $route['assignment/index'] = 'assignments/index';
 $route['assignment/add'] = 'assignments/add';
-$route['assignment/edit'] = 'assignments/edit';
+$route['assignment/edit/(:any)'] = 'assignments/edit/$1';
 $route['assignment/view'] = 'assignments/view';
 $route['assignment/upload'] = 'assignments/upload';
+$route['assignment/grade/(:any)'] = 'assignments/grade/$1';
+$route['assignment/update'] = 'assignments/update';
 
 
 
@@ -38,6 +40,12 @@ $route['leader/dashboard'] = 'leaders/dashboard';
 
 //tutor pages
 $route['tutor/dashboard'] = 'tutors/dashboard';
+$route['tutor/module'] = 'tutors/module';
+$route['tutor/getForm'] = 'tutors/getForm';
+$route['tutor/add'] = 'tutors/add';
+
+//module pages
+$route['module/add'] = 'modules/add';
 
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';

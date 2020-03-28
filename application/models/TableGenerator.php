@@ -10,6 +10,12 @@
             $this->dataRow[] = $row;  
         }
 
+        public function edit($id) {
+        return '</td><td><a href="edit/'.$id.'">Edit</a><br>
+
+        <a href="delete/'.$id.'">Delete</a>';
+        }
+
         public function getHTML(){
             $table = '<table class="table table-sm table-bordered table-hover"><thead>';
             foreach($this->tableHead as $tableHeading){ 
@@ -22,10 +28,19 @@
                     if(($key == 'assigned_id') && empty($value)){
                         $value = '<a href="casefile/'.$row["admission_id"].'">Create Id</a>';
                     }
+                    if(($key == 'grade') && empty($value) || ($value == 'Not Graded') || ($value == 'A') || ($value == 'B') ||($value == 'C')){
+                        $value = $value . '<br><a href="grade/'.$row["assignment_id"].'">Grade</a>';
+                    }
+                    // $this->router->fetch_class() == 'assignment' && $this->router->fetch_method() == 'index'
+                    if($key == 'created_date'){
+                        $value .= $this->edit($row['assignment_id']); 
+                     }
+                    
                     if(is_string($key)){
                         $table .= '<td>' . $value.'</td>';
-                    }
+                    } 
                 }
+                
                 $table .= '</tr>'; 
             }
             $table .= '</table>';
