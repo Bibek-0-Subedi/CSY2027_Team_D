@@ -29,8 +29,11 @@ class Admins extends CI_Controller
             $this->load->view('layouts/siteNav');
         }
         $this->load->view('admin/' . $page, $data);
-        $this->load->view('layouts/adminfooter');
-        $this->load->view('layouts/footer');
+        if($page == 'login'){
+            $this->load->view('layouts/footer');
+        }else{
+            $this->load->view('layouts/adminfooter');
+        }
     }
 
     public function index()
@@ -85,7 +88,7 @@ class Admins extends CI_Controller
                         redirect('admin/dashboard');
                         break;
                     case '2':
-                        redirect('admin/dashboard');
+                        redirect('leader/dashboard');
                         break;
                     case '3':
                         redirect('tutor/dashboard');
