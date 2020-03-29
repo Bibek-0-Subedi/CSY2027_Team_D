@@ -11,6 +11,7 @@ $route['admin/student'] = 'admins/student';
 $route['admin/staff'] = 'admins/staff';
 $route['admin/course'] = 'admins/course';
 $route['admin/module'] = 'admins/module';
+$route['admin/add'] = 'admins/add';
 
 
 $route['admin/uploadCSV'] = 'admins/uploadCSV';

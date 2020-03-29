@@ -30,6 +30,7 @@ class Admins extends CI_Controller
         }
         $this->load->view('admin/' . $page, $data);
         $this->load->view('layouts/adminfooter');
+        $this->load->view('layouts/footer');
     }
 
     public function index()
@@ -44,8 +45,7 @@ class Admins extends CI_Controller
 
     public function admission()
     {
-
-        $data['admissions'] = $this->admin->tableGenerator();
+        $data['admissions'] = $this->admin->tableGenerator($this->admin->getAdmissions());
         $this->loadViews('admission', 'Admission', $data);
     }
 
@@ -108,7 +108,8 @@ class Admins extends CI_Controller
 
     public function student()
     {
-        $this->loadViews('student', 'Student');
+        $data['students'] = $this->admin->tableGenerator($this->admin->getStudents());
+        $this->loadViews('student', 'Students', $data);
     }
 
     public function staff()
@@ -124,6 +125,32 @@ class Admins extends CI_Controller
     public function module()
     {
         $this->loadViews('module', 'Module');
+    }
+
+    public function add()
+    {
+        $this->form_validation->set_rules('firstname', 'Firstname', 'trim|required');
+        $this->form_validation->set_rules('middlename', 'Middlename', 'trim|required');
+        $this->form_validation->set_rules('surname', 'Surname', 'trim|required');
+        $this->form_validation->set_rules('tempAddress', 'Temporary Address', 'trim|required');
+        $this->form_validation->set_rules('permAddress', 'Permanent Address', 'trim|required');
+        $this->form_validation->set_rules('contact', 'Contact', 'trim|required');
+        $this->form_validation->set_rules('email', 'Email', 'trim|required');
+        $this->form_validation->set_rules('qualification', 'Qualifications', 'trim|required');
+        $this->form_validation->set_rules('courseCode', 'Course Code', 'trim|required');
+        
+        if ($this->form_validation->run() === FALSE) {
+            $data['courses'] = $this->admin->add();
+            $this->loadViews('add', 'Add Student', $data);
+
+        }else{
+            $add = $this->admin->addStudent();
+            if($add){
+                redirect('admin/admission');
+            }else{
+                redirect('admin/add');
+            }
+        }
     }
 
     public function uploadCSV()

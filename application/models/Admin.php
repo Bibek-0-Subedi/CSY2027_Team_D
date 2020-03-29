@@ -66,7 +66,7 @@
         
     }
     
-    public function tableGenerator()
+    public function tableGenerator($data)
     {
         $tableHead = [
             'Id',
@@ -86,8 +86,6 @@
         $this->load->model('TableGenerator');
 
         $this->TableGenerator->setHeadings($tableHead);
-
-        $data = $this->getAdmissions();
             
         foreach($data as $row){
             if(is_string(key($row))){
@@ -103,6 +101,38 @@
         $result = $this->db->where('admission_id', $id)->get('admissions');
         return $result->row_array();
         
+    }
+
+    public function getStudents()
+    {
+        $result = $this->db->where('assigned_id != 0')->get('admissions'); //Students table should be used
+        return $result->result_array();
+    }
+
+
+    public function add()
+    {
+        $result = $this->db->get('courses');
+        return $result->result_array();
+    }
+
+    public function addStudent()
+    {
+        $data = [
+            'assigned_id' => '0',
+            'status' => 'A',
+            'firstname' => $this->input->post('firstname'),
+            'middlename' => $this->input->post('middlename'),
+            'surname' => $this->input->post('surname'),
+            'temporary_address' => $this->input->post('tempAddress'),
+            'permanent_address' => $this->input->post('permAddress'),
+            'contact' => $this->input->post('contact'),
+            'email' => $this->input->post('email'),
+            'qualification' => $this->input->post('qualification'),
+            'course_code' => $this->input->post('courseCode'),
+        ];
+
+        $this->db->insert('admissions', $data); // Not sure could be students table too
     }
 
 }
