@@ -1,0 +1,128 @@
+<div class="container-fluid">
+    <div class="pl-sm-2 pr-sm-2 mt-2">
+        <div class="row bg-content">
+            <h3>Staffs</h3>
+        </div>
+        <!-- add staff button -->
+        <div class="row mt-3">
+            <a href="staffDetail" class="btn btn-primary">Add Staff</a>
+        </div>
+        <div class="row mt-4">
+            <div class="col-lg-9 ml-n3">
+                <form class="form-inline" method="POST">
+                    <select class="custom-select mr-sm-2">
+                        <option selected>Module</option>
+                        <option value="Module1">Level 4</option>
+                        <option value="Module2">Level 5</option>
+                    </select>
+                    <select class="custom-select mr-sm-2">
+                        <option selected>Course</option>
+                        <option value="course1">Course 1</option>
+                        <option value="course2">Course 2</option>
+                    </select>
+                    <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" name="filter">Filter</button>
+                </form>
+            </div>
+        </div>
+        <!-- end filter and search post  -->
+        <!-- begin table structure -->
+        <div class="row mt-3 ">
+            <div class="container-fluid">
+                <table id="staffTable" 
+                        class="table table-striped  table-bordered table-hover" 
+                        data-url="json/data1.json" 
+                        data-filter-control="true">
+                    <thead>
+                        <!-- <tr>
+                            <th>Staff Id</th>
+                            <th>Status</th>
+                            <th>Firstname</th>
+                            <th>Middlename</th>
+                            <th>Lastname</th>
+                            <th>Address</th>
+                            <th>Contact</th>
+                            <th>Email</th>
+                            <th>Subject</th>
+                            <th>Role</th>
+                            <th>Approval</th>
+                            <th>Action</th>
+                        </tr> -->
+                        <tr>
+                            <th>Staff Id</th>
+                            <th data-filter-control="select">Status</th>
+                            <th data-filter-control="select">Firstname</th>
+                            <th data-filter-control="select">Middlename</th>
+                            <th data-filter-control="select">Lastname</th>
+                            <th data-filter-control="select">Address</th>
+                            <th data-filter-control="select">Contact</th>
+                            <th data-filter-control="select">Email</th>
+                            <th data-filter-control="select">Subject</th>
+                            <th data-filter-control="select">Role</th>
+                            <th data-filter-control="select">Approval</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($staff as $staff) { ?>
+                            <tr>
+                                <td><?= $staff['staff_id'] ?></td>
+                                <td>
+                                    <?php if ($staff['status']) {
+                                        echo "Active";
+                                    } else {
+                                        echo "Dormant";
+                                    }
+                                    ?>
+                                </td>
+                                <td><?= $staff['firstname'] ?></td>
+                                <td><?= $staff['middlename'] ?></td>
+                                <td><?= $staff['surname'] ?></td>
+                                <td><?= $staff['address'] ?></td>
+                                <td><?= $staff['contact'] ?></td>
+                                <td><?= $staff['email'] ?></td>
+                                <td>
+                                    <?php if ($staff['subject']) {
+                                        echo $staff['subject'];
+                                    } elseif ($staff['role'] != 1) { ?>
+                                        <?php echo form_open('admin/staff/'.$staff['staff_id'] ); ?>
+                                        <input type="submit" class="btn btn-secondary" name="assign" value="Assign">
+                                    </form>
+                                    <?php } ?>
+                                     
+                                </td>
+                                <td>
+                                    <?php
+                                    switch ($staff['role']) {
+                                        case '1':
+                                            echo "Admin";
+                                            break;
+                                        case '2':
+                                            echo "Course Leader";
+                                            break;
+                                        case '3':
+                                            echo "Tutor";
+                                            break;
+                                    }
+                                    ?>
+                                </td>
+                                <td><?php echo $staff['approval'] ?></td>
+                                <td style="display: flex; justify-content: space-around;">
+                                    <a href="staffDetail/<?php echo $staff['staff_id']; ?>" class="btn btn-success">Edit</a>
+                                    <?php echo form_open('admin/staff/'.$staff['staff_id'] ); ?>
+                                        <input type="submit" class="btn btn-info" name="archive" value="Archive">
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+                <script>
+                    $(document).ready(function() {
+                        $('#staffTable').DataTable();
+                        //  $('#staffTable').bootstrapTable();
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>

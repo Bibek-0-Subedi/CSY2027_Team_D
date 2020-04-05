@@ -9,12 +9,30 @@ $route['admin/login'] = 'admins/login';
 $route['admin/logout'] = 'admins/logout';
 $route['admin/student'] = 'admins/student';
 $route['admin/staff'] = 'admins/staff';
+$route['admin/staff/(:any)'] = 'admins/staff/$1';
 $route['admin/course'] = 'admins/course';
+$route['admin/course/(:any)'] = 'admins/course/$1';
 $route['admin/module'] = 'admins/module';
+$route['admin/module/(:any)'] = 'admins/module/$1';
 $route['admin/add'] = 'admins/add';
 
 
 $route['admin/uploadCSV'] = 'admins/uploadCSV';
+
+//route for staff
+$route['admin/staffDetail'] = 'admins/staffDetail';
+$route['admin/staffDetail/(:any)'] = 'admins/staffDetail/$1';
+$route['admin/archiveStaff'] = 'admins/archiveStaff';
+
+//route for Course
+$route['admin/courseDetail'] = 'admins/courseDetail';
+$route['admin/courseDetail/(:any)'] = 'admins/courseDetail/$1';
+$route['admin/archiveCourse'] = 'admins/archiveCourse';
+
+//route for Module
+$route['admin/moduleDetail'] = 'admins/moduleDetail';
+$route['admin/moduleDetail/(:any)'] = 'admins/moduleDetail/$1';
+$route['admin/moduleCourse'] = 'admins/archiveModule';
 
 //route for assignment
 $route['assignment/index'] = 'assignments/index';

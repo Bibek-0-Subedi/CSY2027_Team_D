@@ -114,22 +114,6 @@ class Admins extends CI_Controller
         $data['students'] = $this->admin->tableGenerator($this->admin->getStudents());
         $this->loadViews('student', 'Students', $data);
     }
-
-    public function staff()
-    {
-        $this->loadViews('staff', 'Staff');
-    }
-
-    public function course()
-    {
-        $this->loadViews('course', 'Course');
-    }
-
-    public function module()
-    {
-        $this->loadViews('module', 'Module');
-    }
-
     public function add()
     {
         $this->form_validation->set_rules('firstname', 'Firstname', 'trim|required');
@@ -180,4 +164,183 @@ class Admins extends CI_Controller
             $this->admission->docUpload($_FILES['studentDoc']);
         }
     }
+    public function staff($id = false)
+    {
+        if($id){
+            if (isset($_POST['archive'])) {
+                $data = ['archive' => '1'];
+                $this->admin->assign_archive_staff($id , $data);
+                redirect('admin/staff');
+            }elseif(isset($_POST['assign'])){
+                $data = ['subject' => $this->input->post('subject')];
+                $this->admin->assign_archive_staff($id , $data);
+                redirect('admin/staff');            
+            }
+        }
+        $data['staff'] = $this->admin->getTable('archive', '0', 'staff');
+        $this->loadViews('staff', 'Staff', $data);
+    }
+    public function staffDetail($id = false)
+    {
+        $data = $this->admin->getTableData($id, 'staff_id', 'staff');
+
+        $this->form_validation->set_rules('status', 'Status', 'required');
+        $this->form_validation->set_rules('firstname', 'Firstname', 'required');
+        $this->form_validation->set_rules('surname', 'Surname', 'required');
+        $this->form_validation->set_rules('address', 'Address', 'required');
+        $this->form_validation->set_rules('contact', 'Contact', 'required');
+        if ($id && isset($_POST['add'])) {
+            if ($data['staff_id'] != $_POST['staff_id']) {
+                $this->form_validation->set_rules('staff_id', 'Staff id', 'required|integer|is_unique[staff.staff_id]');
+            }            
+            if ($data['email'] == $_POST['email']) {
+                $this->form_validation->set_rules('email', 'Email', 'required');
+            }
+            else {
+                $this->form_validation->set_rules('email', 'Email', 'required|is_unique[staff.email]');
+            }
+            if ($data['subject'] != $_POST['subject']) {
+                $this->form_validation->set_rules('subject', 'Subject', 'is_unique[staff.subject]');
+            }
+        }else{
+            $this->form_validation->set_rules('staff_id', 'Staff id', 'required|integer|is_unique[staff.staff_id]');
+            $this->form_validation->set_rules('email', 'Email', 'required|is_unique[staff.email]');
+            $this->form_validation->set_rules('password', 'Password', 'required');        
+        }
+        if ($this->form_validation->run() === FALSE) {
+            if ($id) {
+                $this->loadViews('staffDetail', 'Edit Staff', $data);    
+            } else {
+                $data = ['staff_id' => '', 'status' => '3' , 'firstname' => '', 'middlename' => '', 'surname' => '', 
+                'address' => '', 'contact' => '', 'email' => '','password' => '', 'subject' => '', 'role' => ''];
+                $this->loadViews('staffDetail', 'Add Staff', $data);
+            }
+        }elseif($id) {
+            $this->admin->updateStaff($id);
+            redirect('admin/staff');
+        }
+        else{
+            $this->admin->addStaff();
+            redirect('admin/staff');
+        }
+    }
+
+    public function course($id = false)
+    {
+        if($id){
+            if (isset($_POST['archive'])) {
+                $data = ['archive' => '1'];
+                $this->admin->archiveCourse($id , $data);
+                redirect('admin/course');
+            }elseif(isset($_POST['delete'])){
+                $this->admin->deleteCourse($id);
+                redirect('admin/course');            
+            }
+        }
+        $data['courses'] = $this->admin->getTable('archive', '0', 'courses');
+        $this->loadViews('course', 'Course' , $data);
+    }
+    public function courseDetail($id = false)
+    {
+        $course = $this->admin->getTableData($id, 'course_code', 'courses');
+
+        $this->form_validation->set_rules('course_name', 'Course Name', 'required');
+        $this->form_validation->set_rules('course_duration', 'Course Duration', 'required');
+        $this->form_validation->set_rules('department_id', 'Department', 'required');
+
+        if ($id && isset($_POST['add'])) {
+            if ($course['course_code'] != $_POST['course_code']) {
+                $this->form_validation->set_rules('course_code', 'Course Code', 'required|integer|is_unique[courses.course_code]');
+            }      
+        }          
+        else{
+            $this->form_validation->set_rules('course_code', 'Course Code', 'required|integer|is_unique[courses.course_code]');
+        }
+        if ($this->form_validation->run() === FALSE) {
+            $department = $this->admin->getTable('','', 'departments');
+            $courseLeader = $this->admin->getTable('role', '2' , 'staff');
+            if ($id) {
+                $data = [
+                    'course' => $course,
+                    'department' => $department,
+                    'courseLeader' => $courseLeader
+                ];
+                $this->loadViews('courseDetail', 'Edit Course', $data);    
+            } else {
+                $courseNull = ['course_code' => '', 'course_name' => '' , 'course_duration' => '', 'department_id' => '', 'course_leader' => ''];
+                $data = [
+                    'course' => $courseNull,
+                    'department' => $department,
+                    'courseLeader' => $courseLeader
+                ];
+                $this->loadViews('courseDetail', 'Add Course ', $data);    
+            }
+        }
+        elseif($id){
+            $this->admin->updateCourse($id);
+            redirect('admin/course');
+        }
+        else{
+            $this->admin->addCourse();
+            redirect('admin/course');
+        }
+    }
+    public function module($id = false)
+    {
+        if($id){
+            if (isset($_POST['archive'])) {
+                $data = ['archive' => '1'];
+                $this->admin->archiveModule($id , $data);
+                redirect('admin/module');
+            }elseif(isset($_POST['delete'])){
+                $this->admin->deleteModule($id);
+                redirect('admin/module');            
+            }
+        }
+        $data['modules'] = $this->admin->getTable('archive', '0', 'modules');
+        $this->loadViews('module', 'Module' , $data);
+    }
+    public function moduleDetail($id = false)
+    {
+        $module = $this->admin->getTableData($id, 'module_code', 'modules');
+
+        $this->form_validation->set_rules('module_name', 'Module Name', 'required');
+        $this->form_validation->set_rules('module_duration', 'Module Duration', 'required');
+        $this->form_validation->set_rules('course_code', 'Course', 'required');
+        if ($id && isset($_POST['add'])) {
+            if ($module['module_code'] != $_POST['module_code']) {
+                $this->form_validation->set_rules('module_code', 'Module Code', 'required|integer|is_unique[modules.module_code]');
+            }      
+        }          
+        else{
+            $this->form_validation->set_rules('module_code', 'Module Code', 'required|integer|is_unique[modules.module_code]');
+        }
+        if ($this->form_validation->run() === FALSE) {
+            $course  = $this->admin->getTable('','','courses');
+
+            if ($id) {
+                $data = [
+                    'module' => $module,
+                    'course' => $course
+                ];
+                $this->loadViews('moduleDetail', 'Edit Module', $data);    
+            } else {
+                $moduleNull = ['module_code' => '', 'module_name' => '' , 'module_duration' => '', 'module_leader' => '', 'course_code' => ''];
+                $data =[
+                    'module' => $moduleNull,
+                    'course' => $course
+                ];
+                $this->loadViews('moduleDetail', 'Add Module ', $data);    
+            }
+        }
+        elseif($id){
+            $this->admin->updateModule($id);
+            redirect('admin/module');
+        }
+        else{
+            $this->admin->addModule();
+            redirect('admin/module');
+        }
+    }
+
 }

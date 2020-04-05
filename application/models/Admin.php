@@ -109,7 +109,6 @@
         return $result->result_array();
     }
 
-
     public function add()
     {
         $result = $this->db->get('courses');
@@ -134,7 +133,104 @@
 
         $this->db->insert('admissions', $data); // Not sure could be students table too
     }
+    public function getTable($field = false, $value = false, $table)
+    {
+        if($field){
+            $result = $this->db->where($field, $value)->get($table);
+        }
+        else{
+            $result = $this->db->get($table);
+        }
+        return $result->result_array();
+    }
+    public function getTableData($id, $field , $table)
+    {
+        $result = $this->db->where($field, $id)->get($table);
+        return $result->row_array();
+    }
+    public function addStaff(){
+        $data =[
+            'staff_id' => $this->input->post('staff_id'),
+            'status' => $this->input->post('status'),
+            'firstname' => $this->input->post('firstname'),
+            'middlename' => $this->input->post('middlename'),
+            'surname' => $this->input->post('surname'),
+            'password' => password_hash($this->input->post('password'),PASSWORD_DEFAULT),
+            'address' => $this->input->post('address'),
+            'contact' => $this->input->post('contact'),
+            'email' => $this->input->post('email'),
+            'subject' => $this->input->post('subject'),
+            'role' => $this->input->post('role'),
+            'approval' => '0'
+        ];
+        $this->db->insert('staff', $data);
+    }
+    public function updateStaff($id){
+        $data =[
+            'status' => $this->input->post('status'),
+            'firstname' => $this->input->post('firstname'),
+            'middlename' => $this->input->post('middlename'),
+            'surname' => $this->input->post('surname'),
+            'address' => $this->input->post('address'),
+            'contact' => $this->input->post('contact'),
+            'email' => $this->input->post('email'),
+            'subject' => $this->input->post('subject'),
+            'role' => $this->input->post('role'),
+        ];
+        
+        $this->db->where('staff_id', $id)->update('staff', $data);
+    }
+    public function assign_archive_staff($id , $data){
+        $this->db->where('staff_id', $id)->update('staff', $data);
+    }
+    
+    public function addCourse(){
+        $data =[
+            'course_code' => $this->input->post('course_code'),
+            'course_name' => $this->input->post('course_name'),
+            'course_duration' => $this->input->post('course_duration'),
+            'department_id' => $this->input->post('department_id')
+        ];
+        $this->db->insert('courses', $data);
+    }
+    public function updateCourse($id){
+        $data =[
+            'course_name' => $this->input->post('course_name'),
+            'course_duration' => $this->input->post('course_duration'),
+            'department_id' => $this->input->post('department_id')
+        ];
+        $this->db->where('course_code', $id)->update('courses', $data);
+    }
+    public function archiveCourse($id , $data){
+        $this->db->where('course_code', $id)->update('courses', $data);
+    }
+    public function deleteCourse($id){
+        $this->db->where('course_code', $id)->delete('courses');
+    }
 
+    public function addModule(){
+        $data =[
+            'module_code' => $this->input->post('module_code'),
+            'module_name' => $this->input->post('module_name'),
+            'module_duration' => $this->input->post('module_duration'),
+            'course_code' => $this->input->post('course_code')
+        ];
+        $this->db->insert('modules', $data);
+    }
+    public function updateModule($id){
+        $data =[
+            'module_name' => $this->input->post('module_name'),
+            'module_duration' => $this->input->post('module_duration'),
+            'course_code' => $this->input->post('course_code')
+        ];
+        $this->db->where('module_code', $id)->update('modules', $data);
+    }
+    public function archiveModule($id , $data){
+        $this->db->where('module_code', $id)->update('modules', $data);
+    }
+    public function deleteModule($id){
+        $this->db->where('module_code', $id)->delete('modules');
+    }
 }
 
 /* End of file Admin.php */
