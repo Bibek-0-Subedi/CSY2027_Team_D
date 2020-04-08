@@ -14,11 +14,6 @@ class Tutor extends CI_model{
 		$result = $this->db->get('modules');
 		return $result->result_array();
 	}
-
-	public function insert(){
-
-		$this->db->insert();
-	}
  	
  	 public function updateData($id){
     	$data = array(

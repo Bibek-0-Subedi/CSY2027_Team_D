@@ -1,19 +1,14 @@
-<h1>Assigned Module</h1>
-<br> Module You Are Assigned With: <br>	
-
-<?php foreach($modules as $row){
-		echo "<br>";
-		echo $row['module_name'];
-		echo "<br> Module Duration: ";
-		echo $row['module_duration']; ?>
-		<a href="<?= base_url('./materials/module/' . $row['filename']); ?>"> <?php echo $row['filename']?></a> <?php 
-
-		echo "<br>";
-
-} ?>
-
-<a href="<?= site_url() ?>module/add/<?php echo $this->session->userdata('id');?>"> Add Material </a>
-
-
-
-
+<div class="container-fluid mt-4 ml-4">
+	<div class="row">
+                <h4>Modules You Are Assigned To: </h4>
+	</div>
+	<div class="mt-2">
+		<?php foreach ($modules as $module) { ?>
+    	<div class="card">
+        	<div class="card-body">
+            	<a class="mb-2" href="<?= site_url() ?>module/view/<?= $module['module_code'] ?>"><?= $module['module_name']; ?> Module</a>
+        	</div>
+    	</div>
+		<?php } ?>
+	</div>
+</div>

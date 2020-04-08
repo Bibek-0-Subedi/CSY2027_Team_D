@@ -5,22 +5,23 @@
 <div class="container-fluid">
     <?php echo validation_errors(); ?>
    
-    <form action="<?= site_url() ?>module/add/<?php echo $this->session->userdata('id');?>" method="POST" enctype="multipart/form-data">       
+    <form action="<?= site_url() ?>module/add/<?= $modules['module_code'] ?>" method="POST" enctype="multipart/form-data">    
+
         <div class="form-group col-md-4">
-             <select class="form-control col-sm-4" name='module_code'>
-                <option value="" disabled selected>Module Code</option>
-                    <?php foreach ($modules as $module) { ?>
-                        <option name="module_code" value="<?= $module['module_code'] ?>"><?= $module['module_code'] ?></option>
-                    <?php } ?>
-            </select>
+             <label>Week/Title: </label>
+             <input type="text" class="form-control-file" name="module_date"> 
+        </div>
+        <div class="form-group col-md-4">
+             <label>Description: </label>
+             <input type="text" class="form-control-file" name="description"> 
         </div>
         <div class="form-group col-md-4">
         	<label>Upload Materials Here: </label>
-            <input type="file" class="form-control-file" name="files">
+            <input type="file" class="form-control-file" name="file">
             <small class="form-text text-muted">Module files for students</small>
         </div>
         <div class="form-group col-md-4">
-            <input type="hidden" class="form-control" name="staff_id" value="<?php echo $this->session->userdata('id'); ?>">
+            <input type="hidden" class="form-control" name="module_code" value="<?= $modules['module_code']?>">
         </div>
 
         <button type="submit" class="btn uniBtn mx-sm-4" name="upload">Upload</button>

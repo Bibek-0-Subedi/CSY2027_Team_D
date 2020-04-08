@@ -8,41 +8,29 @@ class Module extends CI_model{
 		$this->load->database();
 	}
 
-	public function select(){
+	public function select($id){
 
-		$this->db->where('module_leader', $this->session->userdata('id'));
+		$this->db->where('module_code', $id);
 		$result = $this->db->get('modules');
-		return $result->result_array();
+		return $result->row_array();
 	}
 
-	public function selectTable($field1 = false, $table, $field2 = false, $id = false){
-
-			$this->db->select($field1);
-			$this->db->from($table);
-			$this->db->where($field2, $this->session->userdata('id'));
-			$result = $this->db->get();
-		return $result->result_array();
+	public function module_files($module)
+	{
+   		 $module_files = $this->db->get_where('module_files', array(
+        	'module_id' => $module
+    	));
+    	return $module_files->result_array();
 	}
-
-	public function joinTable($id)
-    {
-        $this->db->select('*');
-      $this->db->from('modules');
-      $this->db->join('module_files', 'modules.module_code = module_files.module_id');
-      $this->db->where('modules.module_leader', $this->session->userdata('id'));
-      $result = $this->db->get();
-        return $result->result_array();
-        
-    }
 
 	public function addMaterials(){
 
-			$config['upload_path'] = './materials/module/';
+			$config['upload_path'] = './assets/module_files/';
 			$config['allowed_types'] = 'jpg|jpeg|png|pdf|doc';
 			
 			$this->load->library('upload', $config);
 	
-			if($this->upload->do_upload('files')){
+			if($this->upload->do_upload('file')){
 				$uploadData = $this->upload->data();
 				$file= $uploadData['file_name'];
 			}
@@ -52,8 +40,9 @@ class Module extends CI_model{
 
     	$data = array(
     		'module_id' => $this->input->post('module_code'),
-    		'module_leader' => $this->input->post('staff_id'),
-    		'filename' => $file
+    		'filename' => $this->input->post('module_date'),
+    		'description' => $this->input->post('description'),
+    		'file' => $file
     	);
     	return $this->db->insert('module_files', $data);
     }

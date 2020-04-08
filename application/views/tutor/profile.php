@@ -1,0 +1,34 @@
+<div class="container-fluid">
+
+	<div class="pl-sm-2 pr-sm-2 mt-2">
+		<div class="row">
+                <h3>Profile</h3>
+        </div>
+
+         <div class="row mt-1 text-uppercase">
+                Your Profile Records
+         </div>
+
+
+
+<div>Your Name:</div>
+<h5><?php echo $this->session->userdata('name') . ' ' .
+			   $this->session->userdata('middlename') . ' ' .
+			   $this->session->userdata('surname') ;?></h5>
+
+<h5>Your Address:</h5>			   	
+<h5><?php echo $this->session->userdata('address') ;?></h5>
+
+<h5>Your Modules:</h5>		
+<h5><?php echo $this->session->userdata('subject') ;?></h5>
+
+<h5>Your Contact:</h5>		
+<h5><?php echo $this->session->userdata('contact') ;?></h5>
+
+<h5>Your Email:</h5>		
+<h5><?php echo $this->session->userdata('email') ;?></h5>	
+
+			
+<a href="<?= site_url() ?>tutor/updateStaff/<?php echo $this->session->userdata('id');?>"> Request for change </a>
+	</div>
+</div>

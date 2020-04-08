@@ -14,19 +14,31 @@ class Modules extends CI_Controller {
             redirect('admin/login');
         }
         $this->load->view('layouts/header', ['title' => $title]);
-        $this->load->view('layouts/siteNav');
+        $this->load->view('layouts/adminNav');
         $this->load->view('module/'.$page, $data);
-        $this->load->view('layouts/footer');
+        $this->load->view('layouts/adminfooter');
+    }
+
+    public function view($id){
+        $module_files = $this->Module->module_files($id);
+        $module = $this->Module->select($id);
+        $data = [
+            'module_files' => $module_files,
+            'modules' => $module
+        ];
+
+        $this->loadViews('view', 'View Module', $data);
     }
 
    public function add($id) {
 
-        $this->form_validation->set_rules('module_code', 'Module Code', 'required');
+        $this->form_validation->set_rules('module_date', 'Title', 'required');
+         $this->form_validation->set_rules('description', 'Description', 'required');
 
         if ($this->form_validation->run() === FALSE) {
 
-            $modules = $this->Module->selectTable('module_code', 'modules', 'module_leader', $id);
-            $moduleF = $this->Module->selectTable('module_file', 'module_files', 'module_leader', $id);
+            $modules = $this->Module->select($id);
+            $moduleF = $this->Module->module_files($id);
 
             $data = [
                 'modules' => $modules,
@@ -38,7 +50,7 @@ class Modules extends CI_Controller {
         else {
             $success = $this->Module->addMaterials();
             if($success){
-            redirect('tutor/module');
+            redirect('module/view/' . $id);
             }
         }
     } 

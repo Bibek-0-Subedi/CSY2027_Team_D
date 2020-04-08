@@ -6,7 +6,6 @@ class Tutors extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('Tutor');
-        $this->load->model('Module');
     }
 
     public function loadViews($page, $title, $data = []){
@@ -15,22 +14,24 @@ class Tutors extends CI_Controller {
             redirect('admin/login');
         }
         $this->load->view('layouts/header', ['title' => $title]);
-        $this->load->view('layouts/siteNav');
+        $this->load->view('layouts/adminNav');
         $this->load->view('tutor/'.$page, $data);
-        $this->load->view('layouts/footer');
+        $this->load->view('layouts/adminfooter');
     }
     public function dashboard() {
         $this->loadViews('dashboard', 'Dashboard');
     }
 
+    public function profile($id){
+        $this->loadViews('profile', 'Profile');
+    }
+    
     public function module($id) {
 
-            $module = $this->Module->select();
-            $modules = $this->Module->joinTable($id);
+            $module = $this->Tutor->select($id);
 
             $data = [
-                'modules' => $modules,
-                'mod' => $module
+                'modules' => $module
             ];
 
         $this->loadViews('module', 'Module', $data);

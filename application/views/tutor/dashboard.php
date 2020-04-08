@@ -1,23 +1,29 @@
-<h3>This is tutor dashboard</h3>
 
-<h4>Your Profile Records<h4>
-
-<h5>Your Name:</h5>
-<h5><?php echo $this->session->userdata('name') . ' ' .
-			   $this->session->userdata('middlename') . ' ' .
-			   $this->session->userdata('surname') ;?><h5>
-
-<h5>Your Address:</h5>			   	
-<h5><?php echo $this->session->userdata('address') ;?><h5>
-
-<h5>Your Modules:</h5>		
-<h5><?php echo $this->session->userdata('subject') ;?><h5>
-
-<h5>Your Contact:</h5>		
-<h5><?php echo $this->session->userdata('contact') ;?><h5>
-
-<h5>Your Email:</h5>		
-<h5><?php echo $this->session->userdata('email') ;?><h5>	
-
-			
-<a href="<?= site_url() ?>tutor/updateData/<?php echo $this->session->userdata('id');?>"> Request for change </a>
+<div class="container-fluid">
+        <div class="pl-sm-2 pr-sm-2 mt-2">
+            <div class="row">
+                <h3>Dashboard</h3>
+            </div>
+            <!-- begin quick notification panel  -->
+            <div class="row mt-1 notification">
+                Quick Notification
+            </div>
+            <!-- end quick notification panel  -->
+            <div class="row mt-1">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- begin first column -->
+                        <div class="col-lg-6 bg-dark">
+                                first
+                        </div>   
+                        <!-- end first column -->
+                        <!-- begin second column -->
+                        <div class="col-lg-6 bg-success">
+                                second
+                        </div>
+                        <!-- end second column -->
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>

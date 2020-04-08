@@ -15,12 +15,6 @@
                 <button class="btn" type="submit"><i class="fa fa-power-off" style="font-size: 20px; color: red"></i></button>
             </form>                                            
         <?php endif;?>
-        <?php if (($this->session->userdata('type')) == 3) :?>
-            <h3><?php echo $this->session->userdata('name') ;?></h3>
-            <form class="form layout-search" method="post" action="<?php echo base_url();?>admin/logout">
-                <button class="btn" type="submit"><i class="fa fa-power-off" style="font-size: 20px; color: red"></i></button>
-            </form>                                            
-        <?php endif;?>
         <form class="form layout-search ">
             <input class="form-control mr-sm-2 search-input" type="search" placeholder="Search">
             <button class="btn" type="submit"><i class="fa fa-search" style="font-size: 20px; color: #8AC6B7"></i></button>
@@ -50,26 +44,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Leader</a>
                     </li>
-                <?php } elseif(($this->session->userdata('type')) == 3) { ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= site_url() ?>tutor/dashboard">Tutor Dashboard</a>
-                    </li>  
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= site_url() ?>tutor/module/<?php echo $this->session->userdata('id');?>">Module</a>
-                    </li>  
-                     <li class="nav-item">
-                        <a class="nav-link" href="#">Student</a>
-                    </li>  
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pat</a>
-                    </li>  
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= site_url() ?>assignment/index">Assignment</a>
-                    </li>  
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Attendance</a>
-                    </li>    
-
                 <?php } else { ?>    
                 <!-- begin for guest user -->
                     <li class="nav-item ">
