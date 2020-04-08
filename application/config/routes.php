@@ -59,12 +59,13 @@ $route['leader/dashboard'] = 'leaders/dashboard';
 
 //tutor pages
 $route['tutor/dashboard'] = 'tutors/dashboard';
-$route['tutor/module'] = 'tutors/module';
+$route['tutor/module/(:any)'] = 'tutors/module/$1';
 $route['tutor/getForm'] = 'tutors/getForm';
-$route['tutor/add'] = 'tutors/add';
+$route['tutor/add/(:any)'] = 'tutors/add/$1';
+$route['tutor/updateData/(:any)'] = 'tutors/updateData/$1';
 
 //module pages
-$route['module/add'] = 'modules/add';
+$route['module/add/(:any)'] = 'modules/add/$1';
 
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';

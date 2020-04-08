@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 29, 2020 at 12:28 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.1
+-- Generation Time: Apr 08, 2020 at 08:41 AM
+-- Server version: 10.4.10-MariaDB
+-- PHP Version: 7.1.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -43,6 +43,19 @@ CREATE TABLE `admissions` (
   `qualification` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `admissions`
+--
+
+INSERT INTO `admissions` (`admission_id`, `assigned_id`, `status`, `firstname`, `middlename`, `surname`, `temporary_address`, `permanent_address`, `contact`, `course_code`, `email`, `qualification`) VALUES
+(1, 1002, 0, 'Ram', 'Kumar', 'Chandra', '1234', 'Address1', 12345, 281, 'ram@woodland.com', 'BSc. Data Science'),
+(2, 1012, 0, 'Shyam', 'Hari', 'Raj', '5431', 'Address2', 12345, 2009, 'shyam@woodland.com', 'BSc. Computing'),
+(3, 1013, 0, 'Hari', 'Kumar', 'Prashad', '3224', 'Address3', 12345, 2009, 'hari@woodland.com', 'BSc. Computing'),
+(4, 1014, 0, 'Krishna', 'Prashad', 'Lal', '23422', 'Address4', 12345, 2009, 'krishna@woodland.com', 'BSc. Computing'),
+(5, 0, 0, 'Shiva', 'Kumar', 'Sharma', '4535345', 'Address5', 12345, 281, 'shiva@woodland.com', 'BSc. Data Science'),
+(6, 1016, 0, 'Ganesh', 'Raj', 'Test', '1324', 'Address7', 12345, 2009, 'ganesh@woodland.com', 'BSc. Computing'),
+(7, 1017, 0, 'Rajesh', 'Sharma', 'Hari', 'aaa', 'aaa', 123, 23, 'rajesh@woodland.com', 'BSc. Networking');
+
 -- --------------------------------------------------------
 
 --
@@ -57,11 +70,18 @@ CREATE TABLE `assignments` (
   `module_code` int(8) NOT NULL,
   `course_id` int(8) NOT NULL,
   `staff_id` int(10) NOT NULL,
-  `student_id` int(12) NOT NULL,
+  `student_id` int(12) DEFAULT NULL,
   `assignment_file` varchar(255) NOT NULL,
   `submission_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `assignments`
+--
+
+INSERT INTO `assignments` (`assignment_id`, `assignment_name`, `deadline`, `grade`, `module_code`, `course_id`, `staff_id`, `student_id`, `assignment_file`, `submission_date`, `created_date`) VALUES
+(2, 'Computer System Sem II', '2020-04-09 00:00:00', 'A', 3, 1, 3, NULL, 'file here', '2020-04-08 06:39:08', '2020-04-08 06:34:17');
 
 -- --------------------------------------------------------
 
@@ -89,8 +109,19 @@ CREATE TABLE `courses` (
   `course_name` varchar(64) NOT NULL,
   `course_duration` tinyint(1) NOT NULL,
   `department_id` int(8) NOT NULL,
-  `course_leader` int(10) NOT NULL
+  `course_leader` int(10) DEFAULT NULL,
+  `archive` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `courses`
+--
+
+INSERT INTO `courses` (`course_code`, `course_name`, `course_duration`, `department_id`, `course_leader`, `archive`) VALUES
+(11, 'Management', 33, 1, NULL, 0),
+(23, 'Network Engineering', 1, 1, 1, 0),
+(281, 'Data Analytics', 2, 1, 1, 0),
+(2009, 'Software Engineering', 1, 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -103,6 +134,14 @@ CREATE TABLE `departments` (
   `name` varchar(64) NOT NULL,
   `department_head` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `departments`
+--
+
+INSERT INTO `departments` (`department_id`, `name`, `department_head`) VALUES
+(1, 'Engineering', 12),
+(2, 'Management', 10);
 
 -- --------------------------------------------------------
 
@@ -128,9 +167,20 @@ CREATE TABLE `modules` (
   `module_code` int(8) NOT NULL,
   `module_name` varchar(64) NOT NULL,
   `module_duration` tinyint(1) NOT NULL,
-  `module_leader` int(10) NOT NULL,
-  `course_code` int(8) NOT NULL
+  `module_leader` int(10) DEFAULT NULL,
+  `course_code` int(8) NOT NULL,
+  `archive` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `modules`
+--
+
+INSERT INTO `modules` (`module_code`, `module_name`, `module_duration`, `module_leader`, `course_code`, `archive`) VALUES
+(1, 'Software engineering', 44, 1, 2009, 0),
+(2, 'Database', 11, 3, 2009, 0),
+(3, 'Computer System', 44, 3, 23, 0),
+(4, 'Web Development', 15, NULL, 2009, 0);
 
 -- --------------------------------------------------------
 
@@ -141,9 +191,17 @@ CREATE TABLE `modules` (
 CREATE TABLE `module_files` (
   `file_id` int(6) NOT NULL,
   `module_id` int(4) NOT NULL,
+  `module_leader` int(255) DEFAULT NULL,
   `filename` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `module_files`
+--
+
+INSERT INTO `module_files` (`file_id`, `module_id`, `module_leader`, `filename`, `created_at`) VALUES
+(8, 2, 3, '6422852.jpg', '2020-04-08 04:01:37');
 
 -- --------------------------------------------------------
 
@@ -178,9 +236,20 @@ CREATE TABLE `staff` (
   `subject` int(8) NOT NULL,
   `role` tinyint(1) NOT NULL,
   `approval` tinyint(1) NOT NULL,
+  `archive` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `staff`
+--
+
+INSERT INTO `staff` (`staff_id`, `status`, `firstname`, `middlename`, `surname`, `password`, `address`, `contact`, `email`, `subject`, `role`, `approval`, `archive`, `created_at`, `updated_at`) VALUES
+(1, 1, 'admin', '', 'admin', '$2y$10$5J1F1t1bPapP.Ye43tx5luar/EL69S6P0ATm7wSNlPRyxo.KmJrSa', 'Woodland University', 123, 'admin@woodland.com', 0, 1, 1, 0, '2020-03-29 13:33:03', '2020-04-04 05:42:05'),
+(2, 1, 'Leader', '', 'Leader', '$2y$10$8PyfsUXQiJX4ez4IQj1PFOBEoBsjpOw1ya2ueSy45m6ue/fvsWiTy', 'Woodland University', 123, 'leader@woodland.com', 0, 2, 1, 0, '2020-03-29 13:33:03', '2020-04-04 05:44:07'),
+(3, 1, 'Tutor', 'pandey', 'Tutor', '$2y$10$bZ8zqaUGp93h/cvbtdhylOrrKAGMB3sRycZFOkO2REdpiZkBnpC9S', 'Woodland University', 123, 'tutor@woodland.com', 0, 3, 1, 0, '2020-03-29 13:34:22', '2020-04-07 05:48:18'),
+(4, 1, 'ashish', '', 'Adhikari', '$2y$10$y35jDj58EHZvr0LSfZ.lS.26fZA3pIUofM57nSpDQ4IAvHmLafMeW', 'Bhaktapur', 334412, 'ashish@woodland.com', 12, 2, 0, 0, '2020-04-04 05:01:37', '2020-04-04 14:49:12');
 
 -- --------------------------------------------------------
 
@@ -266,7 +335,7 @@ ALTER TABLE `attendence`
 ALTER TABLE `courses`
   ADD PRIMARY KEY (`course_code`),
   ADD KEY `fk_c_dep` (`department_id`),
-  ADD KEY `course_leader` (`course_leader`);
+  ADD KEY `fk_c_leader` (`course_leader`);
 
 --
 -- Indexes for table `departments`
@@ -288,14 +357,15 @@ ALTER TABLE `diaries`
 ALTER TABLE `modules`
   ADD PRIMARY KEY (`module_code`),
   ADD KEY `fk_mod_course` (`course_code`),
-  ADD KEY `module_leader` (`module_leader`);
+  ADD KEY `fk_mod_leader` (`module_leader`) USING BTREE;
 
 --
 -- Indexes for table `module_files`
 --
 ALTER TABLE `module_files`
   ADD PRIMARY KEY (`file_id`),
-  ADD KEY `module_id` (`module_id`);
+  ADD KEY `fk_mod_id` (`module_id`) USING BTREE,
+  ADD KEY `fk_mod_leader` (`module_leader`) USING BTREE;
 
 --
 -- Indexes for table `pat`
@@ -347,13 +417,13 @@ ALTER TABLE `timetables`
 -- AUTO_INCREMENT for table `admissions`
 --
 ALTER TABLE `admissions`
-  MODIFY `admission_id` int(12) NOT NULL AUTO_INCREMENT;
+  MODIFY `admission_id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `assignments`
 --
 ALTER TABLE `assignments`
-  MODIFY `assignment_id` int(16) NOT NULL AUTO_INCREMENT;
+  MODIFY `assignment_id` int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `attendence`
@@ -371,7 +441,7 @@ ALTER TABLE `diaries`
 -- AUTO_INCREMENT for table `module_files`
 --
 ALTER TABLE `module_files`
-  MODIFY `file_id` int(6) NOT NULL AUTO_INCREMENT;
+  MODIFY `file_id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `pat`
@@ -436,7 +506,7 @@ ALTER TABLE `modules`
 -- Constraints for table `module_files`
 --
 ALTER TABLE `module_files`
-  ADD CONSTRAINT `fk_modfiles_modules` FOREIGN KEY (`module_id`) REFERENCES `modules` (`module_code`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_modfiles_modules` FOREIGN KEY (`module_leader`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `pat`

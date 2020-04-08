@@ -6,6 +6,7 @@ class Tutors extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('Tutor');
+        $this->load->model('Module');
     }
 
     public function loadViews($page, $title, $data = []){
@@ -22,8 +23,16 @@ class Tutors extends CI_Controller {
         $this->loadViews('dashboard', 'Dashboard');
     }
 
-    public function module() {
-        $data['module'] = $this->Tutor->select();
+    public function module($id) {
+
+            $module = $this->Module->select();
+            $modules = $this->Module->joinTable($id);
+
+            $data = [
+                'modules' => $modules,
+                'mod' => $module
+            ];
+
         $this->loadViews('module', 'Module', $data);
         
     }
@@ -34,5 +43,23 @@ class Tutors extends CI_Controller {
         $this->loadViews('module', 'Module', $data);
     }
 
+    public function updateData($id){
+        $data['id'] = $id;
+
+        $this->form_validation->set_rules('firstname', ' Name', 'required');
+
+        if($this->form_validation->run() === FALSE){
+                $this->loadViews('updateData', 'Edit Staff', $data);
+        }   
+        else{   
+              if($this->session->userdata('approval') == 1){
+                  $this->Tutor->updateData($id); 
+                     redirect('tutor/dashboard');
+              }
+              else{
+                    echo "Request has been sent!";
+              }
+        }
+    }
    
 }

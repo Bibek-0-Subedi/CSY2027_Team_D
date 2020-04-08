@@ -1,17 +1,19 @@
 <h1>Assigned Module</h1>
+<br> Module You Are Assigned With: <br>	
 
-<?php foreach($module as $row){
+<?php foreach($modules as $row){
+		echo "<br>";
+		echo $row['module_name'];
+		echo "<br> Module Duration: ";
+		echo $row['module_duration']; ?>
+		<a href="<?= base_url('./materials/module/' . $row['filename']); ?>"> <?php echo $row['filename']?></a> <?php 
 
-echo $row['module_name'];
+		echo "<br>";
 
-echo " Module Duration: ";
-echo $row['module_duration'];
+} ?>
 
-}
+<a href="<?= site_url() ?>module/add/<?php echo $this->session->userdata('id');?>"> Add Material </a>
 
-?>
 
-<a href="<?= base_url('path/to/directory/' . $row['module_file']); ?>"> <?php echo $row['module_file']?></a>
 
-<a href="<?= site_url() ?>module/add"> Add Material </a>
 

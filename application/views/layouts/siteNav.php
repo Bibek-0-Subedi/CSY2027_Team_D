@@ -55,7 +55,7 @@
                         <a class="nav-link" href="<?= site_url() ?>tutor/dashboard">Tutor Dashboard</a>
                     </li>  
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= site_url() ?>tutor/module">Module</a>
+                        <a class="nav-link" href="<?= site_url() ?>tutor/module/<?php echo $this->session->userdata('id');?>">Module</a>
                     </li>  
                      <li class="nav-item">
                         <a class="nav-link" href="#">Student</a>

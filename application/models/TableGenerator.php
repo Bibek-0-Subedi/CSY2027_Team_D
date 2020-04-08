@@ -30,16 +30,14 @@
                     }
 
                     
-                    if($this->router->fetch_class() == 'assignment' && $this->router->fetch_method() == 'index'){
-                        if(($key == 'grade') && empty($value) || ($value == 'Not Graded') || ($value == 'A') || ($value == 'B') ||($value == 'C')){
+                   if(($key == 'grade') && empty($value) || ($value == 'Not Graded') || ($value == 'A') || ($value == 'B') ||($value == 'C')){
                             $value = $value . '<br><a href="grade/'.$row["assignment_id"].'">Grade</a>';
                         }
 
-                        if($key == 'created_date'){
-                            $value .= $this->edit($row['assignment_id']); 
-                         }
-                    }
+                    if($this->router->fetch_class() == 'assignment' && $this->router->fetch_method() == 'index' || $key == 'created_date'){
                     
+                            $value .= $this->edit($row['assignment_id']); 
+                    }
                     
                     if(is_string($key)){
                         $table .= '<td>' . $value.'</td>';

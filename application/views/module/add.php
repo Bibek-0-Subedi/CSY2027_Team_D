@@ -3,26 +3,20 @@
 <h2> Add Materials</h2>
 
 <div class="container-fluid">
- 
-    <?php echo form_open('module/add') ;?>
-       
+    <?php echo validation_errors(); ?>
+   
+    <form action="<?= site_url() ?>module/add/<?php echo $this->session->userdata('id');?>" method="POST" enctype="multipart/form-data">       
         <div class="form-group col-md-4">
-            <label>Module Code</label>
-            <select class="custom-select mr-sm-2">
-                  
-                  <option value="<?php echo $this->session->userdata('id'); ?>">1</option>
-                 
-                </select>
-        </div>
-        <div class="form-group col-md-4">
-            <input type="hidden" class="form-control" name="module_id" value="<?php echo $this->session->userdata('id'); ?>">
-        </div>
-        <div class="form-group col-md-4">
-          
+             <select class="form-control col-sm-4" name='module_code'>
+                <option value="" disabled selected>Module Code</option>
+                    <?php foreach ($modules as $module) { ?>
+                        <option name="module_code" value="<?= $module['module_code'] ?>"><?= $module['module_code'] ?></option>
+                    <?php } ?>
+            </select>
         </div>
         <div class="form-group col-md-4">
         	<label>Upload Materials Here: </label>
-            <input type="file" class="form-control-file" name="UCASDetail">
+            <input type="file" class="form-control-file" name="files">
             <small class="form-text text-muted">Module files for students</small>
         </div>
         <div class="form-group col-md-4">
@@ -37,4 +31,5 @@
 else {
 	echo "not a tutor should redirect using redirect function";
 }?>	
+
 
