@@ -1,5 +1,7 @@
 
 <?php if(($this->session->userdata('type')) == 3) {?>
+
+<div class="container-fluid">	
 <h2> LIST OF ASSIGNMENTS </h2>
 
 
@@ -27,3 +29,5 @@ elseif(($this->session->userdata('student_logged'))) { ?>
 else {
 	redirect(site_url());
 }?>
+
+</div>
