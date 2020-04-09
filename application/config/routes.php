@@ -37,11 +37,10 @@ $route['admin/moduleCourse'] = 'admins/archiveModule';
 //route for assignment
 $route['assignment/index'] = 'assignments/index';
 $route['assignment/add'] = 'assignments/add';
-$route['assignment/edit/(:any)'] = 'assignments/edit/$1';
 $route['assignment/view'] = 'assignments/view';
 $route['assignment/upload'] = 'assignments/upload';
 $route['assignment/grade/(:any)'] = 'assignments/grade/$1';
-$route['assignment/update'] = 'assignments/update';
+$route['assignment/update/(:any)'] = 'assignments/add/$1';
 
 
 
@@ -60,7 +59,7 @@ $route['leader/dashboard'] = 'leaders/dashboard';
 //tutor pages
 $route['tutor/dashboard'] = 'tutors/dashboard';
 $route['tutor/profile/(:any)'] = 'tutors/profile/$1';
-$route['tutor/module/(:any)'] = 'tutors/module/$1';
+$route['tutor/module'] = 'tutors/module';
 $route['tutor/getForm'] = 'tutors/getForm';
 $route['tutor/add/(:any)'] = 'tutors/add/$1';
 $route['tutor/updateData/(:any)'] = 'tutors/updateData/$1';
