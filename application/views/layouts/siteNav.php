@@ -32,18 +32,40 @@
             <ul class="navbar-nav ml-auto">
                 <?php if ($this->session->userdata('student_logged')){ ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Module</a>
+                        <a class="nav-link" href="modules">Modules</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Assignment</a>
+                        <a class="nav-link" href="assignments">Assignments</a>
                     </li>                    
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Grade</a>
+                        <a class="nav-link" href="grades">Grades</a>
+                    </li>  
+                    <li class="nav-item">
+                        <a class="nav-link" href="attendance">Attendance</a>
                     </li>  
                 <?php } elseif(($this->session->userdata('type') == 2)) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Leader</a>
                     </li>
+                <?php } elseif(($this->session->userdata('type')) == 3) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= site_url() ?>tutor/dashboard">Dashboard</a>
+                    </li>  
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= site_url() ?>tutor/module">Module</a>
+                    </li>  
+                     <li class="nav-item">
+                        <a class="nav-link" href="#">Student</a>
+                    </li>  
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pat</a>
+                    </li>  
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= site_url() ?>assignment/index">Assignment</a>
+                    </li>  
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Attendance</a>
+                    </li>    
                 <?php } else { ?>    
                 <!-- begin for guest user -->
                     <li class="nav-item ">

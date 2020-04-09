@@ -1,5 +1,5 @@
 </body>
-<footer>
+<footer class="mt-5">
     <div class="container-fluid padding row text-center">
         <div class="col-md-4">
             <h5>WOODLANDS UNIVERSITY COLLEGE</h5>

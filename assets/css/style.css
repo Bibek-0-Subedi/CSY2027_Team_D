@@ -89,8 +89,16 @@ h5{
 .uniBtn{
     background-color: #8AC6B7;
 }
+
 .loginform{
-    margin: 10% 0 0 35%;
+    margin: 30px auto;
+    /* text-align: center; */
+}
+
+.loginform>form{
+    /* box-sizing: border-box; */
+    /* margin: 20px auto; */
+    
 }
 
 

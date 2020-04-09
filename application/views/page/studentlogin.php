@@ -1,6 +1,7 @@
 <?php echo validation_errors(); ?>
-<div class="container-fluid loginform">
-    <?php echo form_open('students/login') ;?>
+<div class="container-fluid loginform pl-sm-2 pr-sm-2 mt-5 mb-5">
+    <h2>Student Login</h2>
+    <?php echo form_open('students/login',['class' => 'pl-sm-2 pr-sm-2 mt-5 mb-5']) ;?>
         <div class="form-group col-md-3">
             <label>Username</label>
             <input type="email" class="form-control" name="email">

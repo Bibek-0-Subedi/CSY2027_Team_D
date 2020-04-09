@@ -1,29 +1,34 @@
+<div class="container mt-5">
 
-<div class="container-fluid">
-        <div class="pl-sm-2 pr-sm-2 mt-2">
-            <div class="row">
-                <h3>Dashboard</h3>
-            </div>
-            <!-- begin quick notification panel  -->
-            <div class="row mt-1 notification">
-                Quick Notification
-            </div>
-            <!-- end quick notification panel  -->
-            <div class="row mt-1">
-                <div class="container-fluid">
-                    <div class="row">
-                        <!-- begin first column -->
-                        <div class="col-lg-6 bg-dark">
-                                first
-                        </div>   
-                        <!-- end first column -->
-                        <!-- begin second column -->
-                        <div class="col-lg-6 bg-success">
-                                second
-                        </div>
-                        <!-- end second column -->
-                        </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<h2 class="mb-5">Dashboard</h2>
+	<div class="mb-5">
+		<h2><?= $tutor['firstname'].' '.$tutor['middlename'].' '.$tutor['surname'] ;?></h2>
+		<h4><?= $tutor['email'] ?></h4>
+		<p>Address: <?= $tutor['address'] ?></p>
+		<a href="#"> Request for change </a>
+	</div>
+	<!-- begin quick notification panel  -->
+
+	<h2 class="mb-5">Notifications</h2>
+
+	<div class="row mt-1 notification">
+		Quick Notification
+	</div>
+	<!-- end quick notification panel  -->
+	<div class="row mt-1">
+		<div class="container-fluid">
+			<div class="row">
+				<!-- begin first column -->
+				<div class="col-lg-6 bg-dark">
+						first
+				</div>   
+				<!-- end first column -->
+				<!-- begin second column -->
+				<div class="col-lg-6 bg-success">
+						second
+				</div>
+				<!-- end second column -->
+				</div>
+		</div>
+	</div>
+</div>

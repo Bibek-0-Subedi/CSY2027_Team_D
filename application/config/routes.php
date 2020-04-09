@@ -44,15 +44,17 @@ $route['assignment/grade/(:any)'] = 'assignments/grade/$1';
 $route['assignment/update'] = 'assignments/update';
 
 
+//student pages
+$route['student/dashboard'] = 'students/dashboard';
+$route['student/modules'] = 'students/modules';
+$route['student/module/(:any)'] = 'students/module/$1';
+$route['student/login'] = 'students/login';
+$route['student/logout'] = 'students/logout';
+
 
 //route for the pages
 $route['(:any)'] = 'pages/view/$1';
 
-
-//student pages
-$route['student/dashboard'] = 'students/dashboard';
-$route['student/login'] = 'students/login';
-$route['student/logout'] = 'students/logout';
 
 //leader pages
 $route['leader/dashboard'] = 'leaders/dashboard';

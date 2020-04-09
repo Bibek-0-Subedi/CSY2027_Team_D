@@ -1,13 +1,13 @@
 <?php echo validation_errors(); ?>
-<div class="container-fluid loginform">
+<div class="container loginform mt-5 mb-5">
     <h2>Staff Login</h2>
-    <?php echo form_open('admin/login') ;?>
-        <div class="form-group col-md-3">
+    <?php echo form_open('admin/login',['class' => 'container']) ;?>
+        <div class="form-group">
             <label>Username</label>
             <input type="email" class="form-control" name="email">
             <small class="form-text text-muted">Email Address provided by the University</small>
         </div>
-        <div class="form-group col-md-3">
+        <div class="form-group">
             <label>Password</label>
             <input type="password" class="form-control" name="password">
         </div>

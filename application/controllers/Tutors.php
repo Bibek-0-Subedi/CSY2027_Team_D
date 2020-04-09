@@ -19,7 +19,8 @@ class Tutors extends CI_Controller {
         $this->load->view('layouts/adminfooter');
     }
     public function dashboard() {
-        $this->loadViews('dashboard', 'Dashboard');
+        $data['tutor'] = $this->tutor->getTutor($this->session->userdata('id'));
+        $this->loadViews('dashboard', 'Dashboard', $data);
     }
 
     public function profile($id){

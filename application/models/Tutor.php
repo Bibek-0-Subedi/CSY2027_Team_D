@@ -12,9 +12,9 @@ class Tutor extends CI_model{
 
 		$this->db->where('module_leader', $this->session->userdata('id'));
 		$result = $this->db->get('modules');
-		return $result->result_array();
+		return $result->row_array();
 	}
- 	
+	
  	 public function updateData($id){
     	$data = array(
     		'firstname' => $this->input->post('firstname'),
@@ -26,4 +26,16 @@ class Tutor extends CI_model{
     	$this->db->where('staff_id', $id);
     	$this->db->update('staff', $data);
     }
+
+	public function insert(){
+
+		$this->db->insert();
+	}
+
+	public function getTutor($id)
+	{
+		$tutor = $this->db->get_where('staff', ['staff_id' => $id]);
+		return $tutor->row_array();
+	}
+
 }
