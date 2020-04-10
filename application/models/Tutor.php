@@ -12,7 +12,7 @@ class Tutor extends CI_model{
 
 		$this->db->where('module_leader', $this->session->userdata('id'));
 		$result = $this->db->get('modules');
-		return $result->row_array();
+		return $result->result_array();
 	}
 	
  	 public function updateData($id){

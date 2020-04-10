@@ -45,5 +45,43 @@ class Module extends CI_model{
     		'file' => $file
     	);
     	return $this->db->insert('module_files', $data);
-    }
+	}
+	
+	public function attendance($moduleCode, $attendanceDate)
+	{
+		$this->db->join('students', 'students.student_id = student_modules.student_id', 'left');
+		$this->db->join('admissions', 'admissions.assigned_id = students.assigned_id', 'left');
+		
+		$students = $this->db->where('module_code', $moduleCode)->get('student_modules');
+		return $students->result_array();
+	}
+	
+	public function getAttendance($moduleCode, $date)
+	{
+		$result = $this->db->get_where('attendence',['module_code' => $moduleCode, 'date' => $date]);
+		return $result->result_array();
+	}
+
+	public function addAttendance($date)
+	{
+		$module_code = $this->input->post('module_code');
+		$student_id = $this->input->post('student_id');
+		$staff_id = $this->input->post('staff_id');
+
+		$data = [
+            'attendance_id' => $module_code.$student_id.$staff_id.$date,
+            'module_code' => $this->input->post('module_code'),
+            'student_id' => $this->input->post('student_id'),
+            'staff_id' => $this->input->post('staff_id'),
+            'date' => $date,
+            'status' => $this->input->post('status')
+		];
+		
+		$this->db->replace('attendence', $data);
+
+		// $this->db->set('status', '2');
+		// $this->db->where('staff_id', '2');
+		// $this->db->update('staff');
+	}
+
 }

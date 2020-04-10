@@ -1,6 +1,10 @@
 <div class="container mt-5">
 <h1 class="mb-5"><?= $modules['module_name']; ?> Module</h1>
-<a href="<?= site_url() ?>module/add/<?= $modules['module_code'] ?>"> Add Material </a>
+<div class="row mb-5">
+    <a href="<?= site_url() ?>module/add/<?= $modules['module_code'] ?>" class="btn btn-primary ml-3"> Add Material </a>
+    <a href="<?= site_url().'module' ?>/attendance/<?= $modules['module_code'].'/'.date('Y-m-d') ?>" class="btn btn-primary ml-5">Take attendance</a>
+</div>
+
 
 <?php foreach ($module_files as $module_file) { ?>
     <div class="card">

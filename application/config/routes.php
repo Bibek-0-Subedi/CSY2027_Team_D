@@ -62,14 +62,16 @@ $route['leader/dashboard'] = 'leaders/dashboard';
 //tutor pages
 $route['tutor/dashboard'] = 'tutors/dashboard';
 $route['tutor/profile/(:any)'] = 'tutors/profile/$1';
-$route['tutor/module/(:any)'] = 'tutors/module/$1';
+$route['tutor/module'] = 'tutors/module';
 $route['tutor/getForm'] = 'tutors/getForm';
 $route['tutor/add/(:any)'] = 'tutors/add/$1';
 $route['tutor/updateData/(:any)'] = 'tutors/updateData/$1';
 
 //module pages
-$route['module/view/(:any)'] = 'modules/view/$1';
+$route['module/addAttendance'] = 'modules/addAttendance';
+$route['module/attendance/(:any)/(:any)'] = 'modules/attendance/$1/$2';
 $route['module/add/(:any)'] = 'modules/add/$1';
+$route['module/(:any)'] = 'modules/view/$1';
 
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';

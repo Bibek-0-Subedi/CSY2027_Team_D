@@ -64,7 +64,7 @@
                         <a class="nav-link" href="<?= site_url() ?>assignment/index">Assignment</a>
                     </li>  
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Attendance</a>
+                        <a class="nav-link" href="attendance">Attendance</a>
                     </li>    
                 <?php } else { ?>    
                 <!-- begin for guest user -->

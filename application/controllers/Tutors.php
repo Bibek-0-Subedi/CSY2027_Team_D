@@ -27,9 +27,9 @@ class Tutors extends CI_Controller {
         $this->loadViews('profile', 'Profile');
     }
     
-    public function module($id) {
+    public function module() {
 
-            $module = $this->Tutor->select($id);
+            $module = $this->Tutor->select();
 
             $data = [
                 'modules' => $module
