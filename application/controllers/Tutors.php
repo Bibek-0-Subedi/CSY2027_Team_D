@@ -7,7 +7,6 @@ class Tutors extends CI_Controller {
         parent::__construct();
         $this->load->model('Tutor');
     }
-
     public function loadViews($page, $title, $data = []){
 
         if(($this->session->userdata('type')) != 3){
@@ -18,8 +17,8 @@ class Tutors extends CI_Controller {
         $this->load->view('tutor/'.$page, $data);
         $this->load->view('layouts/adminfooter');
     }
-    public function dashboard() {
-        $data['tutor'] = $this->tutor->getTutor($this->session->userdata('id'));
+    public function dashboard(){
+        $data['tutor'] = $this->tutor->select();
         $this->loadViews('dashboard', 'Dashboard', $data);
     }
 
@@ -27,24 +26,33 @@ class Tutors extends CI_Controller {
         $this->loadViews('profile', 'Profile');
     }
     
-    public function module() {
+    public function module(){
 
-            $module = $this->Tutor->select();
-
+            $module = $this->tutor->select();
             $data = [
                 'modules' => $module
             ];
-
         $this->loadViews('module', 'Module', $data);
-        
     }
-
+     public function student(){
+            $module = $this->tutor->select();
+            $data = [
+                'modules' => $module
+            ];
+        $this->loadViews('student', 'Student', $data); 
+    }
+     public function studentList($id){
+            $module = $this->tutor->selectStudent($id);
+            $data = [
+                'students' => $module
+            ];
+        $this->loadViews('studentList', 'Student List', $data); 
+    }
     public function getForm() {
 
         $data['module'] = $this->Tutor->select();
         $this->loadViews('module', 'Module', $data);
     }
-
     public function updateData($id){
         $data['id'] = $id;
 
@@ -54,7 +62,7 @@ class Tutors extends CI_Controller {
                 $this->loadViews('updateData', 'Edit Staff', $data);
         }   
         else{   
-              if($this->session->userdata('approval') == 1){
+              if($this->session->userdata('approval') == 0){
                   $this->Tutor->updateData($id); 
                      redirect('tutor/dashboard');
               }

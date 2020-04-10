@@ -19,7 +19,17 @@ class Modules extends CI_Controller {
         $this->load->view('layouts/adminfooter');
     }
 
-    public function view($id){
+    public function view($id = false){
+        if($id){
+            if (isset($_POST['archive'])) {
+                $data = ['archive' => '1'];
+                $this->admin->archiveModule($id , $data);
+                redirect('admin/module');
+            }elseif(isset($_POST['delete'])){
+                $this->Module->deleteFile($id);
+                redirect('tutor/module');             
+            }
+        }
         $module_files = $this->Module->module_files($id);
         $module = $this->Module->select($id);
         $data = [
@@ -54,7 +64,6 @@ class Modules extends CI_Controller {
             }
         }
     }
-
     public function attendance()
     {
         $moduleCode = $this->uri->segment(3);
@@ -64,9 +73,6 @@ class Modules extends CI_Controller {
         if(!(bool)strtotime($attendanceDate)){
             redirect('tutor/module');
         }
-
-        
-
         if(empty($attendanceDate)){
             $attendanceDate = date('Y-m-d');
         }
@@ -109,5 +115,30 @@ class Modules extends CI_Controller {
 
         $this->loadViews('addAttendance', 'Add Attendance');
     }
+
+     public function update($id){
+    
+        $this->form_validation->set_rules('module_date', 'Title', 'required');
+         $this->form_validation->set_rules('description', 'Description', 'required');
+
+        if($this->form_validation->run() === FALSE){
+                 $moduleF = $this->Module->selectFile($id);
+
+            $data = [
+                'modules' => $moduleF
+            ];
+                $this->loadViews('update', 'Edit File', $data);
+        }   
+        else{   
+              if($this->session->userdata('approval') == 0){
+                  $this->Module->updateMaterials($id); 
+                     redirect('tutor/module');
+              }
+              else{
+                    echo "Request has been sent!";
+              }
+        }
+    } 
+
 }
 

@@ -1,12 +1,4 @@
 <div class="container mt-5">
-
-	<h2 class="mb-5">Dashboard</h2>
-	<div class="mb-5">
-		<h2><?= $tutor['firstname'].' '.$tutor['middlename'].' '.$tutor['surname'] ;?></h2>
-		<h4><?= $tutor['email'] ?></h4>
-		<p>Address: <?= $tutor['address'] ?></p>
-		<a href="#"> Request for change </a>
-	</div>
 	<!-- begin quick notification panel  -->
 
 	<h2 class="mb-5">Notifications</h2>

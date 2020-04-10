@@ -15,64 +15,80 @@ class Assignments extends CI_Controller {
         $this->load->view('assignment/'.$page, $data);
         $this->load->view('layouts/adminfooter');
     }
-
-	public function index() {
-		
-
-		$data['assignments'] = $this->Assignment->allTableGenerator();
-		
-		$this->loadViews('index', 'Assignment Index', $data);
-	}
-
-	public function add() {
-
-		$this->form_validation->set_rules('name', 'Email', 'required');
-        $this->form_validation->set_rules('deadline', 'Password', 'required');
-        $this->form_validation->set_rules('module_id', 'Password', 'required');
-
-        if ($this->form_validation->run() === FALSE) {
-        	$this->loadViews('add', 'Assignment Addition');
+     public function index($id = false)
+    {
+        if($id){
+            if (isset($_POST['archive'])) {
+                $data = ['archive' => '1'];
+                $this->admin->archiveModule($id , $data);
+                redirect('admin/module');
+            }elseif(isset($_POST['delete'])){
+                $this->Assignment->deleteAssignment($id);
+                redirect('assignment/index');             
+            }
         }
-        else {
-        	$success = $this->Assignment->insert();
-        	if($success){
-        	redirect('assignment/index');
-        	}
-        }
-
-
-	}
-
-	public function edit($id) {
-
-		$data['id'] = $id;
-		
-        if ($this->form_validation->run() === FALSE) {
-        	$this->loadViews('edit', 'Assignment Edition', $data);
-        }
-        else {
-        	 $this->Assignment->update($id);
-        	redirect('assignment/view');
-        	
-       }
-	}
-
-    public function delete($id) {
-
-        $this->Assignment->delete($id);
-        redirect('assignment/index');
-        
+        $data['assignments'] = $this->Assignment->getTable('staff_id', $this->session->userdata('id'), 'assignments');
+        $this->loadViews('index', 'Assignment' , $data);
     }
+    public function view($id = false)
+    {
+        if($id){
+            if (isset($_POST['archive'])) {
+                $data = ['archive' => '1'];
+                $this->admin->archiveModule($id , $data);
+                redirect('admin/module');
+            }elseif(isset($_POST['delete'])){
+                $this->Assignment->deleteAssignment($id);
+                redirect('assignment/index');            
+            }
+        }
+        $data['assignments'] = $this->Assignment->getTable('staff_id', $this->session->userdata('id'), 'assignments');
+        $this->loadViews('view', 'Assignment View' , $data);
+    }
+     public function add($id = false)
+    {
+        $assignment = $this->Assignment->getTableData($id, 'assignment_id', 'assignments');
 
-	public function view() {
-		$data['assignments'] = $this->Assignment->tableGenerator();
-		$this->loadViews('view', 'Assignment View', $data);
-	}
+        $this->form_validation->set_rules('assignment_name', 'Assignment Name', 'required');
+        // if ($id && isset($_POST['add'])) {
+        //     if ($module['module_code'] != $_POST['module_code']) {
+        //         $this->form_validation->set_rules('module_code', 'Module Code', 'required|integer|is_unique[modules.module_code]');
+        //     }      
+        // }          
+        // else{
+        //     $this->form_validation->set_rules('module_code', 'Module Code', 'required|integer|is_unique[modules.module_code]');
+        // }
+        if ($this->form_validation->run() === FALSE) {
+            $course  = $this->Assignment->getTable('','','courses');
+            $module  = $this->Assignment->getTable('module_leader', $this->session->userdata('id'),'modules');
 
-	public function upload() {
-		$this->loadViews('upload', 'Assignment Upload');
-	}
+            if ($id) {
+                $data = [
+                    'assignment' => $assignment,
+                    'course' => $course,
+                    'module' => $module
+                ];
+                $this->loadViews('add', 'Edit Assignment', $data);    
+            } else {
+                $assignmentNull = ['assignment_id' => '', 'assignment_name' => '' , 'deadline' => '', 'assignment_leader' => '', 'module_code' => '', 'course_code' => ''];
+                $data =[
+                    'assignment' => $assignmentNull,
+                    'course' => $course,
+                    'module' => $module
 
+                ];
+                $this->loadViews('add', 'Add Assignment', $data);    
+            }
+        }
+        elseif($id){
+            $this->Assignment->updateAssignment($id);
+            redirect('assignment/index');
+        }
+        else{
+            $this->Assignment->addMaterials();
+            redirect('assignment/index');
+        }
+    }
 	public function grade($id) {
 
 		$data['id'] = $id;
@@ -90,6 +106,4 @@ class Assignments extends CI_Controller {
        }	
 		
 	}
-
-
 }

@@ -1,9 +1,10 @@
-<?php if($this->session->userdata('approval') == 1){
+<?php if($this->session->userdata('approval') == 0){ ?>
 
-    echo "Your Request Has Been Accepted by Administration" ?>
 <div class="container-fluid">
     <div class="pl-sm-2 pr-sm-2 mt-2">
         <h2 class="bg-content">Edit Your Information</h2>
+        <small class="md-4"> Your Request Has Been Accepted by Administration! You can now update the data! </small> <br>
+
         <?php echo validation_errors(); ?>
         <!-- begin student add form -->
         <?php echo form_open(base_url('tutor/updateData/' . $id )) ;?>
@@ -32,6 +33,8 @@
 </div>
 
 <?php } else {
+
+    echo "Since Email should be sent from the website to the administrator holding the required data..email format should be here..after admin approves the required data after reviewing valid record in the email..form to update data appears here.. (when the approval is set to 0) <br>";
 
     echo "Send Your Data via Email For the Validation";
 

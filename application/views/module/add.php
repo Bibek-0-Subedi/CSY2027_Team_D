@@ -1,8 +1,7 @@
 <?php if(($this->session->userdata('type')) == 3) {?>
 
-<h2> Add Materials</h2>
-
 <div class="container-fluid">
+    <h2 class="bg-content"> Add Materials</h2>
     <?php echo validation_errors(); ?>
    
     <form action="<?= site_url() ?>module/add/<?= $modules['module_code'] ?>" method="POST" enctype="multipart/form-data">    
@@ -16,7 +15,7 @@
              <input type="text" class="form-control-file" name="description"> 
         </div>
         <div class="form-group col-md-4">
-        	<label>Upload Materials Here: </label>
+            <label>Upload Materials Here: </label>
             <input type="file" class="form-control-file" name="file">
             <small class="form-text text-muted">Module files for students</small>
         </div>
@@ -30,7 +29,5 @@
 <?php }
 
 else {
-	echo "not a tutor should redirect using redirect function";
-}?>	
-
-
+    echo "not a tutor should redirect using redirect function";
+}?> 

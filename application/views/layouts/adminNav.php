@@ -62,7 +62,7 @@
                         <a class="nav-link tp-3 mb-2 text-white" href="<?= site_url() ?>tutor/module/">Module</a>
                     </li>  
                      <li class="nav-item">
-                        <a class="nav-link tp-3 mb-2 text-white" href="#">Student</a>
+                        <a class="nav-link tp-3 mb-2 text-white" href="<?= site_url() ?>tutor/student">Student</a>
                     </li>  
                     <li class="nav-item">
                         <a class="nav-link tp-3 mb-2 text-white" href="#">Pat</a>

@@ -14,7 +14,12 @@ class Module extends CI_model{
 		$result = $this->db->get('modules');
 		return $result->row_array();
 	}
+	public function selectFile($id){
 
+		$this->db->where('file_id', $id);
+		$result = $this->db->get('module_files');
+		return $result->row_array();
+	}
 	public function module_files($module)
 	{
    		 $module_files = $this->db->get_where('module_files', array(
@@ -22,11 +27,10 @@ class Module extends CI_model{
     	));
     	return $module_files->result_array();
 	}
-
 	public function addMaterials(){
 
 			$config['upload_path'] = './assets/module_files/';
-			$config['allowed_types'] = 'jpg|jpeg|png|pdf|doc';
+			$config['allowed_types'] = 'jpg|jpeg|png|pdf|doc|zip';
 			
 			$this->load->library('upload', $config);
 	
@@ -55,13 +59,11 @@ class Module extends CI_model{
 		$students = $this->db->where('module_code', $moduleCode)->get('student_modules');
 		return $students->result_array();
 	}
-	
 	public function getAttendance($moduleCode, $date)
 	{
 		$result = $this->db->get_where('attendence',['module_code' => $moduleCode, 'date' => $date]);
 		return $result->result_array();
 	}
-
 	public function addAttendance($date)
 	{
 		$module_code = $this->input->post('module_code');
@@ -83,5 +85,32 @@ class Module extends CI_model{
 		// $this->db->where('staff_id', '2');
 		// $this->db->update('staff');
 	}
+    public function updateMaterials($id){
+
+
+            $config['upload_path'] = './assets/module_files/';
+            $config['allowed_types'] = 'jpg|jpeg|png|pdf|doc|zip';
+            
+            $this->load->library('upload', $config);
+    
+            if($this->upload->do_upload('file')){
+                $uploadData = $this->upload->data();
+                $file= $uploadData['file_name'];
+            }
+            else{
+                echo 'file not uploaded';
+            }
+
+        $data =[
+           	'module_id' => $this->input->post('module_code'),
+    		'filename' => $this->input->post('module_date'),
+    		'description' => $this->input->post('description'),
+    		'file' => $file
+        ];
+        $this->db->where('file_id', $id)->update('module_files', $data);
+    }
+    public function deleteFile($id){
+        $this->db->where('file_id', $id)->delete('module_files');
+    }
 
 }

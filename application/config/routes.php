@@ -36,12 +36,13 @@ $route['admin/moduleCourse'] = 'admins/archiveModule';
 
 //route for assignment
 $route['assignment/index'] = 'assignments/index';
+$route['assignment/index/(:any)'] = 'assignments/index/$1';
 $route['assignment/add'] = 'assignments/add';
-$route['assignment/edit/(:any)'] = 'assignments/edit/$1';
+$route['assignment/add/(:any)'] = 'assignments/add/$1';
 $route['assignment/view'] = 'assignments/view';
 $route['assignment/upload'] = 'assignments/upload';
 $route['assignment/grade/(:any)'] = 'assignments/grade/$1';
-$route['assignment/update'] = 'assignments/update';
+$route['assignment/update/(:any)'] = 'assignments/add/$1';
 
 
 //student pages
@@ -51,10 +52,8 @@ $route['student/module/(:any)'] = 'students/module/$1';
 $route['student/login'] = 'students/login';
 $route['student/logout'] = 'students/logout';
 
-
 //route for the pages
 $route['(:any)'] = 'pages/view/$1';
-
 
 //leader pages
 $route['leader/dashboard'] = 'leaders/dashboard';
@@ -66,12 +65,17 @@ $route['tutor/module'] = 'tutors/module';
 $route['tutor/getForm'] = 'tutors/getForm';
 $route['tutor/add/(:any)'] = 'tutors/add/$1';
 $route['tutor/updateData/(:any)'] = 'tutors/updateData/$1';
+$route['tutor/student'] = 'tutors/student';
+$route['tutor/studentList/(:any)'] = 'tutors/studentList/$1';
 
 //module pages
 $route['module/addAttendance'] = 'modules/addAttendance';
 $route['module/attendance/(:any)/(:any)'] = 'modules/attendance/$1/$2';
-$route['module/add/(:any)'] = 'modules/add/$1';
 $route['module/(:any)'] = 'modules/view/$1';
+
+//module tutor pages
+$route['module/add/(:any)'] = 'modules/add/$1';
+$route['module/update/(:any)'] = 'modules/update/$1';
 
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
