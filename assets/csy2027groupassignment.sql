@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2020 at 08:41 AM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.1.33
+-- Generation Time: Apr 10, 2020 at 06:45 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -48,12 +48,12 @@ CREATE TABLE `admissions` (
 --
 
 INSERT INTO `admissions` (`admission_id`, `assigned_id`, `status`, `firstname`, `middlename`, `surname`, `temporary_address`, `permanent_address`, `contact`, `course_code`, `email`, `qualification`) VALUES
-(1, 1002, 0, 'Ram', 'Kumar', 'Chandra', '1234', 'Address1', 12345, 281, 'ram@woodland.com', 'BSc. Data Science'),
-(2, 1012, 0, 'Shyam', 'Hari', 'Raj', '5431', 'Address2', 12345, 2009, 'shyam@woodland.com', 'BSc. Computing'),
+(1, 1002, 1, 'Ram', 'Kumar', 'Chandra', '1234', 'Address1', 12345, 281, 'ram@woodland.com', 'BSc. Data Science'),
+(2, 1012, 1, 'Shyam', 'Hari', 'Raj', '5431', 'Address2', 12345, 2009, 'shyam@woodland.com', 'BSc. Computing'),
 (3, 1013, 0, 'Hari', 'Kumar', 'Prashad', '3224', 'Address3', 12345, 2009, 'hari@woodland.com', 'BSc. Computing'),
 (4, 1014, 0, 'Krishna', 'Prashad', 'Lal', '23422', 'Address4', 12345, 2009, 'krishna@woodland.com', 'BSc. Computing'),
 (5, 0, 0, 'Shiva', 'Kumar', 'Sharma', '4535345', 'Address5', 12345, 281, 'shiva@woodland.com', 'BSc. Data Science'),
-(6, 1016, 0, 'Ganesh', 'Raj', 'Test', '1324', 'Address7', 12345, 2009, 'ganesh@woodland.com', 'BSc. Computing'),
+(6, 1016, 1, 'Ganesh', 'Raj', 'Test', '1324', 'Address7', 12345, 2009, 'ganesh@woodland.com', 'BSc. Computing'),
 (7, 1017, 0, 'Rajesh', 'Sharma', 'Hari', 'aaa', 'aaa', 123, 23, 'rajesh@woodland.com', 'BSc. Networking');
 
 -- --------------------------------------------------------
@@ -70,18 +70,11 @@ CREATE TABLE `assignments` (
   `module_code` int(8) NOT NULL,
   `course_id` int(8) NOT NULL,
   `staff_id` int(10) NOT NULL,
-  `student_id` int(12) DEFAULT NULL,
+  `student_id` int(12) NOT NULL,
   `assignment_file` varchar(255) NOT NULL,
   `submission_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `assignments`
---
-
-INSERT INTO `assignments` (`assignment_id`, `assignment_name`, `deadline`, `grade`, `module_code`, `course_id`, `staff_id`, `student_id`, `assignment_file`, `submission_date`, `created_date`) VALUES
-(2, 'Computer System Sem II', '2020-04-09 00:00:00', 'A', 3, 1, 3, NULL, 'file here', '2020-04-08 06:39:08', '2020-04-08 06:34:17');
 
 -- --------------------------------------------------------
 
@@ -94,9 +87,17 @@ CREATE TABLE `attendence` (
   `module_code` int(4) NOT NULL,
   `student_id` int(8) NOT NULL,
   `staff_id` int(6) NOT NULL,
-  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `date` date NOT NULL,
   `status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `attendence`
+--
+
+INSERT INTO `attendence` (`attendance_id`, `module_code`, `student_id`, `staff_id`, `date`, `status`) VALUES
+(2100232020, 2, 1002, 3, '2020-04-10', 1),
+(2101232020, 2, 1012, 3, '2020-04-10', 0);
 
 -- --------------------------------------------------------
 
@@ -121,6 +122,7 @@ INSERT INTO `courses` (`course_code`, `course_name`, `course_duration`, `departm
 (11, 'Management', 33, 1, NULL, 0),
 (23, 'Network Engineering', 1, 1, 1, 0),
 (281, 'Data Analytics', 2, 1, 1, 0),
+(1234, 'CourseTest', 12, 1, NULL, 1),
 (2009, 'Software Engineering', 1, 1, 1, 0);
 
 -- --------------------------------------------------------
@@ -177,9 +179,9 @@ CREATE TABLE `modules` (
 --
 
 INSERT INTO `modules` (`module_code`, `module_name`, `module_duration`, `module_leader`, `course_code`, `archive`) VALUES
-(1, 'Software engineering', 44, 1, 2009, 0),
+(1, 'Software engineering', 44, 3, 2009, 0),
 (2, 'Database', 11, 3, 2009, 0),
-(3, 'Computer System', 44, 3, 23, 0),
+(3, 'Computer System', 44, NULL, 23, 0),
 (4, 'Web Development', 15, NULL, 2009, 0);
 
 -- --------------------------------------------------------
@@ -191,8 +193,9 @@ INSERT INTO `modules` (`module_code`, `module_name`, `module_duration`, `module_
 CREATE TABLE `module_files` (
   `file_id` int(6) NOT NULL,
   `module_id` int(4) NOT NULL,
-  `module_leader` int(255) DEFAULT NULL,
   `filename` varchar(255) NOT NULL,
+  `description` varchar(2048) NOT NULL,
+  `file` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -200,8 +203,12 @@ CREATE TABLE `module_files` (
 -- Dumping data for table `module_files`
 --
 
-INSERT INTO `module_files` (`file_id`, `module_id`, `module_leader`, `filename`, `created_at`) VALUES
-(8, 2, 3, '6422852.jpg', '2020-04-08 04:01:37');
+INSERT INTO `module_files` (`file_id`, `module_id`, `filename`, `description`, `file`, `created_at`) VALUES
+(1, 2, 'Chapter 1', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae commodi animi quos quae odit labore explicabo iusto, in sint voluptatem officia voluptas ipsum et deleniti ab consequuntur nihil ex quaerat?', 'dbchapter1.pdf', '2020-04-08 05:28:40'),
+(2, 2, 'Chapter 2', 'Recusandae commodi animi quos quae odit labore explicabo iusto, in sint voluptatem officia voluptas ipsum et deleniti ab consequuntur nihil ex quaerat?', 'dbchapter2.pdf', '2020-04-08 05:28:40'),
+(3, 1, 'Chapter 1', 'In sint voluptatem officia voluptas ipsum et deleniti ab consequuntur nihil ex quaerat?', 'secapter3.pdf', '2020-04-08 05:28:40'),
+(4, 1, 'Chapter 2', 'Consectetur adipisicing elit. Recusandae commodi animi quos quae odit labore explicabo iusto, in sint voluptatem officia voluptas ipsum et deleniti ab consequuntur nihil ex quaerat?', 'sechapter4.pdf', '2020-04-08 05:28:40'),
+(5, 2, 'asdas', 'sadasd', 'dbchapter11.pdf', '2020-04-08 16:37:38');
 
 -- --------------------------------------------------------
 
@@ -247,8 +254,8 @@ CREATE TABLE `staff` (
 
 INSERT INTO `staff` (`staff_id`, `status`, `firstname`, `middlename`, `surname`, `password`, `address`, `contact`, `email`, `subject`, `role`, `approval`, `archive`, `created_at`, `updated_at`) VALUES
 (1, 1, 'admin', '', 'admin', '$2y$10$5J1F1t1bPapP.Ye43tx5luar/EL69S6P0ATm7wSNlPRyxo.KmJrSa', 'Woodland University', 123, 'admin@woodland.com', 0, 1, 1, 0, '2020-03-29 13:33:03', '2020-04-04 05:42:05'),
-(2, 1, 'Leader', '', 'Leader', '$2y$10$8PyfsUXQiJX4ez4IQj1PFOBEoBsjpOw1ya2ueSy45m6ue/fvsWiTy', 'Woodland University', 123, 'leader@woodland.com', 0, 2, 1, 0, '2020-03-29 13:33:03', '2020-04-04 05:44:07'),
-(3, 1, 'Tutor', 'pandey', 'Tutor', '$2y$10$bZ8zqaUGp93h/cvbtdhylOrrKAGMB3sRycZFOkO2REdpiZkBnpC9S', 'Woodland University', 123, 'tutor@woodland.com', 0, 3, 1, 0, '2020-03-29 13:34:22', '2020-04-07 05:48:18'),
+(2, 1, 'Leader', '', 'Leader', '$2y$10$8PyfsUXQiJX4ez4IQj1PFOBEoBsjpOw1ya2ueSy45m6ue/fvsWiTy', 'Woodland University', 123, 'leader@woodland.com', 0, 2, 1, 0, '2020-03-29 13:33:03', '2020-04-10 02:03:10'),
+(3, 1, 'Tutor', '', 'Tutor', '$2y$10$bZ8zqaUGp93h/cvbtdhylOrrKAGMB3sRycZFOkO2REdpiZkBnpC9S', 'Woodland University', 123, 'tutor@woodland.com', 0, 3, 1, 0, '2020-03-29 13:34:22', '2020-04-04 08:21:58'),
 (4, 1, 'ashish', '', 'Adhikari', '$2y$10$y35jDj58EHZvr0LSfZ.lS.26fZA3pIUofM57nSpDQ4IAvHmLafMeW', 'Bhaktapur', 334412, 'ashish@woodland.com', 12, 2, 0, 0, '2020-04-04 05:01:37', '2020-04-04 14:49:12');
 
 -- --------------------------------------------------------
@@ -277,6 +284,15 @@ CREATE TABLE `students` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `students`
+--
+
+INSERT INTO `students` (`student_id`, `assigned_id`, `email`, `password`, `created_at`, `updated_at`) VALUES
+(1002, 1002, 'ram@woodland.com', '$2y$10$um0qSWExh11ZzIzOQpoO..HFJdpPGa2Fm/M7vK9x0cC8V7OR1jT2m', '2020-04-07 09:48:54', '2020-04-07 10:14:10'),
+(1012, 1012, 'shyam@woodland.com', '$2y$10$TUIFmSfnJuemtiMekAbE6.1cLrONl5diZqXDso.oPNdH/LmnIdkIC', '2020-04-10 03:21:04', '2020-04-10 03:21:04'),
+(1016, 1016, 'ganesh@woodland.com', '$2y$10$ymQKHCKDn0skytiLANpcdeR6ZocbneROvFAjQtPB/.ZRQ0QgdwIgO', '2020-04-10 03:28:29', '2020-04-10 03:28:29');
+
 -- --------------------------------------------------------
 
 --
@@ -287,6 +303,18 @@ CREATE TABLE `student_modules` (
   `student_id` int(12) NOT NULL,
   `module_code` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `student_modules`
+--
+
+INSERT INTO `student_modules` (`student_id`, `module_code`) VALUES
+(1002, 2),
+(1002, 1),
+(1012, 2),
+(1012, 1),
+(1016, 2),
+(1016, 1);
 
 -- --------------------------------------------------------
 
@@ -324,7 +352,7 @@ ALTER TABLE `assignments`
 -- Indexes for table `attendence`
 --
 ALTER TABLE `attendence`
-  ADD PRIMARY KEY (`attendance_id`),
+  ADD PRIMARY KEY (`module_code`,`student_id`,`staff_id`,`date`) USING BTREE,
   ADD KEY `fk_att_staff` (`staff_id`),
   ADD KEY `fk_att_modules` (`module_code`),
   ADD KEY `fk_att_students` (`student_id`);
@@ -335,7 +363,7 @@ ALTER TABLE `attendence`
 ALTER TABLE `courses`
   ADD PRIMARY KEY (`course_code`),
   ADD KEY `fk_c_dep` (`department_id`),
-  ADD KEY `fk_c_leader` (`course_leader`);
+  ADD KEY `course_leader` (`course_leader`);
 
 --
 -- Indexes for table `departments`
@@ -357,15 +385,14 @@ ALTER TABLE `diaries`
 ALTER TABLE `modules`
   ADD PRIMARY KEY (`module_code`),
   ADD KEY `fk_mod_course` (`course_code`),
-  ADD KEY `fk_mod_leader` (`module_leader`) USING BTREE;
+  ADD KEY `module_leader` (`module_leader`);
 
 --
 -- Indexes for table `module_files`
 --
 ALTER TABLE `module_files`
   ADD PRIMARY KEY (`file_id`),
-  ADD KEY `fk_mod_id` (`module_id`) USING BTREE,
-  ADD KEY `fk_mod_leader` (`module_leader`) USING BTREE;
+  ADD KEY `module_id` (`module_id`);
 
 --
 -- Indexes for table `pat`
@@ -379,7 +406,8 @@ ALTER TABLE `pat`
 -- Indexes for table `staff`
 --
 ALTER TABLE `staff`
-  ADD PRIMARY KEY (`staff_id`);
+  ADD PRIMARY KEY (`staff_id`),
+  ADD KEY `subject` (`subject`);
 
 --
 -- Indexes for table `staff_modules`
@@ -423,13 +451,7 @@ ALTER TABLE `admissions`
 -- AUTO_INCREMENT for table `assignments`
 --
 ALTER TABLE `assignments`
-  MODIFY `assignment_id` int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `attendence`
---
-ALTER TABLE `attendence`
-  MODIFY `attendance_id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `assignment_id` int(16) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `diaries`
@@ -441,7 +463,7 @@ ALTER TABLE `diaries`
 -- AUTO_INCREMENT for table `module_files`
 --
 ALTER TABLE `module_files`
-  MODIFY `file_id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `file_id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pat`
@@ -506,7 +528,7 @@ ALTER TABLE `modules`
 -- Constraints for table `module_files`
 --
 ALTER TABLE `module_files`
-  ADD CONSTRAINT `fk_modfiles_modules` FOREIGN KEY (`module_leader`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_modfiles_modules` FOREIGN KEY (`module_id`) REFERENCES `modules` (`module_code`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `pat`
