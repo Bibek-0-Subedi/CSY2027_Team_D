@@ -65,6 +65,20 @@
         return $result->result_array();
         
     }
+
+    public function createCaseFile($id)
+    {
+
+        $this->db->set('assigned_id', rand(1000,1999).substr(time(), 6));
+        $this->db->set('status', 1);
+        $this->db->where('admission_id', $id);
+        if($this->db->update('admissions')){
+            return true;
+        }
+
+        // $this->db->update('admission', ['assigned_id' => ]);
+        
+    }
     
     public function tableGenerator($data)
     {

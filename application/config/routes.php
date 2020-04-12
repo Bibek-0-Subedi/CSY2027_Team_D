@@ -5,6 +5,7 @@ $route['admin'] = 'admins/index';
 $route['admin/dashboard'] = 'admins/dashboard';
 $route['admin/admission'] = 'admins/admission';
 $route['admin/casefile/(:any)'] = 'admins/casefile/$1';
+$route['admin/createCaseFile/(:any)'] = 'admins/createCaseFile/$1';
 $route['admin/login'] = 'admins/login';
 $route['admin/logout'] = 'admins/logout';
 $route['admin/student'] = 'admins/student';

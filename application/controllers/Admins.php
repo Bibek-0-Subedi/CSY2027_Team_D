@@ -158,6 +158,13 @@ class Admins extends CI_Controller
         $this->loadViews('casefile', 'Case File',$data);
     }
 
+    public function createCaseFile($id)
+    {
+        $data = $this->admin->createCaseFile($id);
+        redirect('admin/casefile/'.$id);
+        // $this->loadViews('casefile', 'Case File',$data);
+    }
+
     public function uploadDoc()
     {
         if($this->input->post('studentDoc')){

@@ -14,7 +14,7 @@
                             <h5>Applied Course : <?= $course_name ?></h5>
                             <h5>Contact : <?= $contact ?></h5>
                             <h5>Email : <?= $email ?></h5>
-                            <form action="" method="POST" class="mt-4 h5">
+                            <!-- <form action="" method="POST" class="mt-4 h5"> -->
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="offer" value="unconditional">
                                     <label class="form-check-label">Unconditional Offer</label>
@@ -23,12 +23,17 @@
                                     <input class="form-check-input" type="radio" name="offer"  value="conditional" checked>
                                     <label class="form-check-label">Conditional Offer</label>
                                 </div>
-                                <div class="mt-4">
-                                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#emailDraft">Create Case File</button>
-                                </div>
-                            </form>
+                                <?php $disable = ($status == 1) ? 'disabled' : ''; ?>
+                                <form action="<?= site_url() ?>admin/createCaseFile/<?= $admission_id ?>" method="post">
+                                    <div class="mt-4">
+                                        <button type="submit" class="btn btn-primary mb-3" <?= $disable ?>>Create Case File</button>
+                                        <!-- <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#emailDraft">Create Case File</button> -->
+                                    </div>
+                                </form>
+                            <!-- </form> -->
+                            <?php $disable2 = ($status != 1) ? 'disabled' : ''; ?>
                             <div class="mt-2">
-                                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal">Send Offer Letter</button>
+                                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" <?= $disable2 ?>>Send Offer Letter</button>
                             </div>
                         </div>
                         <!-- end left container form  -->
