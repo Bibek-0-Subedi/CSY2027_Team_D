@@ -2,12 +2,12 @@
     <div class="pl-sm-2 pr-sm-2 mt-2">
         <h2 class="bg-content">Module Detail Form</h2>
         <!-- begin Course form -->
-        <?php echo form_open('admin/moduleDetail/'.$module['module_code'], ['class' => 'pl-sm-2 pr-sm-2 mt-4']); ?>
+        <?php echo form_open('admin/moduleDetail/' . $module['module_code'], ['class' => 'pl-sm-2 pr-sm-2 mt-4']); ?>
         <div class="form-group row">
-            <?php if(!$module['module_code']){?>
-            <label for="ModuleCode" class="col-sm-2">Module Code</label>
+            <?php if (!$module['module_code']) { ?>
+                <label for="ModuleCode" class="col-sm-2">Module Code</label>
             <?php } ?>
-            <input type="<?php echo $module['module_code'] ? 'hidden' : 'text';?>" class="form-control col-sm-2 mr-3 <?php echo form_error('module_code') ? 'is-invalid' : '' ?>" name="module_code" value="<?php echo isset($_POST['module_code']) ? $_POST['module_code'] : $module['module_code'] ?>">
+            <input type="<?php echo $module['module_code'] ? 'hidden' : 'text'; ?>" class="form-control col-sm-2 mr-3 <?php echo form_error('module_code') ? 'is-invalid' : '' ?>" name="module_code" value="<?php echo isset($_POST['module_code']) ? $_POST['module_code'] : $module['module_code'] ?>">
             <?= form_error('module_code') ?>
         </div>
         <div class="form-group row">
@@ -20,13 +20,25 @@
             <input type="text" class="form-control col-sm-2 mr-3 <?php echo form_error('module_duration') ? 'is-invalid' : '' ?>" name="module_duration" value="<?php echo isset($_POST['module_duration']) ? $_POST['module_duration'] : $module['module_duration'] ?>">
             <?= form_error('module_duration') ?>
         </div>
+        <?php if ($module['module_code']) { ?>
+            <div class="form-group row">
+                <label for="Module Leader" class="col-sm-2">Module Leader</label>
+                <select class="form-control col-sm-2 mr-3 <?php echo form_error('module_leader') ? 'is-invalid' : '' ?>" name='module_leader'>
+                    <option value="" <?php if (!isset($_POST['module_leader']) && $module['module_leader'] == "") echo "selected" ?>>Select Module Leader</option>
+                    <?php foreach ($moduleLeader as $leader) { ?>
+                        <option value="<?= $leader['staff_id'] ?>" <?php if (($module['module_leader']) == $leader['staff_id']) { echo "selected"; } ?>><?= $leader['firstname'] ?></option>
+                    <?php } ?>
+                </select>
+                <?= form_error('module_leader') ?>
+            </div>
+        <?php } ?>
         <div class="form-group row">
             <label for="Course" class="col-sm-2">Course</label>
             <select class="form-control col-sm-2 mr-3 <?php echo form_error('course_code') ? 'is-invalid' : '' ?>" name='course_code'>
                 <option value="" disabled <?php if (!isset($_POST['course_code']) && $module['course_code'] == "") echo "selected" ?>>Select Course</option>
-                <?php foreach($course as $crse) { ?>
-                <option value="<?= $crse['course_code'] ?>"><?= $crse['course_name'] ?></option>
-            <?php } ?>
+                <?php foreach ($course as $crse) { ?>
+                    <option value="<?= $crse['course_code'] ?>"><?= $crse['course_name'] ?></option>
+                <?php } ?>
             </select>
             <?= form_error('course_code') ?>
         </div>

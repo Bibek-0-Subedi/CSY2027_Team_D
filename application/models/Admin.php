@@ -162,6 +162,14 @@
         $result = $this->db->where($field, $id)->get($table);
         return $result->row_array();
     }
+
+    public function staff(){
+        $this->db->join('courses', 'courses.course_code=staff.subject', 'left');
+        $this->db->join('modules', 'modules.module_code=staff.subject', 'left');
+        $staff = $this->db->get_where('staff', ['staff.archive'=> 0]);
+        return $staff->result_array();
+    }
+
     public function addStaff(){
         $data =[
             'staff_id' => $this->input->post('staff_id'),
@@ -197,22 +205,77 @@
     public function assign_archive_staff($id , $data){
         $this->db->where('staff_id', $id)->update('staff', $data);
     }
+    public function course(){
+        $this->db->join('departments', 'departments.department_id=courses.department_id', 'left');
+        $this->db->join('staff', 'staff.staff_id=courses.course_leader', 'left');
+        $courses = $this->db->get_where('courses', ['courses.archive'=> 0]);
+        return $courses->result_array();
+    }
+
+    public function assign_to_staff($staff_id, $staff_data, $course_code, $course_data){
+        $this->db->where('staff_id', $staff_id)->update('staff', $staff_data);
+        $this->db->where('course_code', $course_code)->update('courses', $course_data);
+    }
     
+    public function assignModule($staff_id, $staff_data, $module_code, $module_data){
+        $this->db->where('staff_id', $staff_id)->update('staff', $staff_data);
+        $this->db->where('module_code', $module_code)->update('modules', $module_data);
+    }
+
+    public function getAssignableCourse(){
+        $result = $this->db->where('archive', 0)->get('courses');
+        return $result->result_array();
+    }
+    public function getAssignableStaff($role, $id = false){
+        if($id){
+            $this->db->where('subject', $id);
+        }else{
+            $this->db->where('subject', 0);
+        }
+        $this->db->where('role', $role);
+        $this->db->where('archive', 0);
+        $result = $this->db->get('staff');
+        return $result->result_array();
+    }
     public function addCourse(){
-        $data =[
-            'course_code' => $this->input->post('course_code'),
-            'course_name' => $this->input->post('course_name'),
-            'course_duration' => $this->input->post('course_duration'),
-            'department_id' => $this->input->post('department_id')
-        ];
+        $course_leader = $this->input->post('course_leader');
+        if($course_leader){
+            $data =[
+                'course_code' => $this->input->post('course_code'),
+                'course_name' => $this->input->post('course_name'),
+                'course_duration' => $this->input->post('course_duration'),
+                'course_leader' => $this->input->post('course_leader'),
+                'department_id' => $this->input->post('department_id')
+            ];
+            $subject = ['subject' => $this->input->post('course_code')];
+            $this->assign_archive_staff($course_leader, $subject);
+        }else{
+            $data =[
+                'course_code' => $this->input->post('course_code'),
+                'course_name' => $this->input->post('course_name'),
+                'course_duration' => $this->input->post('course_duration'),
+                'department_id' => $this->input->post('department_id')
+            ];    
+        }
         $this->db->insert('courses', $data);
     }
     public function updateCourse($id){
-        $data =[
-            'course_name' => $this->input->post('course_name'),
-            'course_duration' => $this->input->post('course_duration'),
-            'department_id' => $this->input->post('department_id')
-        ];
+        $course_leader = $this->input->post('course_leader');
+        if($course_leader){
+            $data =[
+                'course_name' => $this->input->post('course_name'),
+                'course_duration' => $this->input->post('course_duration'),
+                'course_leader' => $this->input->post('course_leader'),
+                'department_id' => $this->input->post('department_id')
+            ];
+        }
+        else{
+            $data =[
+                'course_name' => $this->input->post('course_name'),
+                'course_duration' => $this->input->post('course_duration'),
+                'department_id' => $this->input->post('department_id')
+            ];
+        }
         $this->db->where('course_code', $id)->update('courses', $data);
     }
     public function archiveCourse($id , $data){
@@ -220,6 +283,12 @@
     }
     public function deleteCourse($id){
         $this->db->where('course_code', $id)->delete('courses');
+    }
+    public function module(){
+        $this->db->join('courses', 'courses.course_code=modules.course_code', 'left');
+        $this->db->join('staff', 'staff.staff_id=modules.module_leader', 'left');
+        $courses = $this->db->get_where('modules', ['modules.archive'=> 0]);
+        return $courses->result_array();
     }
 
     public function addModule(){
@@ -232,12 +301,25 @@
         $this->db->insert('modules', $data);
     }
     public function updateModule($id){
-        $data =[
-            'module_name' => $this->input->post('module_name'),
-            'module_duration' => $this->input->post('module_duration'),
-            'course_code' => $this->input->post('course_code')
-        ];
-        $this->db->where('module_code', $id)->update('modules', $data);
+        $module_leader = $this->input->post('module_leader');
+        if($module_leader){
+            $data =[
+                'module_name' => $this->input->post('module_name'),
+                'module_duration' => $this->input->post('module_duration'),
+                'module_leader' => $this->input->post('module_leader'),
+                'course_code' => $this->input->post('course_code')
+            ];
+            $this->db->where('module_code', $id)->update('modules', $data);
+        }
+        else{
+            $data =[
+                'module_name' => $this->input->post('module_name'),
+                'module_duration' => $this->input->post('module_duration'),
+                'course_code' => $this->input->post('course_code')
+            ];
+            $this->db->where('module_code', $id)->update('modules', $data);
+        }
+
     }
     public function archiveModule($id , $data){
         $this->db->where('module_code', $id)->update('modules', $data);

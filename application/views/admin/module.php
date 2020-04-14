@@ -48,8 +48,8 @@
                                 <td><?= $module['module_code'] ?></td>
                                 <td><?= $module['module_name'] ?></td>
                                 <td><?= $module['module_duration'] ?></td>
-                                <td><?= $module['module_leader'] ?></td>
-                                <td><?= $module['course_code'] ?></td>
+                                <td><?= $module['firstname'] .' ' . $module['surname'] ?></td>
+                                <td><?= $module['course_name'] ?></td>
                                 <td style="display: flex; justify-content: space-around;">
                                     <a href="moduleDetail/<?php echo $module['module_code']; ?>" class="btn btn-success">Edit</a>
                                     <?php echo form_open('admin/module/'.$module['module_code'] ); ?>

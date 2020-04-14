@@ -21,11 +21,24 @@
             <?= form_error('course_duration') ?>
         </div>
         <div class="form-group row">
+            <label for="CourseLeader" class="col-sm-2">Course Leader</label>
+            <select class="form-control col-sm-2 mr-3 <?php echo form_error('course_leader') ? 'is-invalid' : '' ?>" name='course_leader'>
+                <option value="" <?php if (!isset($_POST['course_leader']) && $course['course_leader'] == "") echo "selected" ?>>Select Course Leader</option>
+                <?php foreach($courseLeader as $leader) { ?>
+                    <option value="<?= $leader['staff_id'] ?>" <?php if (($course['course_leader']) == $leader['staff_id']){ echo "selected" ;} ?>><?= $leader['firstname'] ?></option>
+            <?php } ?>
+            </select>
+            <?= form_error('course_leader') ?>
+            <?php if(!$course['course_code']){?>
+            <small class="form-text text-muted">Can Assign the Course Leader Later</small>
+            <?php } ?>
+        </div>
+        <div class="form-group row">
             <label for="Department" class="col-sm-2">Department</label>
             <select class="form-control col-sm-2 mr-3 <?php echo form_error('department_id') ? 'is-invalid' : '' ?>" name='department_id'>
-                <option value="" disabled <?php if (!isset($_POST['department']) && $course['department_id'] == "") echo "selected" ?>>Select Department</option>
+                <option value="" <?php if (!isset($_POST['department']) && $course['department_id'] == "") echo "selected" ?>>Select Department</option>
                 <?php foreach($department as $dprt) { ?>
-                    <option value="<?= $dprt['department_id'] ?>"<?php if ((isset($_POST['department_id'])) == $dprt['department_id']){ echo "selected" ;} ?>><?= $dprt['name'] ?></option>
+                    <option value="<?= $dprt['department_id'] ?>"<?php if (($course['department_id']) == $dprt['department_id']){ echo "selected" ;} ?>><?= $dprt['name'] ?></option>
             <?php } ?>
             </select>
             <?= form_error('department_id') ?>

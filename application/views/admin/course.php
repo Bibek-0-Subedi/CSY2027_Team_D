@@ -48,8 +48,8 @@
                                 <td><?= $course['course_code'] ?></td>
                                 <td><?= $course['course_name'] ?></td>
                                 <td><?= $course['course_duration'] ?></td>
-                                <td><?= $course['department_id'] ?></td>
-                                <td><?= $course['course_leader'] ?></td>
+                                <td><?= $course['name'] ?></td>
+                                <td><?= $course['firstname'] ; ?></td>
                                 <td style="display: flex; justify-content: space-around;">
                                     <a href="courseDetail/<?php echo $course['course_code']; ?>" class="btn btn-success">Edit</a>
                                     <?php echo form_open('admin/course/'.$course['course_code'] ); ?>
@@ -73,3 +73,4 @@
         </div>
     </div>
 </div>
+

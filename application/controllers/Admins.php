@@ -178,18 +178,22 @@ class Admins extends CI_Controller
                 $data = ['archive' => '1'];
                 $this->admin->assign_archive_staff($id , $data);
                 redirect('admin/staff');
-            }elseif(isset($_POST['assign'])){
-                $data = ['subject' => $this->input->post('subject')];
-                $this->admin->assign_archive_staff($id , $data);
-                redirect('admin/staff');            
             }
         }
-        $data['staff'] = $this->admin->getTable('archive', '0', 'staff');
-        $this->loadViews('staff', 'Staff', $data);
+        elseif(isset($_POST['assignCourse'])){
+            $id = $this->input->post('staff_id'); 
+            $data = ['subject' => $this->input->post('subject')];
+            $this->admin->assign_archive_staff($id , $data);
+            redirect('admin/staff');            
+        }else{
+            $data['staff'] = $this->admin->staff();
+            $data['course'] = $this->admin->getAssignableCourse();
+            $this->loadViews('staff', 'Staff', $data);
+        }
+
     }
     public function staffDetail($id = false)
     {
-        $data = $this->admin->getTableData($id, 'staff_id', 'staff');
 
         $this->form_validation->set_rules('status', 'Status', 'required');
         $this->form_validation->set_rules('firstname', 'Firstname', 'required');
@@ -197,28 +201,29 @@ class Admins extends CI_Controller
         $this->form_validation->set_rules('address', 'Address', 'required');
         $this->form_validation->set_rules('contact', 'Contact', 'required');
         if ($id && isset($_POST['add'])) {
-            if ($data['staff_id'] != $_POST['staff_id']) {
+            $staff = $this->admin->getTableData($id, 'staff_id', 'staff');
+            if ($staff['staff_id'] != $_POST['staff_id']) {
                 $this->form_validation->set_rules('staff_id', 'Staff id', 'required|integer|is_unique[staff.staff_id]');
             }            
-            if ($data['email'] == $_POST['email']) {
+            if ($staff['email'] == $_POST['email']) {
                 $this->form_validation->set_rules('email', 'Email', 'required');
             }
             else {
                 $this->form_validation->set_rules('email', 'Email', 'required|is_unique[staff.email]');
-            }
-            if ($data['subject'] != $_POST['subject']) {
-                $this->form_validation->set_rules('subject', 'Subject', 'is_unique[staff.subject]');
             }
         }else{
             $this->form_validation->set_rules('staff_id', 'Staff id', 'required|integer|is_unique[staff.staff_id]');
             $this->form_validation->set_rules('email', 'Email', 'required|is_unique[staff.email]');
             $this->form_validation->set_rules('password', 'Password', 'required');        
         }
+
         if ($this->form_validation->run() === FALSE) {
+            $data['staff'] = $this->admin->getTableData($id, 'staff_id', 'staff');
+            $data['courses'] = $this->admin->getTable('archive', 0, 'courses');    
             if ($id) {
                 $this->loadViews('staffDetail', 'Edit Staff', $data);    
             } else {
-                $data = ['staff_id' => '', 'status' => '3' , 'firstname' => '', 'middlename' => '', 'surname' => '', 
+                $data['staff'] = ['staff_id' => '', 'status' => '3' , 'firstname' => '', 'middlename' => '', 'surname' => '', 
                 'address' => '', 'contact' => '', 'email' => '','password' => '', 'subject' => '', 'role' => ''];
                 $this->loadViews('staffDetail', 'Add Staff', $data);
             }
@@ -244,7 +249,7 @@ class Admins extends CI_Controller
                 redirect('admin/course');            
             }
         }
-        $data['courses'] = $this->admin->getTable('archive', '0', 'courses');
+        $data['courses'] = $this->admin->course();
         $this->loadViews('course', 'Course' , $data);
     }
     public function courseDetail($id = false)
@@ -265,8 +270,8 @@ class Admins extends CI_Controller
         }
         if ($this->form_validation->run() === FALSE) {
             $department = $this->admin->getTable('','', 'departments');
-            $courseLeader = $this->admin->getTable('role', '2' , 'staff');
             if ($id) {
+                $courseLeader = $this->admin->getAssignableStaff('2', $id);
                 $data = [
                     'course' => $course,
                     'department' => $department,
@@ -274,6 +279,7 @@ class Admins extends CI_Controller
                 ];
                 $this->loadViews('courseDetail', 'Edit Course', $data);    
             } else {
+                $courseLeader = $this->admin->getAssignableStaff('2');
                 $courseNull = ['course_code' => '', 'course_name' => '' , 'course_duration' => '', 'department_id' => '', 'course_leader' => ''];
                 $data = [
                     'course' => $courseNull,
@@ -304,7 +310,7 @@ class Admins extends CI_Controller
                 redirect('admin/module');            
             }
         }
-        $data['modules'] = $this->admin->getTable('archive', '0', 'modules');
+        $data['modules'] = $this->admin->module();
         $this->loadViews('module', 'Module' , $data);
     }
     public function moduleDetail($id = false)
@@ -324,11 +330,12 @@ class Admins extends CI_Controller
         }
         if ($this->form_validation->run() === FALSE) {
             $course  = $this->admin->getTable('','','courses');
-
             if ($id) {
+                $moduleLeader = $this->admin->getAssignableStaff('3', $module['course_code']);
                 $data = [
                     'module' => $module,
-                    'course' => $course
+                    'course' => $course,
+                    'moduleLeader' => $moduleLeader
                 ];
                 $this->loadViews('moduleDetail', 'Edit Module', $data);    
             } else {

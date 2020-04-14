@@ -28,25 +28,8 @@
         <!-- begin table structure -->
         <div class="row mt-3 ">
             <div class="container-fluid">
-                <table id="staffTable" 
-                        class="table table-striped  table-bordered table-hover" 
-                        data-url="json/data1.json" 
-                        data-filter-control="true">
+                <table id="staffTable" class="table table-striped  table-bordered table-hover" data-url="json/data1.json" data-filter-control="true">
                     <thead>
-                        <!-- <tr>
-                            <th>Staff Id</th>
-                            <th>Status</th>
-                            <th>Firstname</th>
-                            <th>Middlename</th>
-                            <th>Lastname</th>
-                            <th>Address</th>
-                            <th>Contact</th>
-                            <th>Email</th>
-                            <th>Subject</th>
-                            <th>Role</th>
-                            <th>Approval</th>
-                            <th>Action</th>
-                        </tr> -->
                         <tr>
                             <th>Staff Id</th>
                             <th data-filter-control="select">Status</th>
@@ -82,13 +65,10 @@
                                 <td><?= $staff['email'] ?></td>
                                 <td>
                                     <?php if ($staff['subject']) {
-                                        echo $staff['subject'];
+                                            echo $staff['course_name'];
                                     } elseif ($staff['role'] != 1) { ?>
-                                        <?php echo form_open('admin/staff/'.$staff['staff_id'] ); ?>
-                                        <input type="submit" class="btn btn-secondary" name="assign" value="Assign">
-                                    </form>
+                                        <button type="button" class="btn btn-secondary mb-3" data-toggle="modal" data-id="<?= $staff['staff_id'] ?>" data-target="#assignCourse">Assign</button>
                                     <?php } ?>
-                                     
                                 </td>
                                 <td>
                                     <?php
@@ -107,9 +87,9 @@
                                 </td>
                                 <td><?php echo $staff['approval'] ?></td>
                                 <td style="display: flex; justify-content: space-around;">
-                                    <a href="staffDetail/<?php echo $staff['staff_id']; ?>" class="btn btn-success">Edit</a>
-                                    <?php echo form_open('admin/staff/'.$staff['staff_id'] ); ?>
-                                        <input type="submit" class="btn btn-info" name="archive" value="Archive">
+                                    <a href="staffDetail/<?php echo $staff['staff_id']; ?>" class="btn btn-success mr-2">Edit</a>
+                                    <?php echo form_open('admin/staff/' . $staff['staff_id']); ?>
+                                    <input type="submit" class="btn btn-info" name="archive" value="Archive">
                                     </form>
                                 </td>
                             </tr>
@@ -126,3 +106,76 @@
         </div>
     </div>
 </div>
+<!-- Modal for the Assigning Course  -->
+<div class="modal fade" id="assignCourse" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Assign Course Leader</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <?php echo form_open('admin/staff/')?>
+                <div class="form-group">
+                    <textarea style="display: none" class="form-control" name="staff_id" id="message-text"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="message-text" class="col-form-label">Courses:</label>
+                    <select class="form-control col-sm-6 mr-3 <?php echo form_error('course_code') ? 'is-invalid' : '' ?>" name='subject'>
+                        <?php foreach ($course as $crse) { ?>
+                            <option value="<?= $crse['course_code'] ?>"><?= $crse['course_name'] ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-primary" name="assignCourse" value="Assign">
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal for the assigning course  ends -->
+<!-- Modal for the Assigning Module Leader -->
+<div class="modal fade" id="assignModule" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Assign Module Leader</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <?php echo form_open('admin/staff/')?>
+                <div class="form-group">
+                    <textarea style="display: none" class="form-control" name="staff_id" id="message-text"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="message-text" class="col-form-label">Courses:</label>
+                    <select class="form-control col-sm-6 mr-3 <?php echo form_error('course_code') ? 'is-invalid' : '' ?>" name='subject'>
+                        <?php foreach ($module as $mod) { ?>
+                            <option value="<?= $mod['module_code'] ?>"><?= $mod['module_name'] ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-primary" name="assignModule" value="Assign">
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal for the assigning cousrse leader ends -->
+<script>
+    $('#assignCourse').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget)
+        var staff_id = button.data('id') // Extract info from data-id attributes
+
+        var modal = $(this)
+        modal.find('.modal-body textarea').val(staff_id)
+    })
+</script>
