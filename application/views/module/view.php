@@ -14,7 +14,9 @@
         </div>
         <div class="row mt-3">
          <a href="<?= site_url().'module' ?>/attendance/<?= $modules['module_code'].'/'.date('Y-m-d') ?>" class="btn btn-primary ml-5">Take attendance</a>
-        <a class="btn btn-primary ml-5" href="<?= site_url() ?>assignment/index/<?=$modules['module_code']?>">View Assignment</a>
+
+        <a class="btn btn-primary ml-5" href="<?= site_url(). 'module' ?>/assignment/index/<?=$modules['module_code']?>">View Assignment</a>
+        <a class="mb-2" href="<?= site_url(). 'module' ?>/studentList/<?= $modules['module_code'] ?>"> View Student</a>
          </div>
         <!-- begin table structure -->
         <div class="row mt-3 ">

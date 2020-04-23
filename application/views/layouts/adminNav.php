@@ -91,25 +91,12 @@
                             <i class="fas fa-book-open"></i>
                         </a>
                     </li>  
-                     <li class="nav-item">
-                        <a class="nav-link d-flex justify-content-between" href="<?= site_url() ?>tutor/student">
-                            <span>Students</span>
-                            <i class="fas fa-user-graduate"></i>
-                        </a>
-                    </li>  
                     <li class="nav-item">
                         <a class="nav-link d-flex justify-content-between" href="#">
                             <span>PAT</span>
                             <i class="fas fa-chalkboard-teacher"></i>
                         </a>
-                    </li>  
-                    <li class="nav-item">
-                        <a class="nav-link d-flex justify-content-between" href="<?= site_url() ?>assignment/index">
-                            <span>Assignments</span>
-                            <i class="fas fa-folder-open"></i>
-                        </a>
-                    </li>  
-
+                    </li>   
                  <!-- end for tutor as the user -->      
                 <?php } ?>    
             </ul>

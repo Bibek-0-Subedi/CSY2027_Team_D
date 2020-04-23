@@ -6,10 +6,10 @@
         </div>
         <!-- Upload Assignment Button -->
         <div class="row mt-3 float-right">
-            <a href="<?= site_url() ?>assignment/view/<?= $modules['module_code'] ?>" class="btn btn-primary">View Uploaded Assignments</a>
+            <a href="<?= site_url(). 'module' ?>/assignment/view/<?= $modules['module_code'] ?>" class="btn btn-primary">View Uploaded Assignments</a>
         </div>
         <div class="row mt-3">
-            <a href="<?= site_url() ?>assignment/add/<?= $modules['module_code'] ?>" class="btn btn-primary"> Upload Assignment </a>
+            <a href="<?= site_url(). 'module' ?>/assignment/add/<?= $modules['module_code'] ?>" class="btn btn-primary"> Upload Assignment </a>
         </div>
        <!--  <div class="row mt-4">
             <div class="col-lg-9 ml-n3">
@@ -55,16 +55,16 @@
                                 <td><a href="<?= site_url() ?>assets/module_files/<?= $assignment['file'] ?>" download="<?= $assignment['file'] ?>"><?= $assignment['file'] ?></a></td>
                                 <td><?= $assignment['created_at'] ?></td>
                                 <td style="display: flex; justify-content: space-around;">
-                                    <a href="<?= site_url() ?>assignment/edit/<?= $assignment['file_id']; ?>" class="btn btn-success">Edit</a>
+                                    <a href="<?= site_url(). 'module' ?>/assignment/edit/<?= $assignment['file_id']; ?>" class="btn btn-success">Edit</a>
                                     <?php if($assignment['archive'] == '0'){ ?>
-                                    <?php echo form_open('assignment/index/'.$assignment['file_id'] ); ?>
+                                    <?php echo form_open('module/assignment/index/'.$assignment['file_id'] ); ?>
                                         <input type="submit" class="btn btn-info" name="archive" value="Archive">
                                     </form>
-                                    <?php } else { echo form_open('assignment/index/'.$assignment['file_id'] ); ?>
+                                    <?php } else { echo form_open('module/assignment/index/'.$assignment['file_id'] ); ?>
                                         <input type="submit" class="btn btn-info" name="unarchive" value="Unarchive">
                                     </form>
                                      <?php } ?>
-                                    <?php echo form_open('assignment/index/'.$assignment['file_id'] ); ?>
+                                    <?php echo form_open('module/assignment/index/'.$assignment['file_id'] ); ?>
                                         <input type="submit" class="btn btn-danger" name="delete" value="Delete">
                                     </form>
                                 </td>

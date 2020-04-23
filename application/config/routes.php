@@ -36,14 +36,12 @@ $route['admin/moduleDetail/(:any)'] = 'admins/moduleDetail/$1';
 $route['admin/moduleCourse'] = 'admins/archiveModule';
 
 //route for assignment
-$route['assignment/index/(:any)'] = 'assignments/index/$1';
-$route['assignment/add/(:any)'] = 'assignments/add/$1';
-$route['assignment/edit/(:any)'] = 'assignments/update/$1';
-$route['assignment/view/(:any)'] = 'assignments/view/$1';
-$route['assignment/upload'] = 'assignments/upload';
-$route['assignment/grade/(:any)'] = 'assignments/grade/$1';
-
-
+$route['module/assignment/index/(:any)'] = 'assignments/index/$1';
+$route['module/assignment/add/(:any)'] = 'assignments/add/$1';
+$route['module/assignment/edit/(:any)'] = 'assignments/update/$1';
+$route['module/assignment/view/(:any)'] = 'assignments/view/$1';
+$route['module/assignment/upload'] = 'assignments/upload';
+$route['module/assignment/grade/(:any)'] = 'assignments/grade/$1';
 
 //student pages
 $route['student/dashboard'] = 'students/dashboard';
@@ -69,10 +67,8 @@ $route['tutor/module/(:any)'] = 'tutors/module/$1';
 $route['tutor/getForm'] = 'tutors/getForm';
 $route['tutor/add/(:any)'] = 'tutors/add/$1';
 $route['tutor/updateData/(:any)'] = 'tutors/updateData/$1';
-$route['tutor/student'] = 'tutors/student';
-$route['tutor/studentList/(:any)'] = 'tutors/studentList/$1';
-$route['tutor/attendance/(:any)'] = 'tutors/attendance/$1';
-$route['tutor/grade/(:any)'] = 'tutors/grade/$1';
+$route['module/studentList/(:any)'] = 'tutors/studentList/$1';
+$route['module/grade/(:any)'] = 'tutors/grade/$1';
 
 //module pages
 $route['module/addAttendance'] = 'modules/addAttendance';

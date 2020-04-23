@@ -79,14 +79,14 @@ class Assignments extends CI_Controller {
         else {
             $success = $this->Assignment->add();
             if($success){
-            redirect('assignment/index/' . $id);
+            redirect('module/assignment/index/' . $id);
             }
         }
     }
     public function update($id){
     
         $this->form_validation->set_rules('name', 'Assignment Name', 'required');
-         $this->form_validation->set_rules('description', 'Description', 'required');
+         $this->form_validation->set_rules('description', 'Deadline', 'required');
 
         if($this->form_validation->run() === FALSE){
                  $moduleF = $this->Assignment->selectFile($id);

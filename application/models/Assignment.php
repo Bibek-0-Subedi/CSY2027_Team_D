@@ -46,7 +46,7 @@ class Assignment extends CI_model{
     public function add(){
 
             $config['upload_path'] = './assets/module_files/';
-            $config['allowed_types'] = 'jpg|jpeg|png|.pdf|doc|zip|.ppt|.pptx|docx';
+            $config['allowed_types'] = '.jpg|.jpeg|.png|.pdf|.doc|.zip|.ppt|.pptx|.docx';
             
             $this->load->library('upload', $config);
             
@@ -70,7 +70,7 @@ class Assignment extends CI_model{
     public function update($id){
 
             $config['upload_path'] = './assets/module_files/';
-            $config['allowed_types'] = 'jpg|jpeg|png|pdf|doc|zip|ppt|pptx';
+            $config['allowed_types'] = '.jpg|.jpeg|.png|.pdf|.doc|.zip|.ppt|.pptx';
             
             $this->load->library('upload', $config);
 
