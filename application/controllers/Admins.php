@@ -42,13 +42,15 @@ class Admins extends CI_Controller
     }
 
     public function dashboard()
-    {
+    {     
+        // $this->admin->sendEmail();   
         $this->loadViews('dashboard', 'Dashboard');
     }
 
     public function admission()
     {
-        $data['admissions'] = $this->admin->tableGenerator($this->admin->getAdmissions());
+        // $data['admissions'] = $this->admin->tableGenerator($this->admin->getAdmissions());
+        $data['admissions'] = $this->admin->getAdmissions();
         $this->loadViews('admission', 'Admission', $data);
     }
 
@@ -111,7 +113,7 @@ class Admins extends CI_Controller
 
     public function student()
     {
-        $data['students'] = $this->admin->tableGenerator($this->admin->getStudents());
+        $data['students'] = $this->admin->getStudents();
         $this->loadViews('student', 'Students', $data);
     }
     public function add()

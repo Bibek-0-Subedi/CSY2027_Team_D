@@ -13,6 +13,7 @@ class Tutor extends CI_model{
 		return $result->result_array();
 
 	}
+	
 	public function selectStudent($id){
 		$this->db->join('students', 'students.student_id = student_modules.student_id', 'left');
 		$this->db->join('admissions', 'admissions.assigned_id = students.assigned_id', 'left');

@@ -50,11 +50,17 @@ html, body{
 }
 
 .navbar-nav li{
-    padding-right: 55px;
+    padding: 5px 10px;
+}
+
+.adminSidebar .navbar-nav li{
+    padding: 5px 10px;
+    border-bottom: 1px solid #bdc3c7;
+    transition: 0.2s ease-in;
 }
 
 .nav-link {
-    font-size: 30px;
+    font-size: 22px;
 }
 
  /* begin Footer CSS properties */
@@ -91,13 +97,7 @@ h5{
 }
 
 .loginform{
-    margin: 30px auto;
-    /* text-align: center; */
-}
-
-.loginform>form{
-    /* box-sizing: border-box; */
-    /* margin: 20px auto; */
+    margin: 20px auto;
     
 }
 
@@ -113,11 +113,64 @@ h5{
 
 .adminSidebar {
     min-height: 915px;
-    background-color: #3f3f3f;
+    background-color: #ecf0f1;
 }
+
+.adminSidebar a{
+    text-decoration: none;
+    color: #2c3e50;
+    font-size: 16px;
+    padding: 10px;
+}
+
+.adminSidebar a .fas{
+    margin-left: 80px;
+    font-size: 22px;
+}
+
+
+
+.adminSidebar li:hover{
+    background-color: #dbe0e1;
+}
+
 .admin-container{
     display: flex;
     flex-direction: row;
+}
+
+
+.notifs li:hover{
+    cursor: pointer;
+    background-color: #ecf0f1;
+}
+
+.notifs a{
+    font-size: 16px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.large-icon .fa, .large-icon .fas{
+    font-size: 80px;
+}
+
+.medium-icon .fa, .medium-icon .fas{
+    font-size: 48px;
+}
+
+.big-icon .fa, .big-icon .fas{
+    font-size: 64px;
+}
+
+table{
+    box-sizing: border-box !important;
+    width: 100%;
+    border: 1px solid #ecf0f1;
+}
+
+table td, table th{
+    border: none;
 }
 
 @media (max-width: 991px){
@@ -152,7 +205,7 @@ h5{
  .loginButton{
     min-width: 90%;
     min-height: 50px;
-    font-size: 25px;
+    font-size: 22px;
  }
  
  /* end index CSS Properties */

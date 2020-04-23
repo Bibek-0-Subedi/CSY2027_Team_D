@@ -48,8 +48,11 @@ $route['assignment/grade/(:any)'] = 'assignments/grade/$1';
 //student pages
 $route['student/dashboard'] = 'students/dashboard';
 $route['student/modules'] = 'students/modules';
+$route['student/module/attendance/(:any)'] = 'students/attendance/$1';
 $route['student/module/(:any)'] = 'students/module/$1';
 $route['student/login'] = 'students/login';
+$route['student/logout'] = 'students/logout';
+// $route['student/attendance'] = 'students/attendance';
 $route['student/logout'] = 'students/logout';
 
 //route for the pages
@@ -61,7 +64,8 @@ $route['leader/dashboard'] = 'leaders/dashboard';
 //tutor pages
 $route['tutor/dashboard'] = 'tutors/dashboard';
 $route['tutor/profile/(:any)'] = 'tutors/profile/$1';
-$route['tutor/module'] = 'tutors/module';
+$route['tutor/modules'] = 'tutors/modules';
+$route['tutor/module/(:any)'] = 'tutors/module/$1';
 $route['tutor/getForm'] = 'tutors/getForm';
 $route['tutor/add/(:any)'] = 'tutors/add/$1';
 $route['tutor/updateData/(:any)'] = 'tutors/updateData/$1';

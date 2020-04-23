@@ -1,6 +1,8 @@
 <div class="container mt-5">
 <h1 class="mb-5"><?= $module['module_name']; ?> Module</h1>
-
+<a class="btn btn-primary" href="attendance/<?= $module['module_code'] ?>">See Attendances</a>
+<a class="btn btn-primary" href="grades/<?= $module['module_code'] ?>">See Grades</a>
+<a class="btn btn-primary" href="assignments/<?= $module['module_code'] ?>">See Assignmnets</a>
 <?php foreach ($module_files as $module_file) { ?>
     <div class="card">
         <div class="card-body">

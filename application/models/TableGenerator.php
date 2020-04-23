@@ -17,7 +17,7 @@
         }
 
         public function getHTML(){
-            $table = '<table class="table table-sm table-bordered table-hover"><thead>';
+            $table = '<table class="table table-sm table-hover"><thead class="thead-light">';
             foreach($this->tableHead as $tableHeading){ 
                 $table .= '<th>' . $tableHeading . '</th>';
             }

@@ -1,6 +1,6 @@
 <div class="timebar">
     <div>
-        <h4>Current Date</h4>
+        <p class="pt-2 m-0 ml-3 text-white"><?= date("d").'th '.date("M Y") ?></p>
     </div>
     <div class="logout-link">
         <?php if ($this->session->userdata('student_logged')) :?>
@@ -32,17 +32,17 @@
             <ul class="navbar-nav ml-auto">
                 <?php if ($this->session->userdata('student_logged')){ ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="modules">Modules</a>
+                        <a class="nav-link" href="<?= site_url() ?>student/modules">Modules</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="assignments">Assignments</a>
+                        <a class="nav-link" href="<?= site_url() ?>student/assignments">Assignments</a>
                     </li>                    
                     <li class="nav-item">
-                        <a class="nav-link" href="grades">Grades</a>
+                        <a class="nav-link" href="<?= site_url() ?>student/grades">Grades</a>
                     </li>  
-                    <li class="nav-item">
-                        <a class="nav-link" href="attendance">Attendance</a>
-                    </li>  
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="<?= site_url() ?>student/attendance">Attendance</a>
+                    </li>   -->
                 <?php } elseif(($this->session->userdata('type') == 2)) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Leader</a>
