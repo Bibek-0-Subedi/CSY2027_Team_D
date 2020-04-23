@@ -1,3 +1,5 @@
+<?php if(($this->session->userdata('type')) == 3) {?>
+	
 <div class="container mt-5">
 	<!-- begin quick notification panel  -->
 
@@ -24,3 +26,8 @@
 		</div>
 	</div>
 </div>
+<?php }
+
+else {
+    redirect('admin/login');
+}?> 

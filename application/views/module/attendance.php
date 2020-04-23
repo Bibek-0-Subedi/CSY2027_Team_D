@@ -1,3 +1,4 @@
+<?php if(($this->session->userdata('type')) == 3) {?>
 <div class="container mt-5">
     <h2>Attendances</h2>
     <h5>Date: <?= $this->uri->segment(4); ?></h5>
@@ -41,3 +42,9 @@
     
     </ul>
 </div>
+
+<?php }
+
+else {
+    redirect('admin/login');
+}?>

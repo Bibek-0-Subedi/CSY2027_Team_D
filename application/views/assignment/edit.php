@@ -1,19 +1,33 @@
 <?php if(($this->session->userdata('type')) == 3) {?>
-<h2> EDIT ASSIGNMENT -FROM HERE- </h2>
 
-<?php echo form_open(base_url('assignment/edit/' . $id )) ;?>
-        <div class="form-group col-md-4">
-            <label>Assignment Name</label>
-            <input type="text" class="form-control" name="name">
+<div class="container-fluid">
+    <h2 class="bg-content"> Edit </h2>
+    <?php echo validation_errors(); ?>
+   
+    <form action="<?= site_url() ?>assignment/edit/<?= $modules['file_id'] ?>" method="POST" enctype="multipart/form-data">    
 
+        <div class="form-group row">
+             <label for="name" class="col-sm-2">Assignment: </label>
+             <input type="text" class="form-control col-sm-2" value="<?= $modules['filename']?>" name="name"> 
         </div>
- 
+        <div class="form-group row">
+             <label for="deadline" class="col-sm-2">Deadline: </label>
+             <input type="datetime-local" value="<?= $modules['description']?>" class="form-control col-sm-2" name="description"> 
+        </div>
+        <div class="form-group row">
+            <label for="materials" class="col-sm-2">Upload Materials Here: </label>
+            <input type="file" value="<?= $modules['file']?>" class="form-control col-sm-2" name="file">
+            <small class="form-text text-muted">Assignment files for students</small>
+        </div>
+        <div class="form-group row">
+            <input type="hidden" class="form-control" name="module_code" value="<?= $modules['module_id']?>">
+        </div>
+
         <button type="submit" class="btn uniBtn mx-sm-4" name="upload">Upload</button>
     </form>
-
- <?php } 
+</div>
+<?php }
 
 else {
-	echo "not a tutor should redirect using redirect function";
-}?>	
-
+    redirect('admin/login');
+}?> 

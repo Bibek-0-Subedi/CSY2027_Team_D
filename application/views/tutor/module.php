@@ -1,3 +1,5 @@
+<?php if(($this->session->userdata('type')) == 3) {?>
+
 <div class="container-fluid mt-4 ml-4">
 	<div class="row">
                 <h4>Modules You Are Assigned To: </h4>
@@ -12,3 +14,9 @@
 		<?php } ?>
 	</div>
 </div>
+
+<?php }
+
+else {
+    redirect('admin/login');
+}?>

@@ -1,3 +1,4 @@
+<?php if(($this->session->userdata('type')) == 3) {?>
 
 <div class="container-fluid mt-4 ml-4">
 	<h4 class="bg-content">Profile Details </h4>
@@ -31,3 +32,9 @@
     	</div>
 	</div>
 </div>
+
+<?php }
+
+else {
+    redirect('admin/login');
+}?>

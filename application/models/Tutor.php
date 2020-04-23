@@ -7,7 +7,6 @@ class Tutor extends CI_model{
 		parent::__construct();
 		$this->load->database();
 	}
-
 	public function select(){
 		$this->db->where('module_leader', $this->session->userdata('id'));
 		$result = $this->db->get('modules');
@@ -20,8 +19,7 @@ class Tutor extends CI_model{
     	$result = $this->db->where('module_code', $id)->get('student_modules');
         return $result->result_array();
     }
-
- 	 public function updateData($id){
+ 	public function updateData($id){
     	$data = array(
     		'firstname' => $this->input->post('firstname'),
     		'middlename' => $this->input->post('middlename'),
@@ -32,5 +30,15 @@ class Tutor extends CI_model{
     	$this->db->where('staff_id', $id);
     	$this->db->update('staff', $data);
     }
+	public function attendance($id)
+	{    
+    $result = $this->db->where('student_id', $id)->get('attendence');
+    return $result->result_array();
+	}
+	public function grade($id)
+	{    
+    $result = $this->db->where('student_id', $id)->get('assignments');
+    return $result->result_array();
+	}
 }   
 

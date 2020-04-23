@@ -1,5 +1,4 @@
-
-<div class="container mt-5">
+<?php if(($this->session->userdata('type')) == 3) {?>
 
 <div class="container-fluid">
     <div class="pl-sm-2 pr-sm-2 mt-2">
@@ -10,11 +9,12 @@
         <div class="row mt-3 float-right">
             <a href="<?= site_url() ?>tutor/module" class="btn btn-primary"> Back </a>
         </div>
-         <div class="row mt-3">
+        <div class="row mt-3">
             <a href="<?= site_url() ?>module/add/<?= $modules['module_code'] ?>" class="btn btn-primary"> Add Material </a>
         </div>
         <div class="row mt-3">
          <a href="<?= site_url().'module' ?>/attendance/<?= $modules['module_code'].'/'.date('Y-m-d') ?>" class="btn btn-primary ml-5">Take attendance</a>
+        <a class="btn btn-primary ml-5" href="<?= site_url() ?>assignment/index/<?=$modules['module_code']?>">View Assignment</a>
          </div>
         <!-- begin table structure -->
         <div class="row mt-3 ">
@@ -38,16 +38,20 @@
                             <tr>
                                 <td><?= $module_file['module_id'] ?></td>
                                 <td><?= $module_file['description'] ?></td>
-                                 <td><a class="" href="<?= base_url('assets/module_files/' . $module_file['file']); ?>"><?= $module_file['file'] ?></a>
-                                    <a class="pull-right mt-3" role="button" href="<?= site_url() ?>assets/module_files/<?= $module_file['file'] ?>">View</a></td>
+                                 <td><a class="" href="<?= site_url() ?>assets/module_files/<?= $module_file['file'] ?>" download="<?= $module_file['filename'] ?>"><?= $module_file['file'] ?></a>
                                 <td><?= $module_file['filename'] ?></td>
                                 <td><?= $module_file['created_at'] ?></td>
                                 <td class=""style="display: flex; justify-content: space-around;">
-                                    <a href="<?= site_url() ?>module/update/<?php echo $module_file['module_id']; ?>" class="btn btn-success">Edit</a>
-                                    <!-- <?php echo form_open('admin/module/'.$module['module_code'] ); ?>
+                                    <a href="<?= site_url() ?>module/update/<?php echo $module_file['file_id']; ?>" class="btn btn-success">Edit</a>
+                                    <?php if($module_file['archive'] == '0'){ ?>
+                                    <?php echo form_open('module/'.$module_file['file_id'] ); ?>
                                         <input type="submit" class="btn btn-info" name="archive" value="Archive">
-                                    </form> -->
-                                    <?php echo form_open('module/view/'.$module_file['file_id'] ); ?>
+                                    </form>
+                                    <?php } else { echo form_open('module/'.$module_file['file_id'] ); ?>
+                                        <input type="submit" class="btn btn-info" name="unarchive" value="Unarchive">
+                                    </form>
+                                     <?php } ?>
+                                    <?php echo form_open('module/'.$module_file['file_id'] ); ?>
                                         <input type="submit" class="btn btn-danger" name="delete" value="Delete">
                                     </form>
                                 </td>
@@ -66,6 +70,11 @@
         </div>
     </div>
 </div>
-</div>
+
+<?php }
+
+else {
+    redirect('admin/login');
+}?>
 
        

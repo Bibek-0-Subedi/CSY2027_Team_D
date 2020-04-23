@@ -1,3 +1,5 @@
+<?php if(($this->session->userdata('type')) == 3) {?>
+
 <?php if($this->session->userdata('approval') == 0){ ?>
 
 <div class="container-fluid">
@@ -43,3 +45,9 @@
     echo " -- Your  Request Has Been Sent! ";
 
 } ?>
+
+<?php }
+
+else {
+    redirect('admin/login');
+}?>

@@ -67,10 +67,6 @@
                     <li class="nav-item">
                         <a class="nav-link tp-3 mb-2 text-white" href="#">Pat</a>
                     </li>  
-                    <li class="nav-item">
-                        <a class="nav-link tp-3 mb-2 text-white" href="<?= site_url() ?>assignment/index">Assignment</a>
-                    </li>  
-
                  <!-- end for tutor as the user -->      
                 <?php } ?>    
             </ul>

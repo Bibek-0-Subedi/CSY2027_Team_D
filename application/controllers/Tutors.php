@@ -25,7 +25,6 @@ class Tutors extends CI_Controller {
     public function profile($id){
         $this->loadViews('profile', 'Profile');
     }
-    
     public function module(){
 
             $module = $this->tutor->select();
@@ -71,5 +70,14 @@ class Tutors extends CI_Controller {
               }
         }
     }
-   
+    public function attendance($id)
+    {
+        $data['attendances'] = $this->Tutor->attendance($id);
+        $this->loadViews('attendanceRecord', 'Attendance Record', $data);
+    }
+    public function grade($id)
+    {
+        $data['grades'] = $this->Tutor->grade($id);
+        $this->loadViews('gradeRecord', 'Grade Record', $data);
+    } 
 }

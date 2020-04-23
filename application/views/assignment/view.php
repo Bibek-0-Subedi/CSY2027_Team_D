@@ -1,12 +1,13 @@
+<?php if(($this->session->userdata('type')) == 3) {?>
 <div class="container-fluid">
     <div class="pl-sm-2 pr-sm-2 mt-2">
         <div class="row bg-content">
             <h3>Assignment</h3>
         </div>
         <!-- Assignment Back Button -->
-        <div class="row mt-3 float-right">
+        <!-- <div class="row mt-3 float-right">
             <a href="<?= site_url() ?>assignment/index" class="btn btn-primary "> <-Back</a>
-        </div>
+        </div> -->
         <div class="row mt-4">
             <div class="col-lg-9 ml-n3">
                 <form class="form-inline" method="POST">
@@ -57,13 +58,18 @@
                                 <td><?= $assignment['submission_date'] ?></td>
                                 <td><?= $assignment['created_date'] ?></td>
                                 <td style="display: flex; justify-content: space-around;">
-                                    <a href="moduleDetail/<?php echo $assignment['assignment_id']; ?>" class="btn btn-info">Grade</a>
-                                  <!--   <?php echo form_open('admin/module/'.$module['module_code'] ); ?>
+                                    <a href="<?= site_url() ?>assignment/grade/<?php echo $assignment['assignment_id']; ?>" class="btn btn-info">Grade</a>
+                                   <?php if($assignment['archive'] == '0'){ ?>
+                                    <?php echo form_open('assignment/view/'.$assignment['assignment_id'] ); ?>
                                         <input type="submit" class="btn btn-info" name="archive" value="Archive">
                                     </form>
-                                    <?php echo form_open('admin/module/'.$module['module_code'] ); ?>
+                                    <?php } else { echo form_open('assignment/view/'.$assignment['assignment_id'] ); ?>
+                                        <input type="submit" class="btn btn-info" name="unarchive" value="Unarchive">
+                                    </form>
+                                     <?php } ?>
+                                    <?php echo form_open('assignment/view/'.$assignment['assignment_id'] ); ?>
                                         <input type="submit" class="btn btn-danger" name="delete" value="Delete">
-                                    </form> -->
+                                    </form>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -79,4 +85,10 @@
         </div>
     </div>
 </div>
+
+<?php }
+
+else {
+    redirect('admin/login');
+}?>
 

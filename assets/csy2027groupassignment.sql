@@ -196,6 +196,8 @@ CREATE TABLE `module_files` (
   `filename` varchar(255) NOT NULL,
   `description` varchar(2048) NOT NULL,
   `file` varchar(255) NOT NULL,
+  `type` int(4) NOT NULL,
+  `archive` int(4) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

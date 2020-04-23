@@ -21,10 +21,14 @@ class Modules extends CI_Controller {
 
     public function view($id = false){
         if($id){
-            if (isset($_POST['archive'])) {
+            if(isset($_POST['archive'])) {
                 $data = ['archive' => '1'];
-                $this->admin->archiveModule($id , $data);
-                redirect('admin/module');
+                $this->Module->archiveFile($id , $data);
+                redirect('tutor/module');
+           }elseif(isset($_POST['unarchive'])) {
+                $data = ['archive' => '0'];
+                $this->Module->archiveFile($id , $data);
+                redirect('tutor/module');
             }elseif(isset($_POST['delete'])){
                 $this->Module->deleteFile($id);
                 redirect('tutor/module');             
@@ -43,7 +47,8 @@ class Modules extends CI_Controller {
    public function add($id) {
 
         $this->form_validation->set_rules('module_date', 'Title', 'required');
-         $this->form_validation->set_rules('description', 'Description', 'required');
+        $this->form_validation->set_rules('description', 'Description', 'required');
+        // $this->form_validation->set_rules('file', 'File', 'required');
 
         if ($this->form_validation->run() === FALSE) {
 
@@ -60,63 +65,11 @@ class Modules extends CI_Controller {
         else {
             $success = $this->Module->addMaterials();
             if($success){
-            redirect('module/view/' . $id);
+            redirect('module/' . $id);
             }
         }
     }
-    public function attendance()
-    {
-        $moduleCode = $this->uri->segment(3);
-
-        $attendanceDate = $this->uri->segment(4);
-        
-        if(!(bool)strtotime($attendanceDate)){
-            redirect('tutor/module');
-        }
-        if(empty($attendanceDate)){
-            $attendanceDate = date('Y-m-d');
-        }
-
-        $data['students'] = $this->Module->attendance($moduleCode, $attendanceDate);
-        $data['attendance'] = $this->Module->getAttendance($moduleCode, $attendanceDate);
-        
-        $this->loadViews('attendance', 'Attendance', $data);
-    }
-
-    public function addAttendance()
-    {
-        // $this->form_validation->set_rules('module_code', 'Module Code', 'trim|required');
-        // $this->form_validation->set_rules('student_id', 'Student Id', 'trim|required|');
-        // $this->form_validation->set_rules('staff_id', 'Staff Id', 'trim|required');
-        // $this->form_validation->set_rules('date', 'Date', 'trim|required');
-        // $this->form_validation->set_rules('status', 'Status', 'trim|required');
-
-        $time = strtotime($this->input->post('date'));
-        $date = date('Y-m-d',$time);
-
-        $this->Module->addAttendance($date);
-
-        // if ($this->form_validation->run() === FALSE) {
-        //     $data['info'] = 'failed';
-        // }else{
-        //     $time = strtotime($this->input->post('date'));
-        //     $date = date('Y-m-d',$time);
-
-        //     $data['info'] = [
-        //         'module_code' => $this->input->post('module_code'),
-        //         'student_id' => $this->input->post('student_id'),
-        //         'staff_id' => $this->input->post('staff_id'),
-        //         'date' => $date,
-        //         'status' => $this->input->post('status')
-        //     ];
-
-        //     $this->Module->addAttendance($data);
-        // }
-
-        $this->loadViews('addAttendance', 'Add Attendance');
-    }
-
-     public function update($id){
+    public function update($id){
     
         $this->form_validation->set_rules('module_date', 'Title', 'required');
          $this->form_validation->set_rules('description', 'Description', 'required');
@@ -134,11 +87,7 @@ class Modules extends CI_Controller {
                   $this->Module->updateMaterials($id); 
                      redirect('tutor/module');
               }
-              else{
-                    echo "Request has been sent!";
-              }
         }
-    } 
-
+    }
 }
 
