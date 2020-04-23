@@ -8,7 +8,7 @@
 		<?php foreach ($modules as $module) { ?>
     	<div class="card">
         	<div class="card-body">
-				<a class="mb-2" href="<?= site_url() ?>module/<?= $module['module_code'] ?>"><?= $module['module_name']; ?> Module</a>
+				<a class="mb-2" href="<?= site_url() ?>tutor/module/<?= $module['module_code'] ?>"><?= $module['module_name']; ?> Module</a>
         	</div>
     	</div>
 		<?php } ?>

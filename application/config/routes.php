@@ -36,12 +36,12 @@ $route['admin/moduleDetail/(:any)'] = 'admins/moduleDetail/$1';
 $route['admin/moduleCourse'] = 'admins/archiveModule';
 
 //route for assignment
-$route['module/assignment/index/(:any)'] = 'assignments/index/$1';
-$route['module/assignment/add/(:any)'] = 'assignments/add/$1';
-$route['module/assignment/edit/(:any)'] = 'assignments/update/$1';
-$route['module/assignment/view/(:any)'] = 'assignments/view/$1';
-$route['module/assignment/upload'] = 'assignments/upload';
-$route['module/assignment/grade/(:any)'] = 'assignments/grade/$1';
+$route['tutor/module/assignment/index/(:any)'] = 'assignments/index/$1';
+$route['tutor/module/assignment/add/(:any)'] = 'assignments/add/$1';
+$route['tutor/module/assignment/edit/(:any)'] = 'assignments/update/$1';
+$route['tutor/module/assignment/view/(:any)'] = 'assignments/view/$1';
+$route['tutor/module/assignment/upload'] = 'assignments/upload';
+$route['tutor/module/assignment/grade/(:any)'] = 'assignments/grade/$1';
 
 //student pages
 $route['student/dashboard'] = 'students/dashboard';
@@ -67,17 +67,17 @@ $route['tutor/module/(:any)'] = 'tutors/module/$1';
 $route['tutor/getForm'] = 'tutors/getForm';
 $route['tutor/add/(:any)'] = 'tutors/add/$1';
 $route['tutor/updateData/(:any)'] = 'tutors/updateData/$1';
-$route['module/studentList/(:any)'] = 'tutors/studentList/$1';
-$route['module/grade/(:any)'] = 'tutors/grade/$1';
+$route['tutor/module/studentList/(:any)'] = 'tutors/studentList/$1';
+$route['tutor/module/grade/(:any)'] = 'tutors/grade/$1';
 
 //module pages
 $route['module/addAttendance'] = 'modules/addAttendance';
 $route['module/attendance/(:any)/(:any)'] = 'modules/attendance/$1/$2';
-$route['module/(:any)'] = 'modules/view/$1';
+$route['tutor/module/(:any)'] = 'modules/view/$1';
 
 //module tutor pages
-$route['module/update/(:any)'] = 'modules/update/$1';
-$route['module/add/(:any)'] = 'modules/add/$1';
+$route['tutor/module/update/(:any)'] = 'modules/update/$1';
+$route['tutor/module/add/(:any)'] = 'modules/add/$1';
 
 
 $route['default_controller'] = 'welcome';

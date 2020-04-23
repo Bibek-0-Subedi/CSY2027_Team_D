@@ -4,7 +4,7 @@
     <h2 class="bg-content"> <?= $modules['module_name']?> - Add Assignment </h2>
     <?php echo validation_errors(); ?>
    
-    <form action="<?= site_url(). 'module' ?>/assignment/add/<?= $modules['module_code'] ?>" method="POST" enctype="multipart/form-data">    
+    <form action="<?= site_url() ?>tutor/module/assignment/add/<?= $modules['module_code'] ?>" method="POST" enctype="multipart/form-data">    
 
         <div class="form-group col-md-4">
              <label>Assignment Name: </label>

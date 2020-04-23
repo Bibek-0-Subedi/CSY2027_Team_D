@@ -58,16 +58,16 @@
                                 <td><?= $assignment['submission_date'] ?></td>
                                 <td><?= $assignment['created_date'] ?></td>
                                 <td style="display: flex; justify-content: space-around;">
-                                    <a href="<?= site_url(). 'module'?>/assignment/grade/<?php echo $assignment['assignment_id']; ?>" class="btn btn-info">Grade</a>
+                                    <a href="<?= site_url(). 'tutor/module'?>/assignment/grade/<?php echo $assignment['assignment_id']; ?>" class="btn btn-info">Grade</a>
                                    <?php if($assignment['archive'] == '0'){ ?>
-                                    <?php echo form_open('module/assignment/view/'.$assignment['assignment_id'] ); ?>
+                                    <?php echo form_open('tutor/module/assignment/view/'.$assignment['assignment_id'] ); ?>
                                         <input type="submit" class="btn btn-info" name="archive" value="Archive">
                                     </form>
-                                    <?php } else { echo form_open('module/assignment/view/'.$assignment['assignment_id'] ); ?>
+                                    <?php } else { echo form_open('tutor/module/assignment/view/'.$assignment['assignment_id'] ); ?>
                                         <input type="submit" class="btn btn-info" name="unarchive" value="Unarchive">
                                     </form>
                                      <?php } ?>
-                                    <?php echo form_open('module/assignment/view/'.$assignment['assignment_id'] ); ?>
+                                    <?php echo form_open('tutor/module/assignment/view/'.$assignment['assignment_id'] ); ?>
                                         <input type="submit" class="btn btn-danger" name="delete" value="Delete">
                                     </form>
                                 </td>

@@ -31,7 +31,7 @@ class Module extends CI_model{
 	public function addMaterials(){
 
 			$config['upload_path'] = './assets/module_files/';
-			$config['allowed_types'] = 'jpg|jpeg|png|.pdf|doc|zip|.ppt|.pptx';
+			$config['allowed_types'] = '.jpg|.jpeg|.png|.pdf|.doc|.zip|.ppt|.pptx';
             
             $this->load->library('upload', $config);
 			
@@ -55,7 +55,7 @@ class Module extends CI_model{
     public function updateMaterials($id){
         
             $config['upload_path'] = './assets/module_files/';
-            $config['allowed_types'] = 'jpg|jpeg|png|pdf|doc|zip|ppt|pptx';
+            $config['allowed_types'] = '.jpg|.jpeg|.png|.pdf|.doc|.zip|.ppt|.pptx';
             
             $this->load->library('upload', $config);
 
