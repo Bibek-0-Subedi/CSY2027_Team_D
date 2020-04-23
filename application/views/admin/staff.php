@@ -1,21 +1,38 @@
-<div class="container-fluid">
-    <div class="pl-sm-2 pr-sm-2 mt-2">
-        <div class="row bg-content">
-            <h3>Staffs</h3>
-        </div>
+<div class="container-fluid mx-3">
+    <!-- <div class="mt-2"> -->
+    <div class="row border-bottom my-2">
+        <h2>Staff</h2>
+    </div>
         <!-- add staff button -->
-        <div class="row mt-3">
-            <a href="staffDetail" class="btn btn-primary">Add Staff</a>
+        <div class="row mt-3 mb-5 bg-light py-4 rounded">
+            <!-- <a href="staffDetail" class="btn btn-primary">Add Staff</a> -->
+            <div class="col-md-9 text-info pt-3 d-flex">
+                <div class="large-icon px-4">
+                    <i class="fas fa-user-tie"></i>
+                </div> 
+                <div>
+                    <h4>Total Staffs</h4>
+                    <h1 class="big-icon ml-5"><?= count($staff) ?></h1>
+                </div>
+            </div>
+            <div class="col-md-2">
+              <a href="staffDetail" class="btn text-primary border border-primary">
+                  <div class="medium-icon px-5">
+                      <i class="fa fa-user-plus"></i>
+                  </div>    
+                  <h5>Add Staff</h5>
+              </a>
+          </div>
         </div>
         <div class="row mt-4">
-            <div class="col-lg-9 ml-n3">
+            <div class="col-lg-9 mb-4">
                 <form class="form-inline" method="POST">
-                    <select class="custom-select mr-sm-2">
+                    <select class="custom-select mr-4">
                         <option selected>Module</option>
                         <option value="Module1">Level 4</option>
                         <option value="Module2">Level 5</option>
                     </select>
-                    <select class="custom-select mr-sm-2">
+                    <select class="custom-select mr-4">
                         <option selected>Course</option>
                         <option value="course1">Course 1</option>
                         <option value="course2">Course 2</option>
@@ -33,11 +50,9 @@
                         <tr>
                             <th>Staff Id</th>
                             <th data-filter-control="select">Status</th>
-                            <th data-filter-control="select">Firstname</th>
-                            <th data-filter-control="select">Middlename</th>
-                            <th data-filter-control="select">Lastname</th>
-                            <th data-filter-control="select">Address</th>
-                            <th data-filter-control="select">Contact</th>
+                            <th data-filter-control="select">Full Name</th>
+                            <!-- <th data-filter-control="select">Address</th> -->
+                            <!-- <th data-filter-control="select">Contact</th> -->
                             <th data-filter-control="select">Email</th>
                             <th data-filter-control="select">Subject</th>
                             <th data-filter-control="select">Role</th>
@@ -57,11 +72,9 @@
                                     }
                                     ?>
                                 </td>
-                                <td><?= $staff['firstname'] ?></td>
-                                <td><?= $staff['middlename'] ?></td>
-                                <td><?= $staff['surname'] ?></td>
-                                <td><?= $staff['address'] ?></td>
-                                <td><?= $staff['contact'] ?></td>
+                                <td><?= $staff['firstname'].' '.$staff['middlename'].' '.$staff['surname'] ?></td>
+                                <!-- <td><?= $staff['address'] ?></td> -->
+                                <!-- <td><?= $staff['contact'] ?></td> -->
                                 <td><?= $staff['email'] ?></td>
                                 <td>
                                     <?php if ($staff['subject']) {
@@ -104,7 +117,7 @@
                 </script>
             </div>
         </div>
-    </div>
+    <!-- </div> -->
 </div>
 <!-- Modal for the Assigning Course  -->
 <div class="modal fade" id="assignCourse" tabindex="-1" role="dialog" aria-hidden="true">

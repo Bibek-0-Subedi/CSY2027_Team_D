@@ -79,6 +79,39 @@
         // $this->db->update('admission', ['assigned_id' => ]);
         
     }
+
+    public function sendEmail()
+    {
+
+        $to =  'bhusal.001aditya@gmail.com';  // User email pass here
+        $subject = 'Welcome To CodingMantra';
+
+        $from = 'shadyrock101@gmail.com';              // Pass here your mail id
+
+        $emailContent = 'Hello and Welcome Here';
+                    
+        $config['protocol']    = 'smtp';
+        $config['smtp_host']    = 'ssl://smtp.gmail.com';
+        $config['smtp_port']    = '465';
+        // $config['smtp_timeout'] = '7';
+        $config['smtp_user']    = 'shadyrock101@gmail.com';    //Important
+        $config['smtp_pass']    = 'Shady Rock 101 149 !$(';  //Important
+        $config['charset']    = 'utf-8';
+        // $config['crlf']    = "\r\n";
+        $config['newline']    = "\r\n";
+        // $config['smtp_crypto'] = 'tls';
+        $config['mailtype'] = 'text'; // or html
+        // $config['validation'] = TRUE; // bool whether to validate email or not 
+
+        $this->email->initialize($config);
+        // $this->email->set_mailtype("text");
+        $this->email->from($from, 'Aaditya');
+        $this->email->to($to);
+        $this->email->subject($subject);
+        $this->email->message($emailContent);
+        $this->email->send();
+
+    }
     
     public function tableGenerator($data)
     {

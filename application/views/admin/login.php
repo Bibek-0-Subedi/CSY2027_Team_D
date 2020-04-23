@@ -1,7 +1,7 @@
 <?php echo validation_errors(); ?>
-<div class="container loginform mt-5 mb-5">
-    <h2>Staff Login</h2>
-    <?php echo form_open('admin/login',['class' => 'container']) ;?>
+<div class="container loginform mt-20 mb-20 col-md-4">
+    <h2 class="text-center">Staff Login</h2>
+    <?php echo form_open('admin/login',['class' => '']) ;?>
         <div class="form-group">
             <label>Username</label>
             <input type="email" class="form-control" name="email">

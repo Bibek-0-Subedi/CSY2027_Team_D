@@ -1,21 +1,38 @@
-<div class="container-fluid">
-    <div class="pl-sm-2 pr-sm-2 mt-2">
-        <div class="row bg-content">
-            <h3>Course</h3>
-        </div>
-        <!-- add Module button -->
-        <div class="row mt-3">
-            <a href="moduleDetail" class="btn btn-primary">Add Module</a>
+<div class="container-fluid mx-3">
+    <!-- <div class="mt-2"> -->
+    <div class="row border-bottom my-2">
+        <h2>Module</h2>
+    </div>
+        <!-- add staff button -->
+        <div class="row mt-3 mb-5 bg-light py-4 rounded">
+            <!-- <a href="staffDetail" class="btn btn-primary">Add Module</a> -->
+            <div class="col-md-9 text-info pt-3 d-flex">
+                <div class="large-icon px-4">
+                    <i class="fas fa-book-open"></i>
+                </div> 
+                <div>
+                    <h4>Total Modules</h4>
+                    <h1 class="big-icon ml-5"><?= count($modules) ?></h1>
+                </div>
+            </div>
+            <div class="col-md-2">
+              <a href="moduleDetail" class="btn text-primary border border-primary">
+                  <div class="medium-icon px-5">
+                      <i class="fa fa-user-plus"></i>
+                  </div>    
+                  <h5>Add Module</h5>
+              </a>
+          </div>
         </div>
         <div class="row mt-4">
-            <div class="col-lg-9 ml-n3">
+            <div class="col-lg-9 mb-4">
                 <form class="form-inline" method="POST">
-                    <select class="custom-select mr-sm-2">
+                    <select class="custom-select mr-4">
                         <option selected>Module</option>
                         <option value="Module1">Level 4</option>
                         <option value="Module2">Level 5</option>
                     </select>
-                    <select class="custom-select mr-sm-2">
+                    <select class="custom-select mr-4">
                         <option selected>Course</option>
                         <option value="course1">Course 1</option>
                         <option value="course2">Course 2</option>

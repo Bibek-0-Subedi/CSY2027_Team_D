@@ -91,4 +91,19 @@ class Students extends CI_Controller {
 
     }
 
+    public function attendance($id)
+    {
+        
+        // $moduleCode = $this->uri->segment(3);
+        // if(!empty($id)){
+            $data['module'] = $this->student->module($id);
+            $data['attendances'] = $this->student->attendance($this->session->userdata('student_id'), $id);
+            $this->loadViews('attendance', 'Attendance', $data);
+        // }
+
+        // $attendanceDate = $this->uri->segment(4);
+
+        
+    }
+
 }

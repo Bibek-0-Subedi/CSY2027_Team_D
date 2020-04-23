@@ -55,6 +55,14 @@
             ));
             return $module_files->result_array();
         }
+
+        public function attendance($id, $module)
+        {    
+            $result = $this->db->where('student_id', $id)->where('module_code', $module)->get('attendence');
+            return $result->result_array();
+            
+            
+        }
     }
 /* End of file Student.php */
 

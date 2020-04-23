@@ -49,8 +49,11 @@ $route['assignment/update/(:any)'] = 'assignments/add/$1';
 //student pages
 $route['student/dashboard'] = 'students/dashboard';
 $route['student/modules'] = 'students/modules';
+$route['student/module/attendance/(:any)'] = 'students/attendance/$1';
 $route['student/module/(:any)'] = 'students/module/$1';
 $route['student/login'] = 'students/login';
+$route['student/logout'] = 'students/logout';
+// $route['student/attendance'] = 'students/attendance';
 $route['student/logout'] = 'students/logout';
 
 //route for the pages

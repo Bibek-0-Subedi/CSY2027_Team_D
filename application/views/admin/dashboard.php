@@ -1,27 +1,40 @@
-<div class="container-fluid">
+<div class="container-fluid mx-3">
         <div class="pl-sm-2 pr-sm-2 mt-2">
-            <div class="row">
-                <h3>Dashboard</h3>
+            <div class="row border-bottom mb-3">
+                <h2>Dashboard</h2>
             </div>
-            <!-- begin quick notification panel  -->
-            <div class="row mt-1 notification">
-                Quick Notification
-            </div>
-            <!-- end quick notification panel  -->
-            <div class="row mt-1">
-                <div class="container-fluid">
-                    <div class="row">
-                        <!-- begin first column -->
-                        <div class="col-lg-6 bg-dark">
-                                first
-                        </div>   
-                        <!-- end first column -->
-                        <!-- begin second column -->
-                        <div class="col-lg-6 bg-success">
-                                second
-                        </div>
-                        <!-- end second column -->
-                        </div>
+            <!-- <h5 class="pl-1 mb-4"></h5> -->
+            <div class="row notifs">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="m-0">Notifications</h5>    
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <a href="#">
+                                <h5>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</h5>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis quibusdam mollitia cumque! Eveniet nostrum sapiente ipsum voluptates nesciunt aliquam explicabo, illo officia sint doloribus hic nobis quis consectetur necessitatibus non?</p>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#">
+                                <h5>Officia sint doloribus hic nobis quis consectetur</h5>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis quibusdam mollitia cumque! Eveniet nostrum sapiente ipsum voluptates nesciunt aliquam explicabo, illo officia sint doloribus hic nobis quis consectetur necessitatibus non?</p>
+                            </a>
+                        </li>        
+                        <li class="list-group-item">
+                            <a href="#">
+                                <h5>Perspiciatis quibusdam mollitia cumque!</h5>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis quibusdam mollitia cumque! Eveniet nostrum sapiente ipsum voluptates nesciunt aliquam explicabo, illo officia sint doloribus hic nobis quis consectetur necessitatibus non?</p>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#">
+                                <h5>Consectetur adipisicing elit</h5>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis quibusdam mollitia cumque! Eveniet nostrum sapiente ipsum voluptates nesciunt aliquam explicabo, illo officia sint doloribus hic nobis quis consectetur necessitatibus non?</p>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 <?php echo validation_errors(); ?>
-<div class="container loginform">
+<div class="container loginform mt-20 mb-20 col-md-4">
     <h2>Student Login</h2>
     <?php echo form_open('students/login',['class' => '']) ;?>
         <div class="form-group">
