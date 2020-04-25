@@ -21,14 +21,14 @@ class Assignments extends CI_Controller {
             if(isset($_POST['archive'])) {
                 $data = ['archive' => '1'];
                 $this->Assignment->archiveFile($id , $data);
-                redirect('tutor/module');
+                redirect('tutor/modules');
            }elseif(isset($_POST['unarchive'])) {
                 $data = ['archive' => '0'];
                 $this->Assignment->archiveFile($id , $data);
-                redirect('tutor/module');
+                redirect('tutor/modules');
             }elseif(isset($_POST['delete'])){
                 $this->Assignment->deleteFile($id);
-                redirect('tutor/module');             
+                redirect('tutor/modules');             
             }
         }
         $assignment = $this->Assignment->viewAssignment($id);
@@ -45,14 +45,14 @@ class Assignments extends CI_Controller {
             if(isset($_POST['archive'])) {
                 $data = ['archive' => '1'];
                 $this->Assignment->archiveAssignment($id , $data);
-                redirect('tutor/module');
+                redirect('tutor/modules');
            }elseif(isset($_POST['unarchive'])) {
                 $data = ['archive' => '0'];
                 $this->Assignment->archiveAssignment($id , $data);
-                redirect('tutor/module');
+                redirect('tutor/modules');
             }elseif(isset($_POST['delete'])){
                 $this->Assignment->deleteAssignment($id);
-                redirect('tutor/module');             
+                redirect('tutor/modules');             
             }
         }
         $data['assignments'] = $this->Assignment->getTable('module_code', $id, 'assignments');
@@ -79,14 +79,14 @@ class Assignments extends CI_Controller {
         else {
             $success = $this->Assignment->add();
             if($success){
-            redirect('assignment/index/' . $id);
+            redirect('tutor/module/assignment/index/' . $id);
             }
         }
     }
     public function update($id){
     
         $this->form_validation->set_rules('name', 'Assignment Name', 'required');
-         $this->form_validation->set_rules('description', 'Description', 'required');
+         $this->form_validation->set_rules('description', 'Deadline', 'required');
 
         if($this->form_validation->run() === FALSE){
                  $moduleF = $this->Assignment->selectFile($id);
@@ -98,7 +98,7 @@ class Assignments extends CI_Controller {
         }   
         else{   
                   $this->Assignment->update($id); 
-                     redirect('tutor/module');
+                     redirect('tutor/modules');
         }
     }
     public function grade($id) {
@@ -113,7 +113,7 @@ class Assignments extends CI_Controller {
         }
         else {
              $this->Assignment->grade($id);
-            redirect('tutor/module');
+            redirect('tutor/modules');
             
        }    
         

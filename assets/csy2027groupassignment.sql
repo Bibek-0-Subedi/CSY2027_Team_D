@@ -73,6 +73,7 @@ CREATE TABLE `assignments` (
   `student_id` int(12) NOT NULL,
   `assignment_file` varchar(255) NOT NULL,
   `submission_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `archive` int(4) NOT NULL DEFAULT 0,
   `created_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

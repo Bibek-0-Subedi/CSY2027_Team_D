@@ -4,7 +4,7 @@
     <h2 class="bg-content"> Edit </h2>
     <?php echo validation_errors(); ?>
    
-    <form action="<?= site_url() ?>assignment/edit/<?= $modules['file_id'] ?>" method="POST" enctype="multipart/form-data">    
+    <form action="<?= site_url() ?>tutor/module/assignment/edit/<?= $modules['file_id'] ?>" method="POST" enctype="multipart/form-data">    
 
         <div class="form-group row">
              <label for="name" class="col-sm-2">Assignment: </label>

@@ -24,14 +24,14 @@ class Modules extends CI_Controller {
             if(isset($_POST['archive'])) {
                 $data = ['archive' => '1'];
                 $this->Module->archiveFile($id , $data);
-                redirect('tutor/module');
+                redirect('tutor/modules');
            }elseif(isset($_POST['unarchive'])) {
                 $data = ['archive' => '0'];
                 $this->Module->archiveFile($id , $data);
-                redirect('tutor/module');
+                redirect('tutor/modules');
             }elseif(isset($_POST['delete'])){
                 $this->Module->deleteFile($id);
-                redirect('tutor/module');             
+                redirect('tutor/modules');             
             }
         }
         $module_files = $this->Module->module_files($id);
@@ -65,7 +65,7 @@ class Modules extends CI_Controller {
         else {
             $success = $this->Module->addMaterials();
             if($success){
-            redirect('module/' . $id);
+            redirect('tutor/module/' . $id);
             }
         }
     }
@@ -85,7 +85,7 @@ class Modules extends CI_Controller {
         else{   
               if($this->session->userdata('approval') == 0){
                   $this->Module->updateMaterials($id); 
-                     redirect('tutor/module');
+                     redirect('tutor/modules');
               }
         }
     }

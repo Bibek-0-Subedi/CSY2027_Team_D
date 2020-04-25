@@ -5,9 +5,6 @@
         <div class="row bg-content">
             <h2> Student Record </h2>
         </div>
-        <div class="row ml-4 mt-3 float-right">
-            <a href="<?= site_url() ?>tutor/student" class="btn btn-primary"> Back </a>
-        </div>
         <div class="row mt-3 ">
             <div class="container-fluid">
                  <?php foreach ($students as $student) { ?>
@@ -17,8 +14,8 @@
                                 <a> <?= $student['middlename'] ?></a>
                                 <a><?= $student['surname'] ?></a>
                                 <br><a> Email: <?= $student['email'] ?></a><br><br>
-                                <a href="<?= site_url() ?>tutor/grade/<?= $student['student_id']?>" class="pull-right">View Grade Record</a>
-                                <a href="<?= site_url() ?>tutor/attendance/<?= $student['student_id']?>" class="">View Attendance Record</a>
+                                <a href="<?= site_url() ?>tutor/module/grade/<?= $student['student_id']?>" class="pull-right">View Grade Record</a>
+                                <a href="<?= site_url() ?>tutor/module/attendance/<?= $student['student_id']?>" class="">View Attendance Record</a>
                             </div>
                         </div> 
                 <?php } ?>
