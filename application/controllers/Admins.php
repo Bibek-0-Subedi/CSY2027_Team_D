@@ -97,6 +97,7 @@ class Admins extends CI_Controller
                         break;
                 }
             } else {
+                $this->session->set_flashdata('invalid', 'Email or password is incorrect ! Try Again');
                 redirect('admin/login');
             }
         }
@@ -177,17 +178,43 @@ class Admins extends CI_Controller
     {
         if($id){
             if (isset($_POST['archive'])) {
-                $data = ['archive' => '1'];
-                $this->admin->assign_archive_staff($id , $data);
+                $archive = ['archive' => '1'];
+                $this->admin->assign_archive_staff($id , $archive);
+                $this->session->set_flashdata('archived', 'Data Archived Successfully !');
                 redirect('admin/staff');
+                
             }
         }
         elseif(isset($_POST['assignCourse'])){
             $id = $this->input->post('staff_id'); 
-            $data = ['subject' => $this->input->post('subject')];
-            $this->admin->assign_archive_staff($id , $data);
+            $assign = ['subject' => $this->input->post('subject')];
+            $this->admin->assign_archive_staff($id , $assign);
+            $this->session->set_flashdata('assigned', 'Course Assigned Successfully !');
             redirect('admin/staff');            
-        }else{
+        }elseif (isset($_POST['filter'])){
+            if($_POST['status'] == 3){
+                $status = "null";
+            }
+            else{
+                $status = $_POST['status'];
+            }
+            if($_POST['subject'] == 'null'){
+                $sub = "null";
+            }
+            else{
+                $sub = $_POST['subject'];
+            }
+            if($_POST['role'] == 0){
+                $role = "null";
+            }
+            else{
+                $role = $_POST['role'];
+            }
+
+            $data['staff'] = $this->admin->filterStaff($status, $sub, $role);
+            $data['course'] = $this->admin->getAssignableCourse();
+            $this->loadViews('staff', 'Staff', $data);
+        } else{
             $data['staff'] = $this->admin->staff();
             $data['course'] = $this->admin->getAssignableCourse();
             $this->loadViews('staff', 'Staff', $data);
@@ -231,10 +258,12 @@ class Admins extends CI_Controller
             }
         }elseif($id) {
             $this->admin->updateStaff($id);
+            $this->session->set_flashdata('edited', 'Staff Updated Successfully !');
             redirect('admin/staff');
         }
         else{
             $this->admin->addStaff();
+            $this->session->set_flashdata('added', 'Staff Added Successfully !');
             redirect('admin/staff');
         }
     }
@@ -245,14 +274,30 @@ class Admins extends CI_Controller
             if (isset($_POST['archive'])) {
                 $data = ['archive' => '1'];
                 $this->admin->archiveCourse($id , $data);
+                $this->session->set_flashdata('archived', 'Course Archived Successfully !');
                 redirect('admin/course');
             }elseif(isset($_POST['delete'])){
                 $this->admin->deleteCourse($id);
+                $this->session->set_flashdata('deleted', 'Course Deleted Successfully !');
                 redirect('admin/course');            
             }
         }
-        $data['courses'] = $this->admin->course();
-        $this->loadViews('course', 'Course' , $data);
+        elseif (isset($_POST['filter'])) {
+            if($_POST['department_id'] == 0){
+                $department = "";
+            }
+            else{
+                $department = $_POST['department_id'];
+            }
+            $data['department'] = $this->admin->getTable('','','departments');
+            $data['courses'] = $this->admin->course($department);
+            $this->loadViews('course', 'Course' , $data);
+        }
+        else{
+            $data['department'] = $this->admin->getTable('','','departments');
+            $data['courses'] = $this->admin->course();
+            $this->loadViews('course', 'Course' , $data);
+        }
     }
     public function courseDetail($id = false)
     {
@@ -293,10 +338,12 @@ class Admins extends CI_Controller
         }
         elseif($id){
             $this->admin->updateCourse($id);
+            $this->session->set_flashdata('edited', 'Course Edited Successfully !');
             redirect('admin/course');
         }
         else{
             $this->admin->addCourse();
+            $this->session->set_flashdata('added', 'Course Added Successfully !');
             redirect('admin/course');
         }
     }
@@ -306,14 +353,29 @@ class Admins extends CI_Controller
             if (isset($_POST['archive'])) {
                 $data = ['archive' => '1'];
                 $this->admin->archiveModule($id , $data);
+                $this->session->set_flashdata('archived', 'Module Archived Successfully !');
                 redirect('admin/module');
             }elseif(isset($_POST['delete'])){
                 $this->admin->deleteModule($id);
+                $this->session->set_flashdata('archived', 'Module Deleted Successfully !');
                 redirect('admin/module');            
             }
+        }elseif (isset($_POST['filter'])) {
+            if($_POST['course_code'] == 'null'){
+                $course = "";
+            }
+            else{
+                $course = $_POST['course_code'];
+            }
+            $data['course'] = $this->admin->course();        
+            $data['modules'] = $this->admin->module($course);
+            $this->loadViews('module', 'Module' , $data);    
         }
-        $data['modules'] = $this->admin->module();
-        $this->loadViews('module', 'Module' , $data);
+        else{
+            $data['course'] = $this->admin->course();        
+            $data['modules'] = $this->admin->module();
+            $this->loadViews('module', 'Module' , $data);    
+        }
     }
     public function moduleDetail($id = false)
     {
@@ -351,10 +413,12 @@ class Admins extends CI_Controller
         }
         elseif($id){
             $this->admin->updateModule($id);
+            $this->session->set_flashdata('edited', 'Module Deleted Successfully !');
             redirect('admin/module');
         }
         else{
             $this->admin->addModule();
+            $this->session->set_flashdata('added', 'Module Deleted Successfully !');
             redirect('admin/module');
         }
     }

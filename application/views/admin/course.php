@@ -24,20 +24,36 @@
               </a>
           </div>
         </div>
+        <!-- end staff button -->
+        <?php
+            if (!empty($this->session->flashdata('archived'))) { ?>
+            <div class="alert alert-success" role="alert">
+                <?php echo $this->session->flashdata('archived'); ?>
+            </div>
+        <?php } elseif (!empty($this->session->flashdata('edited'))) {?> 
+            <div class="alert alert-success" role="alert">
+                <?php echo $this->session->flashdata('edited'); ?>
+            </div>
+        <?php }elseif (!empty($this->session->flashdata('added'))) { ?>
+            <div class="alert alert-success" role="alert">
+                <?php echo $this->session->flashdata('added'); ?>
+            </div>
+        <?php } elseif (!empty($this->session->flashdata('deleted'))) { ?>
+            <div class="alert alert-success" role="alert">
+                <?php echo $this->session->flashdata('deleted'); ?>
+            </div>
+        <?php } ?>
         <div class="row mt-4">
             <div class="col-lg-9 mb-4">
-                <form class="form-inline" method="POST">
-                    <select class="custom-select mr-4">
-                        <option selected>Module</option>
-                        <option value="Module1">Level 4</option>
-                        <option value="Module2">Level 5</option>
+            <?php echo form_open('admin/course/', ['class' => 'form-inline']); ?>
+                    <select class="custom-select col-sm-2 mr-3" name='department_id'>
+                        <option value="0" >Department</option>
+                        <?php foreach ($department as $dpt) { ?>
+                            <option value="<?= $dpt['department_id'] ?>" <?php if (isset($_POST['name']) && $_POST['name'] == $dpt['department_id']) echo "selected" ; ?>><?= $dpt['name'] ?></option>
+                        <?php } ?>
                     </select>
-                    <select class="custom-select mr-4">
-                        <option selected>Course</option>
-                        <option value="course1">Course 1</option>
-                        <option value="course2">Course 2</option>
-                    </select>
-                    <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" name="filter">Filter</button>
+                    <button class="btn btn-info my-2 my-sm-0 mr-2" type="submit" name="filter">Filter</button>
+                    <a href="" class="btn btn-secondary my-2 my-sm-0" type="button">Clear</a>
                 </form>
             </div>
         </div>
@@ -73,7 +89,7 @@
                                         <input type="submit" class="btn btn-info" name="archive" value="Archive">
                                     </form>
                                     <?php echo form_open('admin/course/'.$course['course_code'] ); ?>
-                                        <input type="submit" class="btn btn-danger" name="delete" value="Delete">
+                                        <input type="submit" class="btn btn-danger" name="delete" onclick="return checkDelete()" value="Delete">
                                     </form>
                                 </td>
                             </tr>
@@ -83,8 +99,10 @@
                 <script>
                     $(document).ready(function() {
                         $('#courseTable').DataTable();
-                        //  $('#courseTable').bootstrapTable();
                     });
+                    function checkDelete(){
+                        return confirm('Do you really want to delete this Course ?');
+                    }
                 </script>
             </div>
         </div>

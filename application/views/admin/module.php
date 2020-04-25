@@ -3,7 +3,7 @@
     <div class="row border-bottom my-2">
         <h2>Module</h2>
     </div>
-        <!-- add staff button -->
+        <!-- add Module button -->
         <div class="row mt-3 mb-5 bg-light py-4 rounded">
             <!-- <a href="staffDetail" class="btn btn-primary">Add Module</a> -->
             <div class="col-md-9 text-info pt-3 d-flex">
@@ -24,20 +24,36 @@
               </a>
           </div>
         </div>
+        <!-- add module button  -->
+        <?php
+            if (!empty($this->session->flashdata('archived'))) { ?>
+            <div class="alert alert-success" role="alert">
+                <?php echo $this->session->flashdata('archived'); ?>
+            </div>
+        <?php } elseif (!empty($this->session->flashdata('edited'))) {?> 
+            <div class="alert alert-success" role="alert">
+                <?php echo $this->session->flashdata('edited'); ?>
+            </div>
+        <?php }elseif (!empty($this->session->flashdata('added'))) { ?>
+            <div class="alert alert-success" role="alert">
+                <?php echo $this->session->flashdata('added'); ?>
+            </div>
+        <?php } elseif (!empty($this->session->flashdata('deleted'))) { ?>
+            <div class="alert alert-success" role="alert">
+                <?php echo $this->session->flashdata('deleted'); ?>
+            </div>
+        <?php } ?>
         <div class="row mt-4">
             <div class="col-lg-9 mb-4">
-                <form class="form-inline" method="POST">
-                    <select class="custom-select mr-4">
-                        <option selected>Module</option>
-                        <option value="Module1">Level 4</option>
-                        <option value="Module2">Level 5</option>
+            <?php echo form_open('admin/module/', ['class' => 'form-inline']); ?>
+                    <select class="custom-select col-sm-2 mr-3" name='course_code'>
+                            <option value="null" >Course</option>
+                            <?php foreach ($course as $crse) { ?>
+                                <option value="<?= $crse['course_code'] ?>" <?php if (isset($_POST['course_code']) && $_POST['course_code'] == $crse['course_code']) echo "selected" ; ?>><?= $crse['course_name'] ?></option>
+                            <?php } ?>
                     </select>
-                    <select class="custom-select mr-4">
-                        <option selected>Course</option>
-                        <option value="course1">Course 1</option>
-                        <option value="course2">Course 2</option>
-                    </select>
-                    <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" name="filter">Filter</button>
+                    <button class="btn btn-info my-2 my-sm-0 mr-2" type="submit" name="filter">Filter</button>
+                    <a href="" class="btn btn-secondary my-2 my-sm-0" type="button">Clear</a>
                 </form>
             </div>
         </div>
@@ -73,7 +89,7 @@
                                         <input type="submit" class="btn btn-info" name="archive" value="Archive">
                                     </form>
                                     <?php echo form_open('admin/module/'.$module['module_code'] ); ?>
-                                        <input type="submit" class="btn btn-danger" name="delete" value="Delete">
+                                        <input type="submit" class="btn btn-danger" name="delete" onclick="return checkDelete()" value="Delete">
                                     </form>
                                 </td>
                             </tr>
@@ -83,8 +99,10 @@
                 <script>
                     $(document).ready(function() {
                         $('#moduleTable').DataTable();
-                        //  $('#moduleTable').bootstrapTable();
                     });
+                    function checkDelete(){
+                        return confirm('Do you really want to delete this Course ?');
+                    }
                 </script>
             </div>
         </div>

@@ -15,27 +15,9 @@
             ));
             //checking the number of rows of the checked credentials and returning the id to the controller
             if ($staff->num_rows() == 1) {
-                if($staff->row(0)->role == 1){
-                    if(password_verify($password, $staff->row(0)->password)){
-                        return $staff->row_array(0);
-                    }else{
-                        return false;
-                    }
-                }elseif($staff->row(0)->role == 2){
-                    if(password_verify($password, $staff->row(0)->password)){
-                        return $staff->row_array(0);
-                    }else{
-                        return false;
-                    }
-                }elseif($staff->row(0)->role == 3){
-                    if(password_verify($password, $staff->row(0)->password)){
-                        return $staff->row_array(0);
-                    }else{
-                        return false;
-                    }
-                }
-
-                else{
+                if(password_verify($password, $staff->row(0)->password)){
+                    return $staff->row_array(0);
+                }else{
                     return false;
                 }
             }
@@ -199,10 +181,40 @@
     public function staff(){
         $this->db->join('courses', 'courses.course_code=staff.subject', 'left');
         $this->db->join('modules', 'modules.module_code=staff.subject', 'left');
-        $staff = $this->db->get_where('staff', ['staff.archive'=> 0]);
+        $staff = $this->db->get_where('staff', ['staff.archive'=> 0, ]);
         return $staff->result_array();
     }
-
+    public function filterStaff($status, $sub, $role){
+        $this->db->join('courses', 'courses.course_code=staff.subject', 'left');
+        $this->db->join('modules', 'modules.module_code=staff.subject', 'left');
+        if($status == 'null' && $sub == 'null' && $role == 'null'){
+            $staff = $this->db->get_where('staff', ['staff.archive'=> 0, ]);
+        }
+        else if ($status == 'null' && $sub == 'null' && $role != 'null') {
+            $staff = $this->db->get_where('staff', ['staff.archive'=> 0, 'staff.role' => $role]);
+        }
+        else if ($status == 'null' && $sub != 'null' && $role == 'null') {
+            $staff = $this->db->get_where('staff', ['staff.archive'=> 0, 'staff.subject' => $sub]);
+        }
+        else if ($status != 'null' && $sub == 'null' && $role == 'null') {
+            $staff = $this->db->get_where('staff', ['staff.archive'=> 0, 'staff.status' => $status]);
+        }
+        else if ($status != 'null' && $sub != 'null' && $role == 'null') {
+           $staff = $this->db->get_where('staff', ['staff.archive'=> 0,'staff.status' => $status, 'staff.subject' => $sub]);
+        }
+        else if ($status != 'null' && $sub == 'null' && $role != 'null') {
+           $staff = $this->db->get_where('staff', ['staff.archive'=> 0,'staff.status' => $status, 'staff.role' => $role]);
+        }
+        else if ($status == 'null' && $sub != 'null' && $role != 'null') {
+           $staff = $this->db->get_where('staff', ['staff.archive'=> 0, 'staff.subject' => $sub,'staff.role' => $role]);
+        }
+        else if ($status != 'null' && $sub != 'null' && $role != 'null') {
+           $staff = $this->db->get_where('staff', ['staff.archive'=> 0,'staff.status' => $status, 'staff.subject' => $sub,'staff.role' => $role]);
+        }
+ 
+        return $staff->result_array();
+    }
+    
     public function addStaff(){
         $data =[
             'staff_id' => $this->input->post('staff_id'),
@@ -238,10 +250,15 @@
     public function assign_archive_staff($id , $data){
         $this->db->where('staff_id', $id)->update('staff', $data);
     }
-    public function course(){
+    public function course($dpt = false){
         $this->db->join('departments', 'departments.department_id=courses.department_id', 'left');
         $this->db->join('staff', 'staff.staff_id=courses.course_leader', 'left');
-        $courses = $this->db->get_where('courses', ['courses.archive'=> 0]);
+        if($dpt){
+            $courses = $this->db->get_where('courses', ['courses.archive'=> 0, 'courses.department_id' => $dpt]);
+        }
+        else{
+            $courses = $this->db->get_where('courses', ['courses.archive'=> 0]);
+        }
         return $courses->result_array();
     }
 
@@ -317,10 +334,15 @@
     public function deleteCourse($id){
         $this->db->where('course_code', $id)->delete('courses');
     }
-    public function module(){
+    public function module($course = false){
         $this->db->join('courses', 'courses.course_code=modules.course_code', 'left');
         $this->db->join('staff', 'staff.staff_id=modules.module_leader', 'left');
-        $courses = $this->db->get_where('modules', ['modules.archive'=> 0]);
+        if($course){
+            $courses = $this->db->get_where('modules', ['modules.archive'=> 0, 'modules.course_code' => $course]);
+        }
+        else{
+            $courses = $this->db->get_where('modules', ['modules.archive'=> 0]);
+        }
         return $courses->result_array();
     }
 
