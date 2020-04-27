@@ -31,8 +31,6 @@
           </div>
         </div>     
       </div>
-
-
       <!-- <div class="row mt-3">
         <a href="add" class="btn btn-primary">Add Student</a>
       </div> -->
@@ -40,31 +38,34 @@
       <!-- begin filter and search post -->
       <div class="row mt-5 mb-3">
         <div class="col-md-7 ml-n3">
-            <form class="form-inline" method="POST">
-                <select class="custom-select mr-sm-2">
-                  <option selected>All Admissions</option>
-                  <option value="CasePaper">CasePaper</option>
-                  <option value="NonCasePaper">NonCasePaper</option>
-                </select>
-                <select class="custom-select mr-sm-2">
-                  <option selected>All Offers</option>
-                  <option value="Conditional">Conditional</option>
-                  <option value="Unconditional">Unconditional</option>
-                </select>
-                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" name="filter">Filter</button>
-            </form>
-        </div>
-        <div class="col-md-5 ml-auto">
-            <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search">
-                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" name="searchPost">Search Post</button>
+        <?php echo form_open('admin/admission/', ['class' => 'form-inline']); ?>
+            <select class="custom-select col-sm-2 mr-2" name="assigned">
+                <option value="3" <?php if (!isset($_POST['status'])) echo "selected"; ?>>CaseFile</option>
+                <option value="1" <?php if (isset($_POST['status']) && $_POST['status'] == 1) echo "selected"; ?>>Created</option>
+                <option value="0" <?php if (isset($_POST['status']) && $_POST['status'] == 0) echo "selected"; ?>>Pending</option>
+            </select>
+            <select class="custom-select col-sm-2 mr-2" name="status">
+                <option value="3" <?php if (!isset($_POST['status'])) echo "selected"; ?>>Status</option>
+                <option value="1" <?php if (isset($_POST['status']) && $_POST['status'] == 1) echo "selected"; ?>>Provisional</option>
+                <option value="1" <?php if (isset($_POST['status']) && $_POST['status'] == 1) echo "selected"; ?>>Active</option>
+                <option value="0" <?php if (isset($_POST['status']) && $_POST['status'] == 0) echo "selected"; ?>>Dormant</option>
+            </select>
+            <select class="custom-select col-sm-3 mr-3" name='subject'>
+                <option value="null">Course</option>
+                <?php foreach ($courses as $crse) { ?>
+                    <option value="<?= $crse['course_code'] ?>" <?php if (isset($_POST['subject']) && $_POST['subject'] == $crse['course_code']) echo "selected"; ?>><?= $crse['course_name'] ?></option>
+                <?php } ?>
+            </select>
+            <button class="btn btn-info my-2 my-sm-0 mr-2" type="submit" name="filter">Filter</button>
+            <a href="" class="btn btn-secondary my-2 my-sm-0" type="button">Clear All</a>
             </form>
         </div>
       </div>
       <!-- end filter and search post  -->
       <!-- begin table structure -->
       <div class="row">
-        <table class="table table-hover">
+          <div class="container-fluid">
+          <table id="admissionTable" class="table table-striped  table-bordered table-hover" data-url="json/data1.json" data-filter-control="true">
             <thead class="thead-light">  
             <?php
                 $tableHead = ['Id', 'Assigned Id', 'Status', 'Full Name', 'Address', 'Contact', 'Course Code', 'Email', 'Qualification'];
@@ -93,12 +94,16 @@
                     echo '<td>' . $row['qualification'].'</td>';
                     echo '</tr>'; 
                 }
-
-                
                 // echo ($admissions);
             ?>
             </table>
+          </div>  
       </div>
       <!-- end table structure -->
     <!-- </div> -->
   </div>
+  <script>
+    $(document).ready(function() {
+        $('#admissionTable').DataTable();
+    });
+</script>

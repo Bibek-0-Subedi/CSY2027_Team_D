@@ -106,7 +106,7 @@
                             <td>
                                 <?php if ($staff['subject']) {
                                     echo $staff['course_name'];
-                                } elseif ($staff['role'] != 1) { ?>
+                                } else { ?>
                                     <button type="button" class="btn btn-secondary mb-3" data-toggle="modal" data-id="<?= $staff['staff_id'] ?>" data-target="#assignCourse">Assign</button>
                                 <?php } ?>
                             </td>
@@ -129,19 +129,13 @@
                             <td style="display: flex; justify-content: space-around;">
                                 <a href="staffDetail/<?php echo $staff['staff_id']; ?>" class="btn btn-success mr-2">Edit</a>
                                 <?php echo form_open('admin/staff/' . $staff['staff_id']); ?>
-                                <input type="submit" class="btn btn-info" name="archive" value="Archive">
+                                <input type="submit" class="btn btn-info" name="archive" onclick="return checkArchive()" value="Archive">
                                 </form>
                             </td>
                         </tr>
                     <?php } ?>
                 </tbody>
             </table>
-            <script>
-                $(document).ready(function() {
-                    $('#staffTable').DataTable();
-                    //  $('#staffTable').bootstrapTable();
-                });
-            </script>
         </div>
     </div>
     <!-- </div> -->
@@ -178,39 +172,14 @@
     </div>
 </div>
 <!-- Modal for the assigning course  ends -->
-<!-- Modal for the Assigning Module Leader -->
-<div class="modal fade" id="assignModule" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Assign Module Leader</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <?php echo form_open('admin/staff/') ?>
-                <div class="form-group">
-                    <textarea style="display: none" class="form-control" name="staff_id" id="message-text"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="message-text" class="col-form-label">Courses:</label>
-                    <select class="form-control col-sm-6 mr-3 <?php echo form_error('course_code') ? 'is-invalid' : '' ?>" name='subject'>
-                        <?php foreach ($module as $mod) { ?>
-                            <option value="<?= $mod['module_code'] ?>"><?= $mod['module_name'] ?></option>
-                        <?php } ?>
-                    </select>
-                </div>
-                <div>
-                    <input type="submit" class="btn btn-primary" name="assignModule" value="Assign">
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal for the assigning cousrse leader ends -->
+
 <script>
+    $(document).ready(function() {
+        $('#staffTable').DataTable();
+    });
+    function checkArchive(){
+        return confirm('Do you really want to archive this Staff Detail ?');
+    }
     $('#assignCourse').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget)
         var staff_id = button.data('id') // Extract info from data-id attributes

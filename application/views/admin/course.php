@@ -82,11 +82,11 @@
                                 <td><?= $course['course_name'] ?></td>
                                 <td><?= $course['course_duration'] ?></td>
                                 <td><?= $course['name'] ?></td>
-                                <td><?= $course['firstname'] ; ?></td>
+                                <td><?= $course['firstname'] .' ' .$course['surname'] ; ?></td>
                                 <td style="display: flex; justify-content: space-around;">
                                     <a href="courseDetail/<?php echo $course['course_code']; ?>" class="btn btn-success">Edit</a>
                                     <?php echo form_open('admin/course/'.$course['course_code'] ); ?>
-                                        <input type="submit" class="btn btn-info" name="archive" value="Archive">
+                                        <input type="submit" class="btn btn-info" name="archive" onclick="return checkArchive()" value="Archive">
                                     </form>
                                     <?php echo form_open('admin/course/'.$course['course_code'] ); ?>
                                         <input type="submit" class="btn btn-danger" name="delete" onclick="return checkDelete()" value="Delete">
@@ -102,6 +102,9 @@
                     });
                     function checkDelete(){
                         return confirm('Do you really want to delete this Course ?');
+                    }
+                    function checkArchive(){
+                        return confirm('Do you really want to archive this Course ?');
                     }
                 </script>
             </div>

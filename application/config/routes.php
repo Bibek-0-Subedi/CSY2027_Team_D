@@ -9,6 +9,7 @@ $route['admin/createCaseFile/(:any)'] = 'admins/createCaseFile/$1';
 $route['admin/login'] = 'admins/login';
 $route['admin/logout'] = 'admins/logout';
 $route['admin/student'] = 'admins/student';
+$route['admin/student/(:any)'] = 'admins/student/$1';
 $route['admin/staff'] = 'admins/staff';
 $route['admin/staff/(:any)'] = 'admins/staff/$1';
 $route['admin/course'] = 'admins/course';
@@ -33,7 +34,14 @@ $route['admin/archiveCourse'] = 'admins/archiveCourse';
 //route for Module
 $route['admin/moduleDetail'] = 'admins/moduleDetail';
 $route['admin/moduleDetail/(:any)'] = 'admins/moduleDetail/$1';
-$route['admin/moduleCourse'] = 'admins/archiveModule';
+$route['admin/archivemodule'] = 'admins/archiveModule';
+
+//route for TimeTable
+$route['admin/timeTable'] = 'admins/timeTable';
+$route['admin/timeTable/(:any)'] = 'admins/timeTable/$1';
+$route['admin/editTimeTable/(:any)'] = 'admins/editTimeTable/$1';
+$route['admin/createTimeTable/(:any)'] = 'admins/createTimeTable/$1';
+$route['admin/timeTableView/(:any)'] = 'admins/timeTableView/$1';
 
 //route for assignment
 $route['tutor/module/assignment/index/(:any)'] = 'assignments/index/$1';

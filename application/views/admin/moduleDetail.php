@@ -45,7 +45,7 @@
         </div>
         <div class="form-group col-md-6">
             <small class="text-muted">The module will be added to the modules list after submitting the form.</small>
-            <input type="submit" name="add" value="Add Module" class="form-control btn btn-primary mt-2">
+            <input type="submit" name="add" value="Save" class="form-control btn btn-primary mt-2">
         </div>
         </form>
         <!-- end Course form -->

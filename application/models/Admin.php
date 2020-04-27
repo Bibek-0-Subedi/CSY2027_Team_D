@@ -134,10 +134,25 @@
 
     public function getStudents()
     {
-        $result = $this->db->where('assigned_id != 0')->get('admissions'); //Students table should be used
+        // $result = $this->db->where('assigned_id != 0')->get('admissions'); //Students table should be used
+
+        $this->db->join('admissions', 'admissions.assigned_id=students.assigned_id', 'left');
+        $this->db->join('courses', 'admissions.course_code=courses.course_code', 'left');
+        $this->db->where('students.archive = 0');
+        $result = $this->db->get('students');
+        return $result->result_array();
+
+    }
+    public function getAssignablePatTutor(){
+        $this->db->where('role', '3');
+        $this->db->where('archive', 0);
+        $result = $this->db->get('staff');
         return $result->result_array();
     }
 
+    public function assign_archive_student($id, $data){
+        $this->db->where('student_id', $id)->update('students', $data);               
+    }
     public function add()
     {
         $result = $this->db->get('courses');
@@ -161,6 +176,9 @@
         ];
 
         $this->db->insert('admissions', $data); // Not sure could be students table too
+    }
+    public function deleteStudent($id){
+        $this->db->where('student_id', $id)->delete('students');
     }
     public function getTable($field = false, $value = false, $table)
     {
@@ -381,6 +399,113 @@
     }
     public function deleteModule($id){
         $this->db->where('module_code', $id)->delete('modules');
+    }
+
+    public function timetable(){
+        $this->db->join('courses', 'courses.course_code=timetables.course_name', 'left');
+        $timetables = $this->db->get_where('timetables', ['timetables.archive'=> 0]);
+        return $timetables->result_array();
+    }
+
+    public function addTimeTable(){
+
+        $data = [
+            'year' => $this->input->post('year'),
+            'course_name' => $this->input->post('course_name')
+        ];
+        $this->db->insert('timetables', $data);
+    }
+    public function createTimeTable($id){
+        //indexed Array for the Day row
+        $row[] = array(
+            $this->input->post('r0c0'),
+            $this->input->post('r0c1'),
+            $this->input->post('r0c2'),
+            $this->input->post('r0c3'),
+            $this->input->post('r0c4'),
+            $this->input->post('r0c5'),
+            $this->input->post('r0c6'),
+            $this->input->post('r0c7'),
+        );
+        //row 1 = Sunday
+        $row[] = array(
+            $this->input->post('r1c0'),
+            array($this->input->post('r1c1r0'),$this->input->post('r1c1r1'),$this->input->post('r1c1r2'),$this->input->post('r1c1r3')),
+            array($this->input->post('r1c2r0'),$this->input->post('r1c2r1'),$this->input->post('r1c2r2'),$this->input->post('r1c2r3')),
+            array($this->input->post('r1c3r0'),$this->input->post('r1c3r1'),$this->input->post('r1c3r2'),$this->input->post('r1c3r3')),
+            array($this->input->post('r1c4r0'),$this->input->post('r1c4r1'),$this->input->post('r1c4r2'),$this->input->post('r1c4r3')),
+            array($this->input->post('r1c5r0'),$this->input->post('r1c5r1'),$this->input->post('r1c5r2'),$this->input->post('r1c5r3')),
+            array($this->input->post('r1c6r0'),$this->input->post('r1c6r1'),$this->input->post('r1c6r2'),$this->input->post('r1c6r3')),
+            array($this->input->post('r1c7r0'),$this->input->post('r1c7r1'),$this->input->post('r1c7r2'),$this->input->post('r1c7r3')),
+        );
+        //row 2 = Monday
+        $row[] = array(
+            $this->input->post('r2c0'),
+            array($this->input->post('r2c1r0'),$this->input->post('r2c1r1'),$this->input->post('r2c1r2'),$this->input->post('r2c1r3')),
+            array($this->input->post('r2c2r0'),$this->input->post('r2c2r1'),$this->input->post('r2c2r2'),$this->input->post('r2c2r3')),
+            array($this->input->post('r2c3r0'),$this->input->post('r2c3r1'),$this->input->post('r2c3r2'),$this->input->post('r2c3r3')),
+            array($this->input->post('r2c4r0'),$this->input->post('r2c4r1'),$this->input->post('r2c4r2'),$this->input->post('r2c4r3')),
+            array($this->input->post('r2c5r0'),$this->input->post('r2c5r1'),$this->input->post('r2c5r2'),$this->input->post('r2c5r3')),
+            array($this->input->post('r2c6r0'),$this->input->post('r2c6r1'),$this->input->post('r2c6r2'),$this->input->post('r2c6r3')),
+            array($this->input->post('r2c7r0'),$this->input->post('r2c7r1'),$this->input->post('r2c7r2'),$this->input->post('r2c7r3')),
+        );
+        //row 3 = Tuesday
+        $row[] = array(
+            $this->input->post('r3c0'),
+            array($this->input->post('r3c1r0'),$this->input->post('r3c1r1'),$this->input->post('r3c1r2'),$this->input->post('r3c1r3')),
+            array($this->input->post('r3c2r0'),$this->input->post('r3c2r1'),$this->input->post('r3c2r2'),$this->input->post('r3c2r3')),
+            array($this->input->post('r3c3r0'),$this->input->post('r3c3r1'),$this->input->post('r3c3r2'),$this->input->post('r3c3r3')),
+            array($this->input->post('r3c4r0'),$this->input->post('r3c4r1'),$this->input->post('r3c4r2'),$this->input->post('r3c4r3')),
+            array($this->input->post('r3c5r0'),$this->input->post('r3c5r1'),$this->input->post('r3c5r2'),$this->input->post('r3c5r3')),
+            array($this->input->post('r3c6r0'),$this->input->post('r3c6r1'),$this->input->post('r3c6r2'),$this->input->post('r3c6r3')),
+            array($this->input->post('r3c7r0'),$this->input->post('r3c7r1'),$this->input->post('r3c7r2'),$this->input->post('r3c7r3')),
+        );
+        //row 4 = Wednesday
+        $row[] = array(
+            $this->input->post('r4c0'),
+            array($this->input->post('r4c1r0'),$this->input->post('r4c1r1'),$this->input->post('r4c1r2'),$this->input->post('r4c1r3')),
+            array($this->input->post('r4c2r0'),$this->input->post('r4c2r1'),$this->input->post('r4c2r2'),$this->input->post('r4c2r3')),
+            array($this->input->post('r4c3r0'),$this->input->post('r4c3r1'),$this->input->post('r4c3r2'),$this->input->post('r4c3r3')),
+            array($this->input->post('r4c4r0'),$this->input->post('r4c4r1'),$this->input->post('r4c4r2'),$this->input->post('r4c4r3')),
+            array($this->input->post('r4c5r0'),$this->input->post('r4c5r1'),$this->input->post('r4c5r2'),$this->input->post('r4c5r3')),
+            array($this->input->post('r4c6r0'),$this->input->post('r4c6r1'),$this->input->post('r4c6r2'),$this->input->post('r4c6r3')),
+            array($this->input->post('r4c7r0'),$this->input->post('r4c7r1'),$this->input->post('r4c7r2'),$this->input->post('r4c7r3')),
+        );
+        //row 5 = Thursday
+        $row[] = array(
+            $this->input->post('r5c0'),
+            array($this->input->post('r5c1r0'),$this->input->post('r5c1r1'),$this->input->post('r5c1r2'),$this->input->post('r5c1r3')),
+            array($this->input->post('r5c2r0'),$this->input->post('r5c2r1'),$this->input->post('r5c2r2'),$this->input->post('r5c2r3')),
+            array($this->input->post('r5c3r0'),$this->input->post('r5c3r1'),$this->input->post('r5c3r2'),$this->input->post('r5c3r3')),
+            array($this->input->post('r5c4r0'),$this->input->post('r5c4r1'),$this->input->post('r5c4r2'),$this->input->post('r5c4r3')),
+            array($this->input->post('r5c5r0'),$this->input->post('r5c5r1'),$this->input->post('r5c5r2'),$this->input->post('r5c5r3')),
+            array($this->input->post('r5c6r0'),$this->input->post('r5c6r1'),$this->input->post('r5c6r2'),$this->input->post('r5c6r3')),
+            array($this->input->post('r5c7r0'),$this->input->post('r5c7r1'),$this->input->post('r5c7r2'),$this->input->post('r5c7r3')),
+        );
+        //row 6 = Friday
+        $row[] = array(
+            $this->input->post('r6c0'),
+            array($this->input->post('r6c1r0'),$this->input->post('r6c1r1'),$this->input->post('r6c1r2'),$this->input->post('r6c1r3')),
+            array($this->input->post('r6c2r0'),$this->input->post('r6c2r1'),$this->input->post('r6c2r2'),$this->input->post('r6c2r3')),
+            array($this->input->post('r6c3r0'),$this->input->post('r6c3r1'),$this->input->post('r6c3r2'),$this->input->post('r6c3r3')),
+            array($this->input->post('r6c4r0'),$this->input->post('r6c4r1'),$this->input->post('r6c4r2'),$this->input->post('r6c4r3')),
+            array($this->input->post('r6c5r0'),$this->input->post('r6c5r1'),$this->input->post('r6c5r2'),$this->input->post('r6c5r3')),
+            array($this->input->post('r6c6r0'),$this->input->post('r6c6r1'),$this->input->post('r6c6r2'),$this->input->post('r6c6r3')),
+            array($this->input->post('r6c7r0'),$this->input->post('r6c7r1'),$this->input->post('r6c7r2'),$this->input->post('r6c7r3')),
+        );
+
+        $rows_ser = serialize($row);
+
+        $data = [
+            'timetable' => $rows_ser
+        ];
+        $this->db->where('routine_id', $id)->update('timetables', $data);
+    }
+    public function archiveTimeTable($id , $data){
+        $this->db->where('routine_id', $id)->update('timetables', $data);
+    }
+    public function deleteTimeTable($id){
+        $this->db->where('routine_id', $id)->delete('timetables');
     }
 }
 

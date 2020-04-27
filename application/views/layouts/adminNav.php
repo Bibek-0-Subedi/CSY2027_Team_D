@@ -8,10 +8,7 @@
     </div>
     <div class="logout-link mt-2">
         <?php if (($this->session->userdata('type')) == 1) :?>
-            <h4 class="mr-3 mt-1"><i class="fas fa-user-shield mr-2"></i><?php echo $this->session->userdata('name') ;?></h4>
-            <form class="form layout-search" method="post" action="<?php echo base_url();?>admin/logout">
-                <button class="btn" type="submit"><i class="fa fa-power-off" style="font-size: 20px; color: red"></i></button>
-            </form>                                            
+            <h4 class="mr-3 mt-1"><i class="fas fa-user-shield mr-2"></i><?php echo $this->session->userdata('name') . ' '. $this->session->userdata('surname') ;?></h4>
         <?php endif;?>
         <?php if (($this->session->userdata('type')) == 3) :?>
             <h3><?php echo $this->session->userdata('name') ;?></h3>
@@ -62,6 +59,12 @@
                         <a class="nav-link d-flex justify-content-between" href="<?= site_url() ?>admin/module">
                             <span>Module</span>
                             <i class="fas fa-book-open"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-between" href="<?= site_url() ?>admin/timeTable">
+                            <span>TimeTable</span>
+                            <i class="fas fa-calendar"></i>
                         </a>
                     </li>
                     <li class="nav-item">

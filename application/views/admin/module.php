@@ -86,7 +86,7 @@
                                 <td style="display: flex; justify-content: space-around;">
                                     <a href="moduleDetail/<?php echo $module['module_code']; ?>" class="btn btn-success">Edit</a>
                                     <?php echo form_open('admin/module/'.$module['module_code'] ); ?>
-                                        <input type="submit" class="btn btn-info" name="archive" value="Archive">
+                                        <input type="submit" class="btn btn-info" name="archive" onclick="return checkArchive()" value="Archive">
                                     </form>
                                     <?php echo form_open('admin/module/'.$module['module_code'] ); ?>
                                         <input type="submit" class="btn btn-danger" name="delete" onclick="return checkDelete()" value="Delete">
@@ -101,7 +101,10 @@
                         $('#moduleTable').DataTable();
                     });
                     function checkDelete(){
-                        return confirm('Do you really want to delete this Course ?');
+                        return confirm('Do you really want to delete this Module ?');
+                    }
+                    function checkArchive(){
+                        return confirm('Do you really want to archive this Module ?');
                     }
                 </script>
             </div>

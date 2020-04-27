@@ -50,6 +50,7 @@ class Admins extends CI_Controller
     public function admission()
     {
         // $data['admissions'] = $this->admin->tableGenerator($this->admin->getAdmissions());
+        $data['courses'] = $this->admin->getAssignableCourse();
         $data['admissions'] = $this->admin->getAdmissions();
         $this->loadViews('admission', 'Admission', $data);
     }
@@ -112,10 +113,28 @@ class Admins extends CI_Controller
         redirect('/');
     }
 
-    public function student()
+    public function student($id = false)
     {
-        $data['students'] = $this->admin->getStudents();
-        $this->loadViews('student', 'Students', $data);
+        if($id){
+            if (isset($_POST['archive'])) {
+                $archive = ['archive' => '1'];
+                $this->admin->assign_archive_student($id , $archive);
+                $this->session->set_flashdata('archived', 'Student Detail Archived Successfully !');
+                redirect('admin/student');
+            }
+        }
+        elseif(isset($_POST['assignPatTutor'])){
+            $id = $this->input->post('student_id'); 
+            $assign = ['pat_tutor' => $this->input->post('pat_tutor')];
+            $this->admin->assign_archive_student($id , $assign);
+            $this->session->set_flashdata('assigned', 'Pat Tutor Assigned Successfully !');
+            redirect('admin/student');            
+        }else{
+            $data['tutors'] = $this->admin->getAssignablePatTutor();
+            $data['courses'] = $this->admin->getAssignableCourse();
+            $data['students'] = $this->admin->getStudents();
+            $this->loadViews('student', 'Students', $data);    
+        }    
     }
     public function add()
     {
@@ -181,8 +200,7 @@ class Admins extends CI_Controller
                 $archive = ['archive' => '1'];
                 $this->admin->assign_archive_staff($id , $archive);
                 $this->session->set_flashdata('archived', 'Data Archived Successfully !');
-                redirect('admin/staff');
-                
+                redirect('admin/staff');   
             }
         }
         elseif(isset($_POST['assignCourse'])){
@@ -413,14 +431,84 @@ class Admins extends CI_Controller
         }
         elseif($id){
             $this->admin->updateModule($id);
-            $this->session->set_flashdata('edited', 'Module Deleted Successfully !');
+            $this->session->set_flashdata('edited', 'Module Edited Successfully !');
             redirect('admin/module');
         }
         else{
             $this->admin->addModule();
-            $this->session->set_flashdata('added', 'Module Deleted Successfully !');
+            $this->session->set_flashdata('added', 'Module Added Successfully !');
             redirect('admin/module');
         }
     }
+    public function timeTable($id = false){
+        if($id){
+            if (isset($_POST['archive'])) {
+                $data = ['archive' => '1'];
+                $this->admin->archiveTimeTable($id , $data);
+                $this->session->set_flashdata('archived', 'TimeTable Archived Successfully !');
+                redirect('admin/timeTable');
+            }elseif(isset($_POST['delete'])){
+                $this->admin->deleteTimeTable($id);
+                $this->session->set_flashdata('archived', 'TimeTable Deleted Successfully !');
+                redirect('admin/timeTable');            
+            }
+        }elseif (isset($_POST['createTimetable'])) {
+            unset($_POST['createTimetable']);
+            
+            $this->admin->addTimeTable();
+            $this->session->set_flashdata('added', 'Time Table Added Successfully ! You can now create schedule');
+            redirect('admin/timeTable');
+        }
+        else{
+            $data['courses'] = $this->admin->course();
+            $data['timetables'] = $this->admin->timetable();    
+            $this->loadViews('timetable', 'Time Table', $data);
+        }
+    }
 
+    public function addTimeTable(){
+            $this->admin->addTimeTable();
+    }
+
+    public function createTimeTable($id){
+        if(isset($_POST['createTable'])){
+            unset($_POST['createTable']);
+
+            $this->admin->createTimeTable($id);
+            $this->session->set_flashdata('created', 'Time Table Created Successfully ! You can now view schedule');
+            redirect('admin/timeTable');
+        }
+        $timetable = $this->admin->getTableData($id, 'routine_id', 'timetables');
+        $module = $this->admin->module($timetable['course_name']);
+        $data['timetable'] = $timetable;
+        $data['modules'] = $module;
+        $this->loadViews('createTimeTable', 'Create Table', $data);
+    }
+
+    public function editTimeTable($id){
+        if(isset($_POST['editTable'])){
+            unset($_POST['editTable']);
+
+            $this->admin->createTimeTable($id);
+            $this->session->set_flashdata('edited', 'Time Table edited Successfully ! You can now view schedule');
+            redirect('admin/timeTable');
+        }
+        $timetable = $this->admin->getTableData($id, 'routine_id', 'timetables');
+        $deser_timetable = unserialize($timetable['timetable']); 
+        $module = $this->admin->module($timetable['course_name']);
+        $data =[
+            'schedule' => $deser_timetable,
+            'timetable' => $timetable,
+            'modules' => $module
+        ];     
+        $this->loadViews('editTimeTable', 'Edit TimeTable', $data);
+    }
+
+    public function timeTableView($id){
+
+        $timetable = $this->admin->getTableData($id,'routine_id',  'timetables');
+        $deser_timetable = unserialize($timetable['timetable']); 
+        $data =['timetable' => $deser_timetable]; 
+        $this->loadViews('timeTableView', 'View Table', $data);
+    }
 }

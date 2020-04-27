@@ -88,7 +88,7 @@
         
         <div class="form-group col-md-6">
                 <small class="text-muted">The staff will be added to the staff list after submitting the form.</small>
-                <input type="submit" name="add" value="Add Staff" class="form-control btn btn-primary mt-2">
+                <input type="submit" name="add" value="Save" class="form-control btn btn-primary mt-2">
             </div>
         </form>
         <!-- end Staff add form -->
