@@ -45,11 +45,13 @@ $route['admin/timeTableView/(:any)'] = 'admins/timeTableView/$1';
 
 //route for assignment
 $route['tutor/module/assignment/index/(:any)'] = 'assignments/index/$1';
+$route['tutor/module/assignment/index/(:any)/(:any)'] = 'assignments/index/$1/$2';
 $route['tutor/module/assignment/add/(:any)'] = 'assignments/add/$1';
-$route['tutor/module/assignment/edit/(:any)'] = 'assignments/update/$1';
+$route['tutor/module/assignment/edit/(:any)/(:any)'] = 'assignments/update/$1/$2';
 $route['tutor/module/assignment/view/(:any)'] = 'assignments/view/$1';
+$route['tutor/module/assignment/view/(:any)/(:any)'] = 'assignments/view/$1/$2';
 $route['tutor/module/assignment/upload'] = 'assignments/upload';
-$route['tutor/module/assignment/grade/(:any)'] = 'assignments/grade/$1';
+$route['tutor/module/assignment/grade/(:any)/(:any)'] = 'assignments/grade/$1/$2';
 
 //student pages
 $route['student/dashboard'] = 'students/dashboard';
@@ -69,24 +71,39 @@ $route['leader/dashboard'] = 'leaders/dashboard';
 
 //tutor pages
 $route['tutor/dashboard'] = 'tutors/dashboard';
-$route['tutor/profile/(:any)'] = 'tutors/profile/$1';
+$route['tutor/profile'] = 'tutors/profile';
 $route['tutor/modules'] = 'tutors/modules';
-$route['tutor/module/(:any)'] = 'tutors/module/$1';
+
 $route['tutor/getForm'] = 'tutors/getForm';
 $route['tutor/add/(:any)'] = 'tutors/add/$1';
 $route['tutor/updateData/(:any)'] = 'tutors/updateData/$1';
+
+
+//tutor module files pages
+$route['tutor/module/(:any)'] = 'tutors/module/$1';
+$route['tutor/module/(:any)'] = 'modules/view/$1';
+$route['tutor/module/(:any)/(:any)'] = 'modules/view/$1/$2';
+$route['tutor/module/update/(:any)/(:any)'] = 'modules/update/$1/$2';
+$route['tutor/module/add/(:any)'] = 'modules/add/$1';
+
+//tutor record pages
 $route['tutor/module/studentList/(:any)'] = 'tutors/studentList/$1';
-$route['tutor/module/grade/(:any)'] = 'tutors/grade/$1';
+$route['tutor/module/grade/(:any)/(:any)'] = 'tutors/grade/$1/$2';
+
+//tutor pat pages
+$route['tutor/pat'] = 'tutors/patList';
+$route['tutor/pat/view/(:any)'] = 'tutors/patInfo/$1';
+$route['tutor/pat/add/(:any)'] = 'tutors/addPat/$1';
+$route['tutor/pat/edit/(:any)/(:any)'] = 'tutors/editPat/$1/$2';
+
+//tutor diary pages
+$route['tutor/diary'] = 'tutors/diaryList';
+$route['tutor/diary/add'] = 'tutors/addDiary';
+$route['tutor/diary/edit/(:any)'] = 'tutors/editDiary/$1';
 
 //module pages
 $route['module/addAttendance'] = 'modules/addAttendance';
 $route['module/attendance/(:any)/(:any)'] = 'modules/attendance/$1/$2';
-$route['tutor/module/(:any)'] = 'modules/view/$1';
-
-//module tutor pages
-$route['tutor/module/update/(:any)'] = 'modules/update/$1';
-$route['tutor/module/add/(:any)'] = 'modules/add/$1';
-
 
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';

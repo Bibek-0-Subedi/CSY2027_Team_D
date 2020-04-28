@@ -22,7 +22,7 @@ class Module extends CI_model{
 	}
 	public function module_files($module)
 	{
-   		 $module_files = $this->db->where('type', 1)->get_where('module_files', array(
+   		 $module_files = $this->db->where('type', 0)->get_where('module_files', array(
         	'module_id' => $module
     	));
     	return $module_files->result_array();
@@ -44,7 +44,7 @@ class Module extends CI_model{
 			}
 
     	$data = array(
-            'type' => $this->input->post('type'),
+            'type' => 0,
     		'module_id' => $this->input->post('module_code'),
     		'filename' => $this->input->post('module_date'),
     		'description' => $this->input->post('description'),
@@ -67,7 +67,8 @@ class Module extends CI_model{
                 $file = $uploadData['file_name'];
             }
 
-        $data =[
+        $data = [
+            'type' => 0,
            	'module_id' => $this->input->post('module_code'),
     		'filename' => $this->input->post('module_date'),
     		'description' => $this->input->post('description'),

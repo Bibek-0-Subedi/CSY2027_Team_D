@@ -51,20 +51,20 @@
                             <tr>
                                 <td><?= $assignment['file_id'] ?></td>
                                 <td><?= $assignment['filename'] ?></td>
-                                <td><?= $assignment['description'] ?></td>
+                                <td><?= $assignment['deadline'] ?></td>
                                 <td><a href="<?= site_url() ?>assets/module_files/<?= $assignment['file'] ?>" download="<?= $assignment['file'] ?>"><?= $assignment['file'] ?></a></td>
                                 <td><?= $assignment['created_at'] ?></td>
                                 <td style="display: flex; justify-content: space-around;">
-                                    <a href="<?= site_url(). 'tutor/module' ?>/assignment/edit/<?= $assignment['file_id']; ?>" class="btn btn-success">Edit</a>
+                                    <a href="<?= site_url(). 'tutor/module' ?>/assignment/edit/<?= $modules['module_code'] ?>/<?= $assignment['file_id']; ?>" class="btn btn-success">Edit</a>
                                     <?php if($assignment['archive'] == '0'){ ?>
-                                    <?php echo form_open('tutor/module/assignment/index/'.$assignment['file_id'] ); ?>
+                                    <?php echo form_open('tutor/module/assignment/index/'. $modules['module_code'] . '/'. $assignment['file_id'] ); ?>
                                         <input type="submit" class="btn btn-info" name="archive" value="Archive">
                                     </form>
-                                    <?php } else { echo form_open('tutor/module/assignment/index/'.$assignment['file_id'] ); ?>
+                                    <?php } else { echo form_open('tutor/module/assignment/index/'. $modules['module_code'] .'/'.$assignment['file_id'] ); ?>
                                         <input type="submit" class="btn btn-info" name="unarchive" value="Unarchive">
                                     </form>
                                      <?php } ?>
-                                    <?php echo form_open('tutor/module/assignment/index/'.$assignment['file_id'] ); ?>
+                                    <?php echo form_open('tutor/module/assignment/index/'. $modules['module_code'] .'/'. $assignment['file_id'] ); ?>
                                         <input type="submit" class="btn btn-danger" name="delete" value="Delete">
                                     </form>
                                 </td>

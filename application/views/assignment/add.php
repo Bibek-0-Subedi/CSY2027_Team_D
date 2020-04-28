@@ -21,7 +21,7 @@
         </div>
         <div class="form-group col-md-4">
             <input type="hidden" class="form-control" name="module_code" value="<?= $modules['module_code']?>">
-             <input type="hidden" class="form-control" name="type" value="0">
+             <input type="hidden" class="form-control" name="type" value="1">
         </div>
 
         <button type="submit" class="btn uniBtn mx-sm-4" name="upload">Upload</button>

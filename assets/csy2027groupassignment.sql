@@ -64,16 +64,10 @@ INSERT INTO `admissions` (`admission_id`, `assigned_id`, `status`, `firstname`, 
 
 CREATE TABLE `assignments` (
   `assignment_id` int(16) NOT NULL,
-  `assignment_name` varchar(255) NOT NULL,
-  `deadline` datetime NOT NULL,
   `grade` char(2) DEFAULT NULL,
   `module_code` int(8) NOT NULL,
-  `course_id` int(8) NOT NULL,
-  `staff_id` int(10) NOT NULL,
   `student_id` int(12) NOT NULL,
   `assignment_file` varchar(255) NOT NULL,
-  `submission_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `archive` int(4) NOT NULL DEFAULT 0,
   `created_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -155,8 +149,8 @@ INSERT INTO `departments` (`department_id`, `name`, `department_head`) VALUES
 CREATE TABLE `diaries` (
   `diary_id` int(20) NOT NULL,
   `description` text NOT NULL,
-  `staff_id` int(10) NOT NULL,
-  `student_id` int(12) NOT NULL,
+  `staff_id` int(10) DEFAULT NULL,
+  `student_id` int(12) DEFAULT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -220,7 +214,7 @@ INSERT INTO `module_files` (`file_id`, `module_id`, `filename`, `description`, `
 --
 
 CREATE TABLE `pat` (
-  `pad_id` int(12) NOT NULL,
+  `pat_id` int(12) NOT NULL,
   `pat_information` text NOT NULL,
   `staff_id` int(6) NOT NULL,
   `student_id` int(8) NOT NULL,
@@ -283,6 +277,7 @@ CREATE TABLE `students` (
   `assigned_id` int(8) NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pat_tutor` int(10) NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -291,10 +286,10 @@ CREATE TABLE `students` (
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`student_id`, `assigned_id`, `email`, `password`, `created_at`, `updated_at`) VALUES
-(1002, 1002, 'ram@woodland.com', '$2y$10$um0qSWExh11ZzIzOQpoO..HFJdpPGa2Fm/M7vK9x0cC8V7OR1jT2m', '2020-04-07 09:48:54', '2020-04-07 10:14:10'),
-(1012, 1012, 'shyam@woodland.com', '$2y$10$TUIFmSfnJuemtiMekAbE6.1cLrONl5diZqXDso.oPNdH/LmnIdkIC', '2020-04-10 03:21:04', '2020-04-10 03:21:04'),
-(1016, 1016, 'ganesh@woodland.com', '$2y$10$ymQKHCKDn0skytiLANpcdeR6ZocbneROvFAjQtPB/.ZRQ0QgdwIgO', '2020-04-10 03:28:29', '2020-04-10 03:28:29');
+INSERT INTO `students` (`student_id`, `assigned_id`, `email`, `password`, `pat_tutor`, `created_at`, `updated_at`) VALUES
+(1002, 1002, 'ram@woodland.com', '$2y$10$um0qSWExh11ZzIzOQpoO..HFJdpPGa2Fm/M7vK9x0cC8V7OR1jT2m', 3, '2020-04-07 09:48:54', '2020-04-28 20:42:56'),
+(1012, 1012, 'shyam@woodland.com', '$2y$10$TUIFmSfnJuemtiMekAbE6.1cLrONl5diZqXDso.oPNdH/LmnIdkIC', 3, '2020-04-10 03:21:04', '2020-04-28 20:42:54'),
+(1016, 1016, 'ganesh@woodland.com', '$2y$10$ymQKHCKDn0skytiLANpcdeR6ZocbneROvFAjQtPB/.ZRQ0QgdwIgO', 3, '2020-04-10 03:28:29', '2020-04-28 20:42:49');
 
 -- --------------------------------------------------------
 
@@ -347,7 +342,6 @@ ALTER TABLE `admissions`
 --
 ALTER TABLE `assignments`
   ADD PRIMARY KEY (`assignment_id`),
-  ADD KEY `fk_asn_staff` (`staff_id`),
   ADD KEY `fk_asn_modules` (`module_code`),
   ADD KEY `fk_asn_students` (`student_id`);
 
@@ -401,7 +395,7 @@ ALTER TABLE `module_files`
 -- Indexes for table `pat`
 --
 ALTER TABLE `pat`
-  ADD PRIMARY KEY (`pad_id`),
+  ADD PRIMARY KEY (`pat_id`),
   ADD KEY `fk_pat_staffs` (`staff_id`),
   ADD KEY `fk_pat_students` (`student_id`);
 
@@ -423,7 +417,8 @@ ALTER TABLE `staff_modules`
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
-  ADD PRIMARY KEY (`student_id`);
+  ADD PRIMARY KEY (`student_id`),
+  ADD KEY `fk_s_staff` (`pat_tutor`);
 
 --
 -- Indexes for table `student_modules`
@@ -472,7 +467,7 @@ ALTER TABLE `module_files`
 -- AUTO_INCREMENT for table `pat`
 --
 ALTER TABLE `pat`
-  MODIFY `pad_id` int(12) NOT NULL AUTO_INCREMENT;
+  MODIFY `pat_id` int(12) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `timetables`
@@ -495,7 +490,6 @@ ALTER TABLE `admissions`
 --
 ALTER TABLE `assignments`
   ADD CONSTRAINT `fk_asn_modules` FOREIGN KEY (`module_code`) REFERENCES `modules` (`module_code`) ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_asn_staff` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`) ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_asn_students` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`) ON UPDATE NO ACTION;
 
 --

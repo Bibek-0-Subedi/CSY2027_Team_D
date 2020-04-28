@@ -22,8 +22,9 @@ class Tutors extends CI_Controller {
         $this->loadViews('dashboard', 'Dashboard', $data);
     }
 
-    public function profile($id){
-        $this->loadViews('profile', 'Profile');
+    public function profile(){
+        $data['tutor'] = $this->tutor->selectTutor();
+        $this->loadViews('profile', 'Profile', $data);
     }
     public function modules(){
 
@@ -52,7 +53,8 @@ class Tutors extends CI_Controller {
      public function studentList($id){
             $module = $this->tutor->selectStudent($id);
             $data = [
-                'students' => $module
+                'students' => $module,
+                'module_id' => $id
             ];
         $this->loadViews('studentList', 'Student List', $data); 
     }
@@ -62,6 +64,7 @@ class Tutors extends CI_Controller {
         $this->loadViews('module', 'Module', $data);
     }
     public function updateData($id){
+
         $data['id'] = $id;
 
         $this->form_validation->set_rules('firstname', ' Name', 'required');
@@ -84,9 +87,99 @@ class Tutors extends CI_Controller {
         $data['attendances'] = $this->Tutor->attendance($id);
         $this->loadViews('attendanceRecord', 'Attendance Record', $data);
     }
-    public function grade($id)
+    public function grade($module_id, $student_id)
     {
-        $data['grades'] = $this->Tutor->grade($id);
+        $data['grades'] = $this->Tutor->grade($module_id, $student_id);
         $this->loadViews('gradeRecord', 'Grade Record', $data);
     } 
+    public function patList()
+    {
+        $data['students'] = $this->Tutor->selectStudentPat();
+        $this->loadViews('patList', 'PAT', $data);
+    }
+    public function patInfo($id)
+    {
+        $data = [
+            'informations' => $this->Tutor->patInfo($id),
+            'student_id' => $id
+        ];
+
+        $this->loadViews('viewPat','PAT Information', $data);
+    }
+    public function addPat($id){
+        $this->form_validation->set_rules('student_id', 'Student Id', 'required');
+        $this->form_validation->set_rules('information', 'Information', 'required');
+    
+        if ($this->form_validation->run() === FALSE) {
+            
+             $data = [
+                        'students' => $this->Tutor->selectStudentPat(),
+                        'student_id' => $id
+                     ];
+             $this->loadViews('pat', 'Send Information', $data); 
+
+        }
+        else {
+            $this->Tutor->addInfo($id);
+            redirect('tutor/pat/');
+        }
+    }
+    public function editPat($student_id, $pat_id){
+        $this->form_validation->set_rules('information', 'Information', 'required');
+    
+        if ($this->form_validation->run() === FALSE) {
+             
+             $data = [
+                        'student' => $this->Tutor->selectInfo($pat_id),
+                        'pat_id' => $pat_id,
+                        'student_id' => $student_id
+
+                     ];
+             $this->loadViews('editPat', 'Edit Information', $data); 
+
+        }
+        else {
+            $success = $this->Tutor->updateInfo($pat_id);
+            if($success){
+            redirect('tutor/pat');
+            }
+        }
+    }
+    public function diaryList()
+    {
+        $data['diaries'] = $this->Tutor->selectDiary();
+        $this->loadViews('diaryList', 'PAT', $data);
+    }
+    public function addDiary(){
+        $this->form_validation->set_rules('information', 'Information', 'required');
+    
+        if ($this->form_validation->run() === FALSE) {
+             
+             $data['diaries'] = $this->Tutor->selectDiary();
+             $this->loadViews('diary', 'Add Information', $data); 
+
+        }
+        else {
+            $success = $this->Tutor->insertDiary();
+            if($success){
+            redirect('tutor/diary');
+            }
+        }
+    }
+    public function editDiary($id){
+        $this->form_validation->set_rules('information', 'Information', 'required');
+    
+        if ($this->form_validation->run() === FALSE) {    
+             $data = [
+                    'diary_id' => $id
+                ];
+             $this->loadViews('editDiary', 'Edit Information', $data); 
+        }
+        else {
+            $success = $this->Tutor->updateDiary($id);
+            if($success){
+            redirect('tutor/diary');
+            }
+        }
+    }
 }

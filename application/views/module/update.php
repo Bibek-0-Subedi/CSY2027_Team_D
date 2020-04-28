@@ -4,7 +4,7 @@
     <h2 class="bg-content"> Update Materials</h2>
     <?php echo validation_errors(); ?>
    
-    <form action="<?= site_url() ?>tutor/module/update/<?= $modules['file_id'] ?>" method="POST" enctype="multipart/form-data">    
+    <form action="<?= site_url() ?>tutor/module/update/<?= $module_id ?>/<?= $modules['file_id'] ?>" method="POST" enctype="multipart/form-data">    
 
         <div class="form-group row">
              <label for="week" class="col-sm-2">Week/Title: </label>

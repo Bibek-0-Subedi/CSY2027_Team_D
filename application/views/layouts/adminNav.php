@@ -83,7 +83,7 @@
                         </a>
                     </li>  
                      <li class="nav-item">
-                        <a class="nav-link d-flex justify-content-between" href="<?= site_url() ?>tutor/profile/<?php echo $this->session->userdata('id');?>">
+                        <a class="nav-link d-flex justify-content-between" href="<?= site_url() ?>tutor/profile">
                             <span>Profile</span>
                             <i class="fas fa-portrait"></i>
                         </a>
@@ -95,9 +95,15 @@
                         </a>
                     </li>  
                     <li class="nav-item">
-                        <a class="nav-link d-flex justify-content-between" href="#">
+                        <a class="nav-link d-flex justify-content-between" href="<?= site_url() ?>tutor/pat/">
                             <span>PAT</span>
                             <i class="fas fa-chalkboard-teacher"></i>
+                        </a>
+                    </li> 
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-between" href="<?= site_url() ?>tutor/diary/">
+                            <span>Diary</span>
+                            <i class="fas fa-pen-alt"></i>
                         </a>
                     </li>   
                  <!-- end for tutor as the user -->      

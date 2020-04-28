@@ -41,16 +41,16 @@
                                 <td><?= $module_file['filename'] ?></td>
                                 <td><?= $module_file['created_at'] ?></td>
                                 <td class=""style="display: flex; justify-content: space-around;">
-                                    <a href="<?= site_url() ?>tutor/module/update/<?php echo $module_file['file_id']; ?>" class="btn btn-success">Edit</a>
+                                    <a href="<?= site_url() ?>tutor/module/update/<?php echo $modules['module_code']; ?>/<?php echo $module_file['file_id']; ?>" class="btn btn-success">Edit</a>
                                     <?php if($module_file['archive'] == '0'){ ?>
-                                    <?php echo form_open('tutor/module/'.$module_file['file_id'] ); ?>
+                                    <?php echo form_open('tutor/module/'. $modules['module_code'] . '/' . $module_file['file_id'] ); ?>
                                         <input type="submit" class="btn btn-info" name="archive" value="Archive">
                                     </form>
-                                    <?php } else { echo form_open('tutor/module/'.$module_file['file_id'] ); ?>
+                                    <?php } else { echo form_open('tutor/module/'. $modules['module_code'] . '/' . $module_file['file_id'] ); ?>
                                         <input type="submit" class="btn btn-info" name="unarchive" value="Unarchive">
                                     </form>
                                      <?php } ?>
-                                    <?php echo form_open('tutor/module/'.$module_file['file_id'] ); ?>
+                                    <?php echo form_open('tutor/module/'. $modules['module_code'] . '/' . $module_file['file_id'] ); ?>
                                         <input type="submit" class="btn btn-danger" name="delete" value="Delete">
                                     </form>
                                 </td>

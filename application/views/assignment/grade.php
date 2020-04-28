@@ -1,7 +1,7 @@
 <?php if(($this->session->userdata('type')) == 3) {?>
 
 <div class="container-fluid">
-<?php echo form_open(base_url('tutor/module/assignment/grade/' . $id )) ;?>
+<?php echo form_open(base_url('tutor/module/assignment/grade/' . $module_id .'/'.$id )) ;?>
         <div class="form-group col-md-4">
             <label>Grade</label>
              <select class="form-control col-sm-6" name='grade'>

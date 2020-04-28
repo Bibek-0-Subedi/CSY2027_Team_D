@@ -36,13 +36,10 @@
                     <thead>
                         <tr>
                            <th>Module Code</th>  
-                           <th data-filter-control="select">Assignment Name</th>
-                            <th data-filter-control="select">Deadline</th>
                             <th data-filter-control="select">Grade</th>
                             <th data-filter-control="select">Student Id</th>
                             <th data-filter-control="select">Assignment File</th>
                             <th data-filter-control="select">Submission Date</th>
-                            <th data-filter-control="select">Created Date</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -50,24 +47,13 @@
                         <?php foreach ($assignments as $assignment) { ?>
                             <tr>
                                 <td><?= $assignment['module_code'] ?></td>
-                                <td><?= $assignment['assignment_name'] ?></td>
-                                <td><?= $assignment['deadline'] ?></td>
                                 <td><?= $assignment['grade'] ?></td>
                                 <td><?= $assignment['student_id'] ?></td>
                                 <td><?= $assignment['assignment_file'] ?></td>
-                                <td><?= $assignment['submission_date'] ?></td>
                                 <td><?= $assignment['created_date'] ?></td>
                                 <td style="display: flex; justify-content: space-around;">
-                                    <a href="<?= site_url(). 'tutor/module'?>/assignment/grade/<?php echo $assignment['assignment_id']; ?>" class="btn btn-info">Grade</a>
-                                   <?php if($assignment['archive'] == '0'){ ?>
-                                    <?php echo form_open('tutor/module/assignment/view/'.$assignment['assignment_id'] ); ?>
-                                        <input type="submit" class="btn btn-info" name="archive" value="Archive">
-                                    </form>
-                                    <?php } else { echo form_open('tutor/module/assignment/view/'.$assignment['assignment_id'] ); ?>
-                                        <input type="submit" class="btn btn-info" name="unarchive" value="Unarchive">
-                                    </form>
-                                     <?php } ?>
-                                    <?php echo form_open('tutor/module/assignment/view/'.$assignment['assignment_id'] ); ?>
+                                    <a href="<?= site_url(). 'tutor/module'?>/assignment/grade/<?= $assignment['module_code'] ?>/<?= $assignment['assignment_id']; ?>" class="btn btn-info">Grade</a>
+                                    <?php echo form_open('tutor/module/assignment/view/'. $assignment['module_code'] .'/'.$assignment['assignment_id'] ); ?>
                                         <input type="submit" class="btn btn-danger" name="delete" value="Delete">
                                     </form>
                                 </td>

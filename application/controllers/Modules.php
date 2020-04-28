@@ -19,23 +19,23 @@ class Modules extends CI_Controller {
         $this->load->view('layouts/adminfooter');
     }
 
-    public function view($id = false){
-        if($id){
+    public function view($module_id = false, $file_id = false){
+        if($file_id){
             if(isset($_POST['archive'])) {
                 $data = ['archive' => '1'];
-                $this->Module->archiveFile($id , $data);
-                redirect('tutor/modules');
+                $this->Module->archiveFile($file_id , $data);
+                redirect('tutor/module/'. $module_id);
            }elseif(isset($_POST['unarchive'])) {
                 $data = ['archive' => '0'];
-                $this->Module->archiveFile($id , $data);
-                redirect('tutor/modules');
+                $this->Module->archiveFile($file_id , $data);
+                redirect('tutor/module/'. $module_id);
             }elseif(isset($_POST['delete'])){
-                $this->Module->deleteFile($id);
-                redirect('tutor/modules');             
+                $this->Module->deleteFile($file_id);
+                redirect('tutor/module/'. $module_id);             
             }
         }
-        $module_files = $this->Module->module_files($id);
-        $module = $this->Module->select($id);
+        $module_files = $this->Module->module_files($module_id);
+        $module = $this->Module->select($module_id);
         $data = [
             'module_files' => $module_files,
             'modules' => $module
@@ -45,7 +45,6 @@ class Modules extends CI_Controller {
     }
 
    public function add($id) {
-
         $this->form_validation->set_rules('module_date', 'Title', 'required');
         $this->form_validation->set_rules('description', 'Description', 'required');
         // $this->form_validation->set_rules('file', 'File', 'required');
@@ -69,23 +68,24 @@ class Modules extends CI_Controller {
             }
         }
     }
-    public function update($id){
+    public function update($module_id, $file_id){
     
         $this->form_validation->set_rules('module_date', 'Title', 'required');
          $this->form_validation->set_rules('description', 'Description', 'required');
 
         if($this->form_validation->run() === FALSE){
-                 $moduleF = $this->Module->selectFile($id);
+                 $moduleF = $this->Module->selectFile($file_id);
 
             $data = [
-                'modules' => $moduleF
+                'modules' => $moduleF,
+                'module_id' => $module_id
             ];
                 $this->loadViews('update', 'Edit File', $data);
         }   
         else{   
               if($this->session->userdata('approval') == 0){
-                  $this->Module->updateMaterials($id); 
-                     redirect('tutor/modules');
+                  $this->Module->updateMaterials($file_id); 
+                     redirect('tutor/module/' . $module_id);
               }
         }
     }

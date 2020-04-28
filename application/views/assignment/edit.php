@@ -4,7 +4,7 @@
     <h2 class="bg-content"> Edit </h2>
     <?php echo validation_errors(); ?>
    
-    <form action="<?= site_url() ?>tutor/module/assignment/edit/<?= $modules['file_id'] ?>" method="POST" enctype="multipart/form-data">    
+    <form action="<?= site_url() ?>tutor/module/assignment/edit/<?= $module_id ?>/<?= $modules['file_id'] ?>" method="POST" enctype="multipart/form-data">    
 
         <div class="form-group row">
              <label for="name" class="col-sm-2">Assignment: </label>
@@ -12,7 +12,7 @@
         </div>
         <div class="form-group row">
              <label for="deadline" class="col-sm-2">Deadline: </label>
-             <input type="datetime-local" value="<?= $modules['description']?>" class="form-control col-sm-2" name="description"> 
+             <input type="datetime-local" value="<?= $modules['deadline']?>" class="form-control col-sm-2" name="description"> 
         </div>
         <div class="form-group row">
             <label for="materials" class="col-sm-2">Upload Materials Here: </label>

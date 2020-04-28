@@ -14,7 +14,7 @@
                                 <a> <?= $student['middlename'] ?></a>
                                 <a><?= $student['surname'] ?></a>
                                 <br><a> Email: <?= $student['email'] ?></a><br><br>
-                                <a href="<?= site_url() ?>tutor/module/grade/<?= $student['student_id']?>" class="pull-right">View Grade Record</a>
+                                <a href="<?= site_url() ?>tutor/module/grade/<?= $module_id?>/<?= $student['student_id']?>" class="pull-right">View Grade Record</a>
                                 <a href="<?= site_url() ?>tutor/module/attendance/<?= $student['student_id']?>" class="">View Attendance Record</a>
                             </div>
                         </div> 

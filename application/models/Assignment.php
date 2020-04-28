@@ -37,7 +37,7 @@ class Assignment extends CI_model{
     }
    public function viewAssignment($assignment)
    {
-        $assignments = $this->db->where('type', 0)->get_where(
+        $assignments = $this->db->where('type', 1)->get_where(
             'module_files', array(
             'module_id' => $assignment)
         );
@@ -59,15 +59,15 @@ class Assignment extends CI_model{
             }
 
         $data = array(
-            'type' => $this->input->post('type'),
+            'type' => 1,
             'module_id' => $this->input->post('module_code'),
             'filename' => $this->input->post('name'),
-            'description' => $this->input->post('description'),
+            'deadline' => $this->input->post('description'),
             'file' => $file
         );
         return $this->db->insert('module_files', $data);
     }
-    public function update($id){
+    public function update($module_id, $file_id){
 
             $config['upload_path'] = './assets/module_files/';
             $config['allowed_types'] = '.jpg|.jpeg|.png|.pdf|.doc|.zip|.ppt|.pptx';
@@ -83,12 +83,13 @@ class Assignment extends CI_model{
             }
 
         $data =[
-            'module_id' => $this->input->post('module_code'),
+            'type' => 1,
+            'module_id' => $module_id,
             'filename' => $this->input->post('name'),
-            'description' => $this->input->post('description'),
+            'deadline' => $this->input->post('description'),
             'file' => $file
         ];
-        $this->db->where('file_id', $id)->update('module_files', $data);
+        $this->db->where('file_id', $file_id)->update('module_files', $data);
     }
     public function grade($id){
         $data = array(
