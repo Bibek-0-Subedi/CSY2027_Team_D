@@ -1,8 +1,8 @@
-assigned_id,status,firstname,middlename,surname,temporary_address,permanent_address,contact,course_code,email,qualification
-1002,A,Ram,Kumar,Chandra,1234,Address1,12345,281,ram@woodland.com,BSc. Data Science
-1012,B,Shyam,Hari,Raj,5431,Address2,12345,2009,shyam@woodland.com,BSc. Computing
-1013,S,Hari,Kumar,Prashad,3224,Address3,12345,2009,hari@woodland.com,BSc. Computing
-1014,V,Krishna,Prashad,Lal,23422,Address4,12345,2009,krishna@woodland.com,BSc. Computing
-,S,Shiva,Kumar,Sharma,4535345,Address5,12345,281,shiva@woodland.com,BSc. Data Science
-1016,S,Ganesh,Raj,Test,1324,Address7,12345,2009,ganesh@woodland.com,BSc. Computing
-1017,D,Rajesh,Sharma,Hari,aaa,aaa,123,23,rajesh@woodland.com,BSc. Networking
+firstname,middlename,surname,temporary_address,permanent_address,contact,course_code,email,qualification
+Ram,Kumar,Chandra,1234,Address1,12345,281,ram@woodland.com,BSc. Data Science
+Shyam,Hari,Raj,5431,Address2,12345,2009,shyam@woodland.com,BSc. Computing
+Hari,Kumar,Prashad,3224,Address3,12345,2009,hari@woodland.com,BSc. Computing
+Krishna,Prashad,Lal,23422,Address4,12345,2009,krishna@woodland.com,BSc. Computing
+Shiva,Kumar,Sharma,4535345,Address5,12345,281,shiva@woodland.com,BSc. Data Science
+Ganesh,Raj,Test,1324,Address7,12345,2009,ganesh@woodland.com,BSc. Computing
+Rajesh,Sharma,Hari,aaa,aaa,123,23,rajesh@woodland.com,BSc. Networking

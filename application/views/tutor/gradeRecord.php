@@ -1,8 +1,10 @@
 <?php if(($this->session->userdata('type')) == 3) {?>
 
-<div class="container mt-5">
-<!-- <h2 class="mb-5"><?= $module['module_name']; ?> Module Attendance</h2> -->
 
+<div class="container-fluid mx-3">
+        <div class="row border-bottom my-2">
+            <h2><?= $module['module_name']; ?></h2>
+        </div>
 <div class="list-group">
     <li class="list-group-item d-flex justify-content-between">
         <h5 class="mt-2">

@@ -89,5 +89,62 @@ class Modules extends CI_Controller {
               }
         }
     }
+
+
+    public function attendance()
+    {
+        $moduleCode = $this->uri->segment(4);
+
+        $attendanceDate = $this->uri->segment(5);
+
+        if(!(bool)strtotime($attendanceDate)){
+            redirect('tutor/module');
+        }
+
+
+
+        if(empty($attendanceDate)){
+            $attendanceDate = date('Y-m-d');
+        }
+
+        $data['students'] = $this->Module->attendance($moduleCode, $attendanceDate);
+        $data['attendance'] = $this->Module->getAttendance($moduleCode, $attendanceDate);
+
+        $this->loadViews('attendance', 'Attendance', $data);
+    }
+
+    public function addAttendance()
+    {
+        // $this->form_validation->set_rules('module_code', 'Module Code', 'trim|required');
+        // $this->form_validation->set_rules('student_id', 'Student Id', 'trim|required|');
+        // $this->form_validation->set_rules('staff_id', 'Staff Id', 'trim|required');
+        // $this->form_validation->set_rules('date', 'Date', 'trim|required');
+        // $this->form_validation->set_rules('status', 'Status', 'trim|required');
+
+        $time = strtotime($this->input->post('date'));
+        $date = date('Y-m-d',$time);
+
+        $this->Module->addAttendance($date);
+
+        // if ($this->form_validation->run() === FALSE) {
+        //     $data['info'] = 'failed';
+        // }else{
+        //     $time = strtotime($this->input->post('date'));
+        //     $date = date('Y-m-d',$time);
+
+        //     $data['info'] = [
+        //         'module_code' => $this->input->post('module_code'),
+        //         'student_id' => $this->input->post('student_id'),
+        //         'staff_id' => $this->input->post('staff_id'),
+        //         'date' => $date,
+        //         'status' => $this->input->post('status')
+        //     ];
+
+        //     $this->Module->addAttendance($data);
+        // }
+
+        $this->loadViews('addAttendance', 'Add Attendance');
+    }
+    
 }
 

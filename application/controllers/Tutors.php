@@ -18,7 +18,7 @@ class Tutors extends CI_Controller {
         $this->load->view('layouts/adminfooter');
     }
     public function dashboard(){
-        $data['tutor'] = $this->tutor->select();
+        $data['announcements'] = $this->tutor->getAnnouncement();
         $this->loadViews('dashboard', 'Dashboard', $data);
     }
 
@@ -63,18 +63,22 @@ class Tutors extends CI_Controller {
         $data['module'] = $this->Tutor->select();
         $this->loadViews('module', 'Module', $data);
     }
-    public function updateData($id){
-
-        $data['id'] = $id;
-
-        $this->form_validation->set_rules('firstname', ' Name', 'required');
+    public function updateData(){
+        $data = $this->tutor->selectTutor();
+        $data['courses'] = $this->admin->getTable('archive', 0, 'courses');    
+        $this->form_validation->set_rules('firstname', 'First Name', 'required');
+        $this->form_validation->set_rules('surname', 'Surname', 'required');
+        $this->form_validation->set_rules('address', 'Address', 'required');
+        $this->form_validation->set_rules('contact', 'Contact', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('subject', 'Subject', 'required');
 
         if($this->form_validation->run() === FALSE){
-                $this->loadViews('updateData', 'Edit Staff', $data);
+                $this->loadViews('updateData', 'Edit Data', $data);
         }   
         else{   
               if($this->session->userdata('approval') == 0){
-                  $this->Tutor->updateData($id); 
+                  $this->Tutor->sendRequest($data['staff_id']); 
                      redirect('tutor/dashboard');
               }
               else{
@@ -82,16 +86,35 @@ class Tutors extends CI_Controller {
               }
         }
     }
-    public function attendance($id)
+    // public function attendance($id)
+    // {
+    //     $data['attendances'] = $this->Tutor->attendance($id);
+    //     $this->loadViews('attendanceRecord', 'Attendance Record', $data);
+    // }
+
+    public function attendance()
     {
-        $data['attendances'] = $this->Tutor->attendance($id);
-        $this->loadViews('attendanceRecord', 'Attendance Record', $data);
+        
+        $studentId = $this->uri->segment(4);
+        $moduleCode = $this->uri->segment(5);
+        // if(!empty($id)){
+            $data['module'] = $this->student->module($moduleCode);
+            $data['student'] = $this->student->getStudent($studentId);
+            $data['attendances'] = $this->student->attendance($studentId, $moduleCode);
+            $this->loadViews('attendance', 'Attendance', $data);
+        // }
+
+
+        
     }
     public function grade($module_id, $student_id)
     {
         $data['grades'] = $this->Tutor->grade($module_id, $student_id);
+        $data['module'] = $this->module->select($module_id);
         $this->loadViews('gradeRecord', 'Grade Record', $data);
     } 
+
+
     public function patList()
     {
         $data['students'] = $this->Tutor->selectStudentPat();
@@ -182,4 +205,24 @@ class Tutors extends CI_Controller {
             }
         }
     }
+
+    public function announcement()
+    {
+        $data['modules'] = $this->tutor->select();
+        $data['announcements'] = $this->tutor->getTutorAnnouncement();
+        $this->loadViews('announcement', 'Announcements' , $data);
+    }
+
+    public function addAnnouncement()
+    {
+        $this->tutor->addAnnouncement();
+        redirect('tutor/announcement');
+    }
+
+    public function deleteAnnouncement($id)
+    {
+        $this->tutor->deleteAnnouncement($id);
+        redirect('tutor/announcement');
+    }
+
 }

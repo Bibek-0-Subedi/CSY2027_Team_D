@@ -139,5 +139,5 @@ $autoload['language'] = array();
 
 
 
-$autoload['model'] = array('admin', 'admission', 'student', 'assignment', 'tutor');
+$autoload['model'] = array('admin', 'admission', 'student', 'assignment', 'tutor','module');
 

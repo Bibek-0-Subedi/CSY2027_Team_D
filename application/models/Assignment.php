@@ -10,8 +10,9 @@ class Assignment extends CI_model{
     }
     public function getTable($field = false, $value = false, $table)
     {
+        $this->db->join('module_files', 'module_files.module_id = '.$table.'.module_code', 'left');
         if($field){
-            $result = $this->db->where($field, $value)->get($table);
+            $result = $this->db->where($field, $value)->where('type',1)->get($table);
         }
         else{
             $result = $this->db->get($table);
@@ -20,7 +21,8 @@ class Assignment extends CI_model{
     }
     public function getTableData($id, $field , $table)
     {
-        $result = $this->db->where($field, $id)->get($table);
+        $this->db->join('module_files', 'module_files.module_id = '.$table.'.module_code', 'left');
+        $result = $this->db->where($field, $id)->where('type',1)->get($table);
         return $result->row_array();
     }
     public function selectModule($id){
@@ -35,6 +37,8 @@ class Assignment extends CI_model{
         $result = $this->db->get('module_files');
         return $result->row_array();
     }
+
+    
    public function viewAssignment($assignment)
    {
         $assignments = $this->db->where('type', 1)->get_where(
@@ -106,8 +110,5 @@ class Assignment extends CI_model{
     }
     public function deleteAssignment($id){
         $this->db->where('assignment_id', $id)->delete('assignments');
-    }
-    public function archiveAssignment($id , $data){
-        $this->db->where('assignment_id', $id)->update('assignments', $data);
     }
 }

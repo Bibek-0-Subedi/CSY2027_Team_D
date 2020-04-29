@@ -1,30 +1,31 @@
 <?php if(($this->session->userdata('type')) == 3) {?>
 	
-<div class="container mt-5">
-	<!-- begin quick notification panel  -->
+<div class="container-fluid mx-3">
+	<div class="row border-bottom mb-3">
+                <h2>Dashboard</h2>
+            </div>
+            <!-- <h5 class="pl-1 mb-4"></h5> -->
+            <div class="notifs">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="m-0">Notifications</h5>    
+                    </div>
+                    <ul class="list-group list-group-flush">
+                    <?php foreach ($announcements as $announcement) { ?>
+                        <li class="list-group-item">
+							<h5><?= $announcement['title'] ?></h5>
+							<p><?= $announcement['content'] ?></p>
+							<p>By : Administrator</p>
 
-	<h2 class="mb-5">Notifications</h2>
-
-	<div class="row mt-1 notification">
-		Quick Notification
-	</div>
-	<!-- end quick notification panel  -->
-	<div class="row mt-1">
-		<div class="container-fluid">
-			<div class="row">
-				<!-- begin first column -->
-				<div class="col-lg-6 bg-dark">
-						first
-				</div>   
-				<!-- end first column -->
-				<!-- begin second column -->
-				<div class="col-lg-6 bg-success">
-						second
-				</div>
-				<!-- end second column -->
-				</div>
-		</div>
-	</div>
+							<p>Date: <?= $announcement['created_at'] ?></p>
+                        </li>
+                    <?php } 
+                        if(count($announcements) == 0){ ?>
+                            <li class="list-group-item">No Notifications</li>
+                        <?php } ?>
+                    </ul>
+                </div>
+            </div>
 </div>
 <?php }
 

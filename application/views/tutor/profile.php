@@ -1,36 +1,41 @@
 <?php if(($this->session->userdata('type')) == 3) {?>
 
-<div class="container-fluid mt-4 ml-4">
-	<h4 class="bg-content">Profile Details </h4>
-	<div class="mt-2">
-    	<div class="card">
-        	<div class="card-body">
-				<div class="form-group col-md-4">
-				<h5 class="row-sm-2">Name:</h5>
-				<h5 class="row-sm-8 mr-3"><?= $tutor['firstname'] . ' ' .
-			   		$tutor['middlename'] . ' ' .
-			   		$tutor['surname'] ;?></h5>
-			   	</div>
-			   	<div class="form-group col-md-4">
-				<h5 class="row-sm-2">Address:</h5>			   	
-				<h5 class="col-sm-8 mr-3"><?= $tutor['address']; ?></h5>
+<div class="container-fluid mx-3">
+        <div class="row border-bottom my-2">
+            <h2>Profile Details</h2>
+        </div>
+	<div class="mb-5">
+		<div class="card p-0">
+			<div class="card-header text-center mb-3"><h5 class="m-0">Tutor's Detail</h5></div>
+			<div class="d-flex">
+				<div class="large-icon text-center px-4 ml-2 mr-5">
+					<div class="d-inline-flex p-5 mb-5 rounded-circle bg-secondary">
+						<i class="fas fa-user text-light mx-1"></i>
+					</div>
+					<div>
+						<?php if($tutor['approval'] == 0){ ?>
+							<a class="btn btn-outline-primary mb-3" href="<?= site_url() ?>tutor/updateData">Request For Change</a>
+						<?php }else{ ?>
+							<div class="btn btn-outline-success mb-3" >Change Request Sent</div>
+						<?php } ?>
+                    
+                	</div>
+					<div><a class="btn btn-outline-primary mb-3" href="<?= site_url() ?>tutor/pat">See PAT Session Requests</a></div>
 				</div>
-				<div class="form-group col-md-4">
-				<h5 class="row-sm-2">Assigned Modules:</h5>		
-				<h5 class="col-sm-8 mr-3"><?= $tutor['subject']; ?></h5>
+				<div class="card-body ml-5">
+					<h2><?= $tutor['firstname'].' '.$tutor['middlename'].' '.$tutor['surname'] ;?></h2>
+					<p class="card-text">
+					<ul class="list-group list-group-flush">
+						<h4><?= $tutor['email'] ?></h4>
+						<p>Permanent Address: <?= $tutor['address'] ?></p>
+						<p>Contact: <?= $tutor['contact'] ?></p>
+						<p>Course: <?= $tutor['course_name'] ?></p>
+						<p>Email: <?= $tutor['email'] ?></p>
+					</p>
 				</div>
-				<div class="form-group col-md-4">
-				<h5 class="row-sm-2">Contact:</h5>		
-				<h5 class="col-sm-8 mr-3"><?= $tutor['contact']; ?></h5>
-				</div>
-				<div class="form-group col-md-4">
-				<h5 class="row-sm-2">Email:</h5>		
-				<h5 class="col-sm-8 mr-3"><?= $tutor['email']; ?></h5>
-				</div>
-				<a class="pull-right" href="<?= site_url() ?>tutor/updateData/<?php echo $this->session->userdata('id');?>"> Request for change </a>
-        	</div>
-    	</div>
-	</div>
+			</div>
+		</div>
+    </div>
 </div>
 
 <?php }

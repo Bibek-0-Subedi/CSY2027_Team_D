@@ -4,10 +4,19 @@
             <h2>Staff Detail Form</h2>
         </div>
         <!-- begin Staff add form -->
+        
         <?php echo form_open('admin/staffDetail/'.$staff['staff_id'], ['class' => 'pl-sm-2 pr-sm-2 mt-4 row']); ?>
+            <?php if(isset($_GET['type']) && ($_GET['type'] == 'request') && $staff['approval'] == 1){ ?>
+            <div class="bg-light rounded p-2 mb-3 col-md-12">
+                <p>This change was requested by <?= $staff['firstname'].' '.$staff['surname'] ?></p>
+                <p><?= $staff['changes'] ?></p>
+            </div>
+            <input type="hidden" name="changeApproved" value="1">
+            <?php } ?>
             <div class="form-group col-md-6">
-                <?php if(!$staff['staff_id']){?>
                 <label for="staffId">Staff Id</label>
+                <?php if($staff['staff_id']){?>
+                    <input type="text" readonly class="form-control" value="<?= $staff['staff_id'] ?>">
                  <?php } ?>
                 <input type="<?php echo $staff['staff_id'] ? 'hidden' : 'text';?>" class="form-control mr-3 <?php echo form_error('staff_id') ? 'is-invalid' : '' ?>" name="staff_id" value="<?php echo isset($_POST['staff_id']) ? $_POST['staff_id'] : $staff['staff_id'] ?>">
                 <?= form_error('staff_id') ?>
@@ -15,7 +24,7 @@
         <div class="form-group col-md-6">
             <label for="Status">Status</label>
             <select class="form-control mr-3 <?php echo form_error('status') ? 'is-invalid' : '' ?>" name='status'>
-                <option value="" disabled <?php if ( $status == "3") echo "selected" ?>>Choose</option>
+                <option value="" disabled <?php if ( $staff['status'] == "3") echo "selected" ?>>Choose</option>
                 <option value="1" <?php if ((isset($_POST['status']) == 1) || $staff['status'] == "1") echo "selected" ?>>Active</option>
                 <option value="0" <?php if ((isset($_POST['status']) == 0) && $staff['status'] == "0") echo "selected" ?>>Dormant</option>
             </select>
@@ -28,7 +37,7 @@
         </div>
         <div class="form-group col-md-6">
             <label for="Middlename">Middlename</label>
-            <input type="text" class="form-control  " name="middlename" value="<?php echo isset($_POST['middlename']) ? $_POST['middlename'] : '' ?>">
+            <input type="text" class="form-control  " name="middlename" value="<?php echo isset($_POST['middlename']) ? $_POST['middlename'] : $staff['middlename'] ?>">
             <?= form_error('MiddleName') ?>
         </div>
         <div class="form-group col-md-6">
@@ -53,10 +62,8 @@
         </div>
 
         <div class="form-group col-md-6">
-            <?php if (!$staff['password']) { ?>
             <label for="Password">Password</label>
-            <?php } ?>
-            <input type="<?php echo $staff['staff_id'] ? 'hidden' : 'text';?>" class="form-control mr-3 <?php echo form_error('password') ? 'is-invalid' : '' ?>" name="password" value="<?php echo isset($_POST['password']) ? $_POST['password'] : $staff['password'] ?>">
+            <input type="text" class="form-control mr-3 <?php echo form_error('password') ? 'is-invalid' : '' ?>" name="password" value="<?php echo isset($_POST['password']) ? $_POST['password'] : '' ?>">
             <?= form_error('password') ?>
         </div>
         <!-- Select Course for the staff  -->
@@ -65,7 +72,7 @@
             <select class="form-control  mr-3 <?php echo form_error('subject') ? 'is-invalid' : '' ?>" name='subject'>
                 <option value=""  <?php if (!isset($_POST['subject']) && $staff['subject'] == "") echo "selected" ?>>Select Course</option>
                 <?php foreach($courses as $course) { ?>
-                    <option value="<?= $course['course_code'] ?>"<?php if ((isset($_POST['course_code'])) == $course['course_code']){ echo "selected" ;} ?>><?= $course['course_name'] ?></option>
+                    <option value="<?= $course['course_code'] ?>"<?php if ((isset($_POST['course_code'])) || ($course['course_code'] == $staff['subject'])){ echo "selected" ;} ?>><?= $course['course_name'] ?></option>
             <?php } ?>
             </select>
             <?= form_error('subject') ?>

@@ -43,8 +43,9 @@ class Admins extends CI_Controller
 
     public function dashboard()
     {     
-        // $this->admin->sendEmail();   
-        $this->loadViews('dashboard', 'Dashboard');
+        $data['staffRequests'] = $this->admin->staffRequests();
+        $data['studentRequests'] = $this->admin->studentRequests();
+        $this->loadViews('dashboard', 'Dashboard', $data);
     }
 
     public function admission()
@@ -177,13 +178,34 @@ class Admins extends CI_Controller
     {
         $data = $this->admin->getStudentData($id);
 
-        $this->loadViews('casefile', 'Case File',$data);
+        if($this->input->post('createCaseFile')){
+            $this->admin->createCaseFile($id);
+            redirect('admin/admission');
+        }else if($this->input->post('rejectApplication')){
+            $this->admin->rejectApplication($id);
+            redirect('admin/admission');
+        }else if($this->input->post('conditional')){
+            if($this->input->post('offer') == 'conditional'){
+                $this->admission->conditional_letter($data['firstname'], $data['course_name'], date("Y/m/d", strtotime("+1 week")), $data['email']);
+            }else if($this->input->post('offer') == 'unconditional'){
+                $this->admission->non_conditional_letter($data['firstname'], $data['course_name'], date("Y/m/d", strtotime("+1 week")), $data['email']);
+            }
+            redirect('admin/casefile/'.$id);
+        }else if($this->input->post('liveDormant')){
+            $this->admin->liveDormant($id);
+            redirect('admin/admission');
+        }else if($this->input->post('sendFollowUpEmail')){
+            $this->admission->follow_up_letter($data['firstname'], $data['course_name'], date("Y/m/d", strtotime("+2 weeks")),  $data['email']);
+            redirect('admin/casefile/'.$id);
+        }else{
+            $this->loadViews('casefile', 'Case File',$data);
+        }
+
     }
 
     public function createCaseFile($id)
     {
-        $data = $this->admin->createCaseFile($id);
-        redirect('admin/casefile/'.$id);
+        
         // $this->loadViews('casefile', 'Case File',$data);
     }
 
@@ -511,4 +533,22 @@ class Admins extends CI_Controller
         $data =['timetable' => $deser_timetable]; 
         $this->loadViews('timeTableView', 'View Table', $data);
     }
+    public function announcement()
+    {
+        $data['announcements'] = $this->tutor->getAnnouncement();
+        $this->loadViews('announcement', 'Announcements' , $data);
+    }
+
+    public function addAnnouncement()
+    {
+        $this->admin->addAnnouncement();
+        redirect('admin/announcement');
+    }
+
+    public function deleteAnnouncement($id)
+    {
+        $this->tutor->deleteAnnouncement($id);
+        redirect('admin/announcement');
+    }
+
 }
