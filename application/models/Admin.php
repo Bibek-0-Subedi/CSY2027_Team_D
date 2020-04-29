@@ -130,11 +130,21 @@ class Admin extends CI_Model{
 
         $this->db->join('admissions', 'admissions.assigned_id=students.assigned_id', 'left');
         $this->db->join('courses', 'admissions.course_code=courses.course_code', 'left');
+        // $this->db->join('staff', 'staff.staff_id=students.pat_tutor', 'left');
         $this->db->where('students.archive = 0');
         $result = $this->db->get('students');
         return $result->result_array();
 
     }
+
+    public function studentEditData($id){
+        $this->db->join('admissions', 'admissions.assigned_id = students.student_id', 'left');
+        $this->db->join('courses', 'admissions.course_code = courses.course_code', 'left');
+        $result = $this->db->where('student_id', $id)->get('students');
+        return $result->row_array();
+        
+    }
+
     public function getAssignablePatTutor(){
         $this->db->where('role', '3');
         $this->db->where('archive', 0);
@@ -168,6 +178,28 @@ class Admin extends CI_Model{
 
         $this->db->insert('admissions', $data); // Not sure could be students table too
     }
+    public function updateStudent($id){
+        $data = [
+            'firstname' => $this->input->post('firstname'),
+            'middlename' => $this->input->post('middlename'),
+            'surname' => $this->input->post('surname'),
+            'temporary_address' => $this->input->post('tempAddress'),
+            'permanent_address' => $this->input->post('permAddress'),
+            'contact' => $this->input->post('contact'),
+            'email' => $this->input->post('email'),
+            'qualification' => $this->input->post('qualification'),
+            'course_code' => $this->input->post('courseCode'),
+        ];
+
+
+        if(!empty(trim($this->input->post('password')))){
+            $data['password'] = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+        }
+
+
+        $this->db->where('assigned_id', $id)->update('admissions', $data);
+    }
+
     public function deleteStudent($id){
         $this->db->where('student_id', $id)->delete('students');
     }
@@ -190,37 +222,61 @@ class Admin extends CI_Model{
     public function staff(){
         $this->db->join('courses', 'courses.course_code=staff.subject', 'left');
         $this->db->join('modules', 'modules.module_code=staff.subject', 'left');
-        $staff = $this->db->get_where('staff', ['staff.archive'=> 0, ]);
+        if($this->session->userdata('type') == 2){
+            $this->db->where_not_in('staff_id', $this->session->userdata('id'));
+        }
+        if($this->session->userdata('type') == 1){
+            $this->db->where_not_in('staff_id', $this->session->userdata('id'));
+            $this->db->where_not_in('role', 2);
+        }
+        $this->db->where('staff.archive', 0);
+        $staff = $this->db->get('staff');
         return $staff->result_array();
     }
 
     public function filterStaff($status, $sub, $role){
         $this->db->join('courses', 'courses.course_code=staff.subject', 'left');
         $this->db->join('modules', 'modules.module_code=staff.subject', 'left');
+        $this->db->where('staff.archive', 0);
+        if($this->session->userdata('type') == 2){
+            $this->db->where_not_in('staff_id', $this->session->userdata('id'));
+        }
+        if($this->session->userdata('type') == 1){
+            $this->db->where_not_in('staff_id', $this->session->userdata('id'));
+            $this->db->where_not_in('role', 2);
+        }
+
         if($status == 'null' && $sub == 'null' && $role == 'null'){
-            $staff = $this->db->get_where('staff', ['staff.archive'=> 0, ]);
+
         }
         else if ($status == 'null' && $sub == 'null' && $role != 'null') {
-            $staff = $this->db->get_where('staff', ['staff.archive'=> 0, 'staff.role' => $role]);
+            $this->db->where('staff.role', $role);
         }
         else if ($status == 'null' && $sub != 'null' && $role == 'null') {
-            $staff = $this->db->get_where('staff', ['staff.archive'=> 0, 'staff.subject' => $sub]);
+            $this->db->where('staff.subject', $sub);
         }
         else if ($status != 'null' && $sub == 'null' && $role == 'null') {
-            $staff = $this->db->get_where('staff', ['staff.archive'=> 0, 'staff.status' => $status]);
+            $this->db->where('staff.status', $status);
         }
         else if ($status != 'null' && $sub != 'null' && $role == 'null') {
-           $staff = $this->db->get_where('staff', ['staff.archive'=> 0,'staff.status' => $status, 'staff.subject' => $sub]);
+            $this->db->where('staff.subject', $sub);
+            $this->db->where('staff.status', $status);
         }
         else if ($status != 'null' && $sub == 'null' && $role != 'null') {
-           $staff = $this->db->get_where('staff', ['staff.archive'=> 0,'staff.status' => $status, 'staff.role' => $role]);
+            $this->db->where('staff.status', $status);
+            $this->db->where('staff.role', $role);
         }
         else if ($status == 'null' && $sub != 'null' && $role != 'null') {
-           $staff = $this->db->get_where('staff', ['staff.archive'=> 0, 'staff.subject' => $sub,'staff.role' => $role]);
+            $this->db->where('staff.role', $role);
+            $this->db->where('staff.subject', $sub);
         }
         else if ($status != 'null' && $sub != 'null' && $role != 'null') {
-           $staff = $this->db->get_where('staff', ['staff.archive'=> 0,'staff.status' => $status, 'staff.subject' => $sub,'staff.role' => $role]);
+            $this->db->where('staff.role', $role);
+            $this->db->where('staff.subject', $sub);
+            $this->db->where('staff.status', $status);
         }
+
+        $staff = $this->db->get('staff');
  
         return $staff->result_array();
     }
@@ -533,7 +589,7 @@ class Admin extends CI_Model{
     public function studentRequests()
     {
         $this->db->join('admissions', 'admissions.assigned_id = students.assigned_id', 'left');
-        $result = $this->db->where('approval', 1)->select('admission_id, changes, firstname, surname')->get('students');
+        $result = $this->db->where('approval', 1)->select('student_id, changes, firstname, surname')->get('students');
         return $result->result_array();
         
     }

@@ -31,6 +31,12 @@
           </div>
         </div>     
       </div>
+
+      <?php if (!empty($this->session->flashdata('added'))) { ?>
+        <div class="alert alert-success" role="alert">
+            <?php echo $this->session->flashdata('added'); ?>
+        </div>
+    <?php } ?>
       <!-- <div class="row mt-3">
         <a href="add" class="btn btn-primary">Add Student</a>
       </div> -->

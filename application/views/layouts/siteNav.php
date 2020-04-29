@@ -3,18 +3,6 @@
         <p class="pt-2 m-0 ml-3 text-white"><?= date("d").'th '.date("M Y") ?></p>
     </div>
     <div class="logout-link">
-        <?php if ($this->session->userdata('student_logged')) :?>
-            <h4><?php echo $this->session->userdata('name') ;?></h4>
-            <form class="form layout-search" method="post" action="<?php echo base_url();?>student/logout">
-                <button class="btn" type="submit"><i class="fa fa-power-off" style="font-size: 20px; color: red"></i></button>
-            </form>                                            
-        <?php endif;?>
-        <?php if (($this->session->userdata('type')) == 2) :?>
-            <h3><?php echo $this->session->userdata('name') ;?></h3>
-            <form class="form layout-search" method="post" action="<?php echo base_url();?>admin/logout">
-                <button class="btn" type="submit"><i class="fa fa-power-off" style="font-size: 20px; color: red"></i></button>
-            </form>                                            
-        <?php endif;?>
         <form class="form layout-search ">
             <input class="form-control mr-sm-2 search-input" type="search" placeholder="Search">
             <button class="btn" type="submit"><i class="fa fa-search" style="font-size: 20px; color: #8AC6B7"></i></button>

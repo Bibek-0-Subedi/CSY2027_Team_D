@@ -7,7 +7,7 @@
         <a href="#" class="navbar-brand d-block bt-border text-black text-center py-2"><img src="<?php echo base_url();?>assets/img/logo-icon.jpg" alt="logoIcon">  Woodlands University College</a>
     </div>
     <div class="logout-link mt-2">
-        <?php if (($this->session->userdata('type')) == 1) :?>
+        <?php if (($this->session->userdata('type')) == 1 || $this->session->userdata('type') == 2 ) :?>
             <h4 class="mr-3 mt-1"><i class="fas fa-user-shield mr-2"></i><?php echo $this->session->userdata('name') . ' '. $this->session->userdata('surname') ;?></h4>
         <?php endif;?>
         <?php if (($this->session->userdata('type')) == 3) :?>
@@ -24,7 +24,7 @@
     <div class="navbar navbar-expand-lg adminSidebar d-block">
         <div class="collapse navbar-collapse mb-auto adminSidebarTest" id="nav-linkDropdown">
         <ul class="navbar-nav flex-column">
-            <?php if ($this->session->userdata('type') == 1){?>
+            <?php if ($this->session->userdata('type') == 1 || $this->session->userdata('type') == 2 ){?>
                     <li class="nav-item">
                         <a class="nav-link d-flex justify-content-between" href="<?= site_url() ?>admin/dashboard">
                             <span>Dashboard</span>

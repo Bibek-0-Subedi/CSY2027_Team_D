@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="col-md-2">
-            <a href="add" class="btn text-primary border border-primary">
+            <a href="studentDetail" class="btn text-primary border border-primary">
                 <div class="medium-icon px-5">
                     <i class="fa fa-user-plus"></i>
                 </div>
@@ -93,14 +93,16 @@
                         echo '<td>' . $row['email'] . '</td>';
                         echo '<td>' . $row['qualification'] . '</td>';
                         echo '<td>';
-                        if ($row['pat_tutor'] == NULL) {
+                        if ($row['pat_tutor'] == 0) {
                             echo '<button  . data-id="' . $row['student_id'] . '" class="btn btn-secondary" data-toggle="modal"  data-target="#assignPatTutor" >Assign</button>';
                         } else {
                             echo $row['pat_tutor'];
+                            // echo $row['firstname'] . $row['surname'];
+                            echo '<button  . data-id="' . $row['student_id'] . '" class="btn btn-secondary" data-toggle="modal"  data-target="#assignPatTutor" >Re Assign</button>';
                         }
                         echo '</td>';
                         echo '<td style="display: flex; justify-content: space-around;">';
-                        echo '<a href="editStudent/' . $row['student_id'] . '" class="btn btn-success">Edit</a>';
+                        echo '<a href="studentDetail/' . $row['student_id'] . '" class="btn btn-success">Edit</a>';
                         echo form_open('admin/student/' . $row['student_id']);
                         echo  '<input type="submit" class="btn btn-info" name="archive" onclick="return checkArchive()" value="Archive">';
                         echo '</form>';

@@ -12,18 +12,19 @@ class Admins extends CI_Controller
          
         // This section works but commented for now
         
-        if($this->router->fetch_method() != 'login' && $this->session->userdata('type') != 1){
+        // if($this->router->fetch_method() != 'login' && $this->session->userdata('type') != 1){
+        //     header('Location: login');
+        // } 
+        if($this->router->fetch_method() != 'login' && $this->session->userdata('type') != 2){
             header('Location: login');
         } 
-        
-        
     }
 
 
     public function loadViews($page, $title, $data = [])
     {
         $this->load->view('layouts/header', ['title' => $title]);
-        if($this->session->userdata('type') == 1){
+        if($this->session->userdata('type') == 1 || $this->session->userdata('type') == 2){
             $this->load->view('layouts/adminNav');
         }else{
             $this->load->view('layouts/siteNav');
@@ -61,6 +62,9 @@ class Admins extends CI_Controller
         if($this->session->userdata('type') == 1){
             header('Location:dashboard');
         }
+        if($this->session->userdata('type') == 2){
+            header('Location:dashboard');
+        }
 
         $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
@@ -92,7 +96,7 @@ class Admins extends CI_Controller
                         redirect('admin/dashboard');
                         break;
                     case '2':
-                        redirect('leader/dashboard');
+                        redirect('admin/dashboard');
                         break;
                     case '3':
                         redirect('tutor/dashboard');
@@ -137,29 +141,38 @@ class Admins extends CI_Controller
             $this->loadViews('student', 'Students', $data);    
         }    
     }
-    public function add()
+    public function studentDetail($id = false)
     {
         $this->form_validation->set_rules('firstname', 'Firstname', 'trim|required');
-        $this->form_validation->set_rules('middlename', 'Middlename', 'trim|required');
+        $this->form_validation->set_rules('middlename', 'Middlename', 'trim');
         $this->form_validation->set_rules('surname', 'Surname', 'trim|required');
         $this->form_validation->set_rules('tempAddress', 'Temporary Address', 'trim|required');
         $this->form_validation->set_rules('permAddress', 'Permanent Address', 'trim|required');
         $this->form_validation->set_rules('contact', 'Contact', 'trim|required');
-        $this->form_validation->set_rules('email', 'Email', 'trim|required');
         $this->form_validation->set_rules('qualification', 'Qualifications', 'trim|required');
         $this->form_validation->set_rules('courseCode', 'Course Code', 'trim|required');
-        
+        $this->form_validation->set_rules('email', 'Email', 'trim|required');
+
         if ($this->form_validation->run() === FALSE) {
             $data['courses'] = $this->admin->add();
-            $this->loadViews('add', 'Add Student', $data);
-
-        }else{
-            $add = $this->admin->addStudent();
-            if($add){
-                redirect('admin/admission');
-            }else{
-                redirect('admin/add');
+            if($id){
+                $data['student'] = $this->admin->studentEditData($id);
+                $this->loadViews('studentDetail', 'Edit Student', $data);
             }
+            else{
+                $data['student'] = ['student_id' => '', 'firstname' => '', 'middlename' => '' , 'surname' => '', 'temporary_address' => '', 'permanent_address' => '', 
+                'contact' => '', 'email' => '','qualification' => '', 'courseCode' => ''];
+                $this->loadViews('studentDetail', 'Add Student', $data);
+            }
+        }elseif ($id) {
+            $this->admin->updateStudent($id);
+            $this->session->set_flashdata('edited', 'Student Detail Updated Successfully !');
+            redirect('admin/student');
+        }
+        else{
+            $add = $this->admin->addStudent();
+            $this->session->set_flashdata('added', 'Student Detail Added Successfully !');
+            redirect('admin/admission');
         }
     }
 

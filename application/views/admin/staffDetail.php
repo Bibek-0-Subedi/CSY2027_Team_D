@@ -86,7 +86,7 @@
             <label for="Role">Role</label>
             <select class="form-control mr-3 <?php echo form_error('role') ? 'is-invalid' : '' ?>" name='role'>
                 <option value="" disabled <?php if (!isset($_POST['role']) && $staff['role'] == "") echo "selected" ?>>Select Staff Type</option>
-                <option value="1" <?php if ((isset($_POST['role']) == 1) || $staff['role'] == "1") echo "selected" ?>>Admin</option>
+                <option value="1" <?php if ((isset($_POST['role']) == 1) || $staff['role'] == "1") echo "selected" ?>>Course Administrator</option>
                 <option value="2" <?php if ((isset($_POST['role'])== 2) || $staff['role'] == "2") echo "selected" ?>>Course Leader</option>
                 <option value="3" <?php if ((isset($_POST['role']) == 3) || $staff['role'] == "3") echo "selected" ?>>Tutor</option>
             </select>

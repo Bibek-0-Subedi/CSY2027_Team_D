@@ -59,8 +59,10 @@
                 </select>
                 <select class="custom-select mr-4" name="role" >
                     <option value="0" <?php if (!isset($_POST['status'])) echo "selected" ;?>>Role</option>
-                    <option value="1" <?php if (isset($_POST['role']) && $_POST['role'] == 1) echo "selected" ; ?>>Admin</option>
-                    <option value="2" <?php if (isset($_POST['role']) && $_POST['role'] == 2) echo "selected" ; ?>>Course Leader</option>
+                    <option value="1" <?php if (isset($_POST['role']) && $_POST['role'] == 1) echo "selected" ; ?>>Course Administrator</option>
+                    <?php if($this->session->userdata('type') != 1){?>
+                        <option value="2" <?php if (isset($_POST['role']) && $_POST['role'] == 2) echo "selected" ; ?>>Course Leader</option>
+                <?php    }?>
                     <option value="3" <?php if (isset($_POST['role']) && $_POST['role'] == 3) echo "selected" ; ?>>Tutor</option>
                 </select>
                 <button class="btn btn-info my-2 my-sm-0 mr-2" type="submit" name="filter">Filter</button>
@@ -114,7 +116,7 @@
                                 <?php
                                 switch ($staff['role']) {
                                     case '1':
-                                        echo "Admin";
+                                        echo "Course Administrator";
                                         break;
                                     case '2':
                                         echo "Course Leader";

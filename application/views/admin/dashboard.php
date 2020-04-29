@@ -20,7 +20,7 @@
                     <?php } ?>
                     <?php foreach ($studentRequests as $studentRequest) { ?>
                         <li class="list-group-item">
-                            <a href="studentDetail/<?= $studentRequest['admission_id'] ?>?type=request">
+                            <a href="studentDetail/<?= $studentRequest['student_id'] ?>?type=request">
                                 <h5><?= "Woodland University's student <strong>".$studentRequest['firstname'].' '.$studentRequest['surname'].'</strong> wants to change their information' ?></h5>
                                 <p><?= $studentRequest['changes'] ?></p>
                             </a>
