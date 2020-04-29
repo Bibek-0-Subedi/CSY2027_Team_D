@@ -1,7 +1,9 @@
 <?php if(($this->session->userdata('type')) == 3) {?>
 
-<div class="container-fluid">
-    <h2 class="bg-content"> Add Materials</h2>
+    <div class="container-fluid mx-3">
+        <div class="row border-bottom my-2">
+            <h2>Add Materials</h2>
+        </div>
     <?php echo validation_errors(); ?>
    
     <form action="<?= site_url() ?>tutor/module/add/<?= $modules['module_code'] ?>" method="POST" enctype="multipart/form-data">    
@@ -21,7 +23,7 @@
         </div>
         <div class="form-group col-md-4">
             <input type="hidden" class="form-control" name="module_code" value="<?= $modules['module_code']?>">
-            <input type="hidden" class="form-control" name="type" value="1">
+            <input type="hidden" class="form-control" name="type" value="0">
         </div>
 
         <button type="submit" class="btn uniBtn mx-sm-4" name="upload">Upload</button>

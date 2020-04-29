@@ -1,7 +1,9 @@
 <?php if(($this->session->userdata('type')) == 3) {?>
 
-<div class="container-fluid">
-    <h2 class="bg-content"> Update Materials</h2>
+    <div class="container-fluid mx-3">
+        <div class="row border-bottom my-2">
+            <h2>Update Materials</h2>
+        </div>
     <?php echo validation_errors(); ?>
    
     <form action="<?= site_url() ?>tutor/module/update/<?= $modules['file_id'] ?>" method="POST" enctype="multipart/form-data">    

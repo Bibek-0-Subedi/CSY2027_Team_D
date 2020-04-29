@@ -15,6 +15,8 @@ $route['admin/course'] = 'admins/course';
 $route['admin/course/(:any)'] = 'admins/course/$1';
 $route['admin/module'] = 'admins/module';
 $route['admin/module/(:any)'] = 'admins/module/$1';
+$route['admin/announcement'] = 'admins/announcement';
+$route['admin/addAnnouncement'] = 'admins/addAnnouncement';
 $route['admin/add'] = 'admins/add';
 
 
@@ -35,18 +37,16 @@ $route['admin/moduleDetail'] = 'admins/moduleDetail';
 $route['admin/moduleDetail/(:any)'] = 'admins/moduleDetail/$1';
 $route['admin/moduleCourse'] = 'admins/archiveModule';
 
-//route for assignment
-$route['tutor/module/assignment/index/(:any)'] = 'assignments/index/$1';
-$route['tutor/module/assignment/add/(:any)'] = 'assignments/add/$1';
-$route['tutor/module/assignment/edit/(:any)'] = 'assignments/update/$1';
-$route['tutor/module/assignment/view/(:any)'] = 'assignments/view/$1';
-$route['tutor/module/assignment/upload'] = 'assignments/upload';
-$route['tutor/module/assignment/grade/(:any)'] = 'assignments/grade/$1';
-
 //student pages
 $route['student/dashboard'] = 'students/dashboard';
+$route['student/updateData'] = 'students/updateData';
 $route['student/modules'] = 'students/modules';
+$route['student/grades'] = 'students/grades';
+$route['student/patRequest'] = 'students/patRequest';
+$route['student/module/assignment/(:any)'] = 'students/assignment/$1';
+$route['student/module/uploadAssignment'] = 'students/uploadAssignment';
 $route['student/module/attendance/(:any)'] = 'students/attendance/$1';
+$route['student/module/announcement/(:any)'] = 'students/announcement/$1';
 $route['student/module/(:any)'] = 'students/module/$1';
 $route['student/login'] = 'students/login';
 $route['student/logout'] = 'students/logout';
@@ -56,23 +56,33 @@ $route['student/logout'] = 'students/logout';
 //route for the pages
 $route['(:any)'] = 'pages/view/$1';
 
-//leader pages
-$route['leader/dashboard'] = 'leaders/dashboard';
 
 //tutor pages
 $route['tutor/dashboard'] = 'tutors/dashboard';
+$route['tutor/announcement'] = 'tutors/announcement';
+$route['tutor/addAnnouncement'] = 'tutors/addAnnouncement';
 $route['tutor/profile/(:any)'] = 'tutors/profile/$1';
+$route['tutor/module/addAttendance'] = 'modules/addAttendance';
+$route['tutor/module/takeAttendance/(:any)/(:any)'] = 'modules/attendance/$1/$2';
+$route['tutor/module/attendance/(:any)/(:any)'] = 'tutors/attendance/$1/$2';
 $route['tutor/modules'] = 'tutors/modules';
-$route['tutor/module/(:any)'] = 'tutors/module/$1';
+
+//route for assignment
+$route['tutor/module/assignment/index/(:any)'] = 'assignments/index/$1';
+$route['tutor/module/assignment/add/(:any)'] = 'assignments/add/$1';
+$route['tutor/module/assignment/edit/(:any)'] = 'assignments/update/$1';
+$route['tutor/module/assignment/view/(:any)'] = 'assignments/view/$1';
+$route['tutor/module/assignment/upload'] = 'assignments/upload';
+$route['tutor/module/assignment/grade/(:any)'] = 'assignments/grade/$1';
+
+// $route['tutor/module/(:any)'] = 'tutors/module/$1';
 $route['tutor/getForm'] = 'tutors/getForm';
 $route['tutor/add/(:any)'] = 'tutors/add/$1';
-$route['tutor/updateData/(:any)'] = 'tutors/updateData/$1';
+$route['tutor/updateData'] = 'tutors/updateData';
 $route['tutor/module/studentList/(:any)'] = 'tutors/studentList/$1';
 $route['tutor/module/grade/(:any)'] = 'tutors/grade/$1';
 
 //module pages
-$route['module/addAttendance'] = 'modules/addAttendance';
-$route['module/attendance/(:any)/(:any)'] = 'modules/attendance/$1/$2';
 $route['tutor/module/(:any)'] = 'modules/view/$1';
 
 //module tutor pages

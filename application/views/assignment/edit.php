@@ -1,29 +1,35 @@
 <?php if(($this->session->userdata('type')) == 3) {?>
 
-<div class="container-fluid">
-    <h2 class="bg-content"> Edit </h2>
+    <div class="container-fluid mx-3">
+        <div class="row border-bottom my-2">
+            <h2> Edit Assignment</h2>
+        </div>
     <?php echo validation_errors(); ?>
    
-    <form action="<?= site_url() ?>tutor/module/assignment/edit/<?= $modules['file_id'] ?>" method="POST" enctype="multipart/form-data">    
+    <form action="<?= site_url() ?>tutor/module/assignment/edit/<?= $modules['file_id'] ?>" class="row" method="POST" enctype="multipart/form-data">    
 
-        <div class="form-group row">
-             <label for="name" class="col-sm-2">Assignment: </label>
-             <input type="text" class="form-control col-sm-2" value="<?= $modules['filename']?>" name="name"> 
+        <div class="form-group col-md-6 mb-4">
+             <label for="name">Assignment: </label>
+             <input type="text" class="form-control " value="<?= $modules['filename']?>" name="name"> 
         </div>
-        <div class="form-group row">
-             <label for="deadline" class="col-sm-2">Deadline: </label>
-             <input type="datetime-local" value="<?= $modules['description']?>" class="form-control col-sm-2" name="description"> 
+        <div class="form-group col-md-6 mb-4">
+             <label for="deadline">Deadline: </label>
+             <input type="datetime-local" value="<?= $modules['description']?>" class="form-control " name="description"> 
         </div>
-        <div class="form-group row">
-            <label for="materials" class="col-sm-2">Upload Materials Here: </label>
-            <input type="file" value="<?= $modules['file']?>" class="form-control col-sm-2" name="file">
+        <div class="form-group col-md-6 mb-4">
+            <label>Upload Materials Here: </label>
+            <div class="custom-file">
+                <input type="file" value="<?= $modules['file']?>" class="custom-file-input" name="file" id="inputGroupFile02">
+                <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+            </div>
             <small class="form-text text-muted">Assignment files for students</small>
         </div>
-        <div class="form-group row">
+        <div class="form-group col-md-6 mb-4">
             <input type="hidden" class="form-control" name="module_code" value="<?= $modules['module_id']?>">
         </div>
-
-        <button type="submit" class="btn uniBtn mx-sm-4" name="upload">Upload</button>
+        <div class="form-group col-md-6 mb-4">
+            <button type="submit" class="btn form-control uniBtn" name="upload">Upload</button>
+        </div>
     </form>
 </div>
 <?php }

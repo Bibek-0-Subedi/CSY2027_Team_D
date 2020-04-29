@@ -67,8 +67,8 @@
                     }else{
                         echo '<td>' . $row['assigned_id'].'</td>';
                     }
-                    $status = ($row['status'] == 1) ? 'Live' : 'Dormant';
-                    echo '<td>' . $status.'</td>';
+
+                    echo '<td>Live</td>';
                     echo '<td>' . $row['firstname'].' '.$row['middlename'].' '.$row['surname'].'</td>';
                     echo '<td>' . $row['permanent_address'].'</td>';
                     echo '<td>' . $row['contact'].'</td>';

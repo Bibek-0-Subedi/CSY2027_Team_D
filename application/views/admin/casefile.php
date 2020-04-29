@@ -22,27 +22,51 @@
                             <li class="list-group-item">Contact : <?= $contact ?></li>
                             <li class="list-group-item">Email : <?= $email ?></li>
                         </p>
-                        <div>
-                            <div class="custom-control custom-radio mb-3">
-                                <input class="custom-control-input" type="radio" name="offer" value="unconditional" id="unconditional">
-                                <label class="custom-control-label" for="unconditional">Unconditional Offer</label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input class="custom-control-input" type="radio" name="offer"  value="conditional" id="conditional" checked>
-                                <label class="custom-control-label" for="conditional">Conditional Offer</label>
-                            </div>
-                        </div>
-                        <?php $disable = ($status == 1) ? 'disabled' : ''; ?>
-                        <form action="<?= site_url() ?>admin/createCaseFile/<?= $admission_id ?>" method="post">
-                            <div class="mt-4">
-                                <button type="submit" class="btn btn-primary w-100 mb-3" <?= $disable ?>>Create Case File</button>
-                                <!-- <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#emailDraft">Create Case File</button> -->
-                            </div>
-                        </form>
-                        <?php $disable2 = ($status != 1) ? 'disabled' : ''; ?>
-                        <div class="mt-2">
-                                <button type="button" class="btn btn-primary w-100 mb-3" data-toggle="modal" <?= $disable2 ?>>Send Offer Letter</button>
-                        </div>
+                        <?php if($status == 0){ 
+                            // $disable = ($status == 1) ? 'disabled' : ''; ?>
+                            <form action="" method="post">
+                                <div class="custom-control custom-radio mb-3">
+                                    <input class="custom-control-input" type="radio" name="offer" value="unconditional" id="unconditional">
+                                    <label class="custom-control-label" for="unconditional">Unconditional Offer</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input class="custom-control-input" type="radio" name="offer"  value="conditional" id="conditional" checked>
+                                    <label class="custom-control-label" for="conditional">Conditional Offer</label>
+                                </div>
+                                <div class="mt-2">
+                                    <input type="submit" value="Send Offer Letter" name="conditional" class="btn btn-primary w-100 mb-3">
+                                </div>
+                            </form>
+                            <form action="" method="post">
+                                <div class="mt-4">
+                                    <input type="submit" value="Create Case File" name="createCaseFile" class="btn btn-primary w-100 mb-3">
+                                    <!-- <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#emailDraft">Create Case File</button> -->
+                                </div>
+                                <div class="mt-4">
+                                    <input type="submit" value="Reject Application" name="rejectApplication" class="btn btn-primary w-100 mb-3">
+                                    <!-- <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#emailDraft">Create Case File</button> -->
+                                </div>
+                            </form>
+                        <?php }else if($status == 1){ ?>
+                            <form action="" method="post">
+                                <div class="custom-control custom-radio mb-3">
+                                    <input class="custom-control-input" type="radio" name="liveDor" value="live" id="live">
+                                    <label class="custom-control-label" for="live">Live</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input class="custom-control-input" type="radio" name="liveDor"  value="dormant" id="dormant" checked>
+                                    <label class="custom-control-label" for="dormant">Dormant</label>
+                                </div>
+                                <div class="mt-2">
+                                    <input type="submit" value="Change Status" name="liveDormant" class="btn btn-primary w-100 mb-3">
+                                </div>
+                            </form>
+                            <form action="" method="post">
+                                <div class="mt-4">
+                                    <input type="submit" value="Send Follow Up Email" name="sendFollowUpEmail" class="btn btn-primary w-100 mb-3">
+                                </div>
+                            </form>
+                        <?php } ?>
                     </div>
                 </div>
             </div>

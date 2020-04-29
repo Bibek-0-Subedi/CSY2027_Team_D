@@ -65,6 +65,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-between" href="<?= site_url() ?>admin/announcement">
+                            <span>Announcements</span>
+                            <i class="fas fa-bullhorn"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link d-flex justify-content-between" href="<?= site_url() ?>admin/logout">
                             <span>Logout</span>
                             <i class="fas fa-sign-out-alt"></i>
@@ -96,7 +102,19 @@
                             <span>PAT</span>
                             <i class="fas fa-chalkboard-teacher"></i>
                         </a>
-                    </li>   
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-between" href="<?= site_url() ?>tutor/announcement">
+                            <span>Announcements</span>
+                            <i class="fas fa-bullhorn"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-between" href="<?= site_url() ?>admin/logout">
+                            <span>Logout</span>
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                    </li> 
                  <!-- end for tutor as the user -->      
                 <?php } ?>    
             </ul>

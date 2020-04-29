@@ -17,18 +17,19 @@ class Assignments extends CI_Controller {
     }
     public function index($id = false)
     {
-         if($id){
+        if($id){
+            $module_id = $this->Assignment->selectFile($id);
             if(isset($_POST['archive'])) {
                 $data = ['archive' => '1'];
                 $this->Assignment->archiveFile($id , $data);
-                redirect('tutor/modules');
+                redirect('tutor/module/assignment/index/'.$module_id['module_id']);
            }elseif(isset($_POST['unarchive'])) {
                 $data = ['archive' => '0'];
                 $this->Assignment->archiveFile($id , $data);
-                redirect('tutor/modules');
+                redirect('tutor/module/assignment/index/'.$module_id['module_id']);
             }elseif(isset($_POST['delete'])){
                 $this->Assignment->deleteFile($id);
-                redirect('tutor/modules');             
+                redirect('tutor/module/assignment/index/'.$module_id['module_id']);             
             }
         }
         $assignment = $this->Assignment->viewAssignment($id);
@@ -42,17 +43,10 @@ class Assignments extends CI_Controller {
     public function view($id = false)
     {
         if($id){
-            if(isset($_POST['archive'])) {
-                $data = ['archive' => '1'];
-                $this->Assignment->archiveAssignment($id , $data);
-                redirect('tutor/modules');
-           }elseif(isset($_POST['unarchive'])) {
-                $data = ['archive' => '0'];
-                $this->Assignment->archiveAssignment($id , $data);
-                redirect('tutor/modules');
-            }elseif(isset($_POST['delete'])){
+            $module_id = $this->Assignment->getTableData($id, 'assignment_id', 'assignments');
+            if(isset($_POST['delete'])){
                 $this->Assignment->deleteAssignment($id);
-                redirect('tutor/modules');             
+                redirect('tutor/module/assignment/view/'.$module_id['module_code']);             
             }
         }
         $data['assignments'] = $this->Assignment->getTable('module_code', $id, 'assignments');
@@ -96,9 +90,10 @@ class Assignments extends CI_Controller {
             ];
                 $this->loadViews('edit', 'Edit File', $data);
         }   
-        else{   
-                  $this->Assignment->update($id); 
-                     redirect('tutor/modules');
+        else{
+            $module_id = $this->Assignment->selectFile($id);
+            $this->Assignment->update($id); 
+            redirect('tutor/module/assignment/index/'.$module_id['module_id']);
         }
     }
     public function grade($id) {
@@ -112,8 +107,9 @@ class Assignments extends CI_Controller {
             $this->loadViews('grade', 'Assignment Upload', $data);
         }
         else {
+            $module_id = $this->Assignment->getTableData($id, 'assignment_id', 'assignments');
              $this->Assignment->grade($id);
-            redirect('tutor/modules');
+            redirect('tutor/module/assignment/view/'.$module_id['module_code']);
             
        }    
         

@@ -1,8 +1,22 @@
 <div class="container mt-5">
-<h1 class="mb-5"><?= $module['module_name']; ?> Module</h1>
-<a class="btn btn-primary" href="attendance/<?= $module['module_code'] ?>">See Attendances</a>
-<a class="btn btn-primary" href="grades/<?= $module['module_code'] ?>">See Grades</a>
-<a class="btn btn-primary" href="assignments/<?= $module['module_code'] ?>">See Assignmnets</a>
+<h2 class="mb-5"><?= $module['module_name']; ?> Module</h2>
+<div class="mb-5">
+    <a class="btn btn-outline-primary big-icon mr-5 px-5" href="attendance/<?= $module['module_code'] ?>">
+        <i class="fa fa-list-alt"></i>
+        <h5>See Attendances</h5>
+    </a>
+    <a class="btn btn-outline-primary big-icon mr-5 px-5" href="announcement/<?= $module['module_code'] ?>">
+        <i class="fa fa-bullhorn"></i>
+        <h5>See Announcements</h5>
+    </a>
+    <?php if(isset($assignment) && $assignment['archive'] == 0){ ?>
+        <a class="btn btn-outline-primary big-icon" href="assignment/<?= $module['module_code'] ?>">
+        <i class="fa fa-folder"></i>
+        <h5>See Assignments and Grades</h5>
+    </a>
+    <?php } ?>
+</div>
+<h3 class="mb-5">Week Files</h3>
 <?php foreach ($module_files as $module_file) { ?>
     <div class="card">
         <div class="card-body">

@@ -32,17 +32,17 @@
             <ul class="navbar-nav ml-auto">
                 <?php if ($this->session->userdata('student_logged')){ ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= site_url() ?>student/modules">Modules</a>
+                        <a class="nav-link" href="<?= site_url() ?>student/dashboard">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= site_url() ?>student/assignments">Assignments</a>
+                        <a class="nav-link" href="<?= site_url() ?>student/modules">Modules</a>
                     </li>                    
                     <li class="nav-item">
                         <a class="nav-link" href="<?= site_url() ?>student/grades">Grades</a>
                     </li>  
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="<?= site_url() ?>student/attendance">Attendance</a>
-                    </li>   -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= site_url() ?>student/logout">Logout</a>
+                    </li>  
                 <?php } elseif(($this->session->userdata('type') == 2)) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Leader</a>

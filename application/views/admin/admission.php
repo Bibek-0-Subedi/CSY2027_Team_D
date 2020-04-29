@@ -82,8 +82,13 @@
                     }else{
                         echo '<td>' . $row['assigned_id'].'</td>';
                     }
-
-                    $status = ($row['status'] == 1) ? 'Live' : 'Dormant';
+                    if($row['status'] == 0){
+                        $status = 'Inactive';
+                    }else if($row['status'] == 1){
+                        $status = '<a href="casefile/'.$row["admission_id"].'">Provisional</a>';
+                    }else if($row['status'] == 2){
+                        $status = 'Dormant';
+                    }
                     echo '<td>' . $status.'</td>';
                     echo '<td>' . $row['firstname'].' '.$row['middlename'].' '.$row['surname'].'</td>';
                     echo '<td>' . $row['permanent_address'].'</td>';

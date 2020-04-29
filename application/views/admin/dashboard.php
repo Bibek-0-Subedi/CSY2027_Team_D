@@ -4,36 +4,31 @@
                 <h2>Dashboard</h2>
             </div>
             <!-- <h5 class="pl-1 mb-4"></h5> -->
-            <div class="row notifs">
+            <div class="notifs">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="m-0">Notifications</h5>    
                     </div>
                     <ul class="list-group list-group-flush">
+                    <?php foreach ($staffRequests as $staffRequest) { ?>
                         <li class="list-group-item">
-                            <a href="#">
-                                <h5>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis quibusdam mollitia cumque! Eveniet nostrum sapiente ipsum voluptates nesciunt aliquam explicabo, illo officia sint doloribus hic nobis quis consectetur necessitatibus non?</p>
+                            <a href="staffDetail/<?= $staffRequest['staff_id'] ?>?type=request">
+                                <h5><?= "Woodland University's staff <strong>".$staffRequest['firstname'].' '.$staffRequest['surname'].'</strong> wants to change their information' ?></h5>
+                                <p><?= $staffRequest['changes'] ?></p>
                             </a>
                         </li>
+                    <?php } ?>
+                    <?php foreach ($studentRequests as $studentRequest) { ?>
                         <li class="list-group-item">
-                            <a href="#">
-                                <h5>Officia sint doloribus hic nobis quis consectetur</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis quibusdam mollitia cumque! Eveniet nostrum sapiente ipsum voluptates nesciunt aliquam explicabo, illo officia sint doloribus hic nobis quis consectetur necessitatibus non?</p>
-                            </a>
-                        </li>        
-                        <li class="list-group-item">
-                            <a href="#">
-                                <h5>Perspiciatis quibusdam mollitia cumque!</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis quibusdam mollitia cumque! Eveniet nostrum sapiente ipsum voluptates nesciunt aliquam explicabo, illo officia sint doloribus hic nobis quis consectetur necessitatibus non?</p>
+                            <a href="studentDetail/<?= $studentRequest['admission_id'] ?>?type=request">
+                                <h5><?= "Woodland University's student <strong>".$studentRequest['firstname'].' '.$studentRequest['surname'].'</strong> wants to change their information' ?></h5>
+                                <p><?= $studentRequest['changes'] ?></p>
                             </a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="#">
-                                <h5>Consectetur adipisicing elit</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis quibusdam mollitia cumque! Eveniet nostrum sapiente ipsum voluptates nesciunt aliquam explicabo, illo officia sint doloribus hic nobis quis consectetur necessitatibus non?</p>
-                            </a>
-                        </li>
+                    <?php } 
+                        if(count($studentRequests) == 0 && count($staffRequests) == 0 ){ ?>
+                            <li class="list-group-item">No Notifications</li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>

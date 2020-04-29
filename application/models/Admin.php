@@ -1,30 +1,28 @@
 <?php
 
-    class Admin extends CI_Model{
-        public function __construct()
-        {
-            $this->load->database();
-            
-        }
+class Admin extends CI_Model{
 
-        public function login($email, $password)
-        {
-            // extracting the staff with given email and password
-            $staff = $this->db->get_where('staff', array(
-                'email' => $email
-            ));
-            //checking the number of rows of the checked credentials and returning the id to the controller
-            if ($staff->num_rows() == 1) {
-                if(password_verify($password, $staff->row(0)->password)){
-                    return $staff->row_array(0);
-                }else{
-                    return false;
-                }
-            }
-            else {
+    public function __construct(){
+        $this->load->database();
+    }
+
+    public function login($email, $password){
+        // extracting the staff with given email and password
+        $staff = $this->db->get_where('staff', array(
+            'email' => $email
+        ));
+        //checking the number of rows of the checked credentials and returning the id to the controller
+        if ($staff->num_rows() == 1) {
+            if(password_verify($password, $staff->row(0)->password)){
+                return $staff->row_array(0);
+            }else{
                 return false;
             }
         }
+        else {
+            return false;
+        }
+    }
 
     public function csvUpload($csvFile){
         $csvHandle = fopen($csvFile['tmp_name'], "r");
@@ -41,15 +39,13 @@
  
     }
 
-    public function getAdmissions()
-    {
-        $result = $this->db->get('admissions');
+    public function getAdmissions(){
+        $result = $this->db->where("status != 3")->get('admissions');
         return $result->result_array();
         
     }
 
-    public function createCaseFile($id)
-    {
+    public function createCaseFile($id){
 
         $this->db->set('assigned_id', rand(1000,1999).substr(time(), 6));
         $this->db->set('status', 1);
@@ -57,46 +53,43 @@
         if($this->db->update('admissions')){
             return true;
         }
-
-        // $this->db->update('admission', ['assigned_id' => ]);
-        
     }
 
-    public function sendEmail()
+    public function liveDormant($id)
     {
+        if($this->input->post('liveDor') == 'live'){
+            $info = $this->getStudentData($id);
 
-        $to =  'bhusal.001aditya@gmail.com';  // User email pass here
-        $subject = 'Welcome To CodingMantra';
+            $data = [
+                'student_id' =>$info['assigned_id'],
+                'assigned_id' => $info['assigned_id'],
+                'email' => $info['email'],
+                'password' => password_hash($info['assigned_id'], PASSWORD_DEFAULT)
+            ];
 
-        $from = 'shadyrock101@gmail.com';              // Pass here your mail id
+            $this->db->insert('students', $data);
+            $this->db->reset_query();
+            $this->db->set('status', 3);
+            $this->admission->acceptance_letter($info['firstname'], $info['assigned_id'], $info['assigned_id'], $info['email']);
 
-        $emailContent = 'Hello and Welcome Here';
-                    
-        $config['protocol']    = 'smtp';
-        $config['smtp_host']    = 'ssl://smtp.gmail.com';
-        $config['smtp_port']    = '465';
-        // $config['smtp_timeout'] = '7';
-        $config['smtp_user']    = 'shadyrock101@gmail.com';    //Important
-        $config['smtp_pass']    = 'Shady Rock 101 149 !$(';  //Important
-        $config['charset']    = 'utf-8';
-        // $config['crlf']    = "\r\n";
-        $config['newline']    = "\r\n";
-        // $config['smtp_crypto'] = 'tls';
-        $config['mailtype'] = 'text'; // or html
-        // $config['validation'] = TRUE; // bool whether to validate email or not 
+        }else if($this->input->post('liveDor') == 'dormant'){
+            $this->db->set('status', 2);
+        }
 
-        $this->email->initialize($config);
-        // $this->email->set_mailtype("text");
-        $this->email->from($from, 'Aaditya');
-        $this->email->to($to);
-        $this->email->subject($subject);
-        $this->email->message($emailContent);
-        $this->email->send();
+        $this->db->where('admission_id', $id);
+        if($this->db->update('admissions')){
+            return true;
+        }
+    }
 
+    public function rejectApplication($id)
+    {
+        $info = $this->getStudentData($id);
+        $this->db->where('admission_id', $id)->delete('admissions');
+        $this->admission->rejection_letter($info['firstname'], $info['course_name'], $info['email']);
     }
     
-    public function tableGenerator($data)
-    {
+    public function tableGenerator($data){
         $tableHead = [
             'Id',
             'Assigned Id',
@@ -124,28 +117,24 @@
         return $this->TableGenerator->getHTML();
     }
 
-    public function getStudentData($id)
-    {
+    public function getStudentData($id){
         $this->db->join('courses', 'courses.course_code = admissions.course_code', 'left');
         $result = $this->db->where('admission_id', $id)->get('admissions');
         return $result->row_array();
         
     }
 
-    public function getStudents()
-    {
-        $result = $this->db->where('assigned_id != 0')->get('admissions'); //Students table should be used
+    public function getStudents(){
+        $result = $this->db->where('status = 3')->get('admissions'); //Students table should be used
         return $result->result_array();
     }
 
-    public function add()
-    {
+    public function add(){
         $result = $this->db->get('courses');
         return $result->result_array();
     }
 
-    public function addStudent()
-    {
+    public function addStudent(){
         $data = [
             'assigned_id' => '0',
             'status' => 'A',
@@ -162,8 +151,8 @@
 
         $this->db->insert('admissions', $data); // Not sure could be students table too
     }
-    public function getTable($field = false, $value = false, $table)
-    {
+
+    public function getTable($field = false, $value = false, $table){
         if($field){
             $result = $this->db->where($field, $value)->get($table);
         }
@@ -172,8 +161,8 @@
         }
         return $result->result_array();
     }
-    public function getTableData($id, $field , $table)
-    {
+
+    public function getTableData($id, $field , $table){
         $result = $this->db->where($field, $id)->get($table);
         return $result->row_array();
     }
@@ -184,6 +173,7 @@
         $staff = $this->db->get_where('staff', ['staff.archive'=> 0, ]);
         return $staff->result_array();
     }
+
     public function filterStaff($status, $sub, $role){
         $this->db->join('courses', 'courses.course_code=staff.subject', 'left');
         $this->db->join('modules', 'modules.module_code=staff.subject', 'left');
@@ -232,6 +222,7 @@
         ];
         $this->db->insert('staff', $data);
     }
+
     public function updateStaff($id){
         $data =[
             'status' => $this->input->post('status'),
@@ -244,12 +235,26 @@
             'subject' => $this->input->post('subject'),
             'role' => $this->input->post('role'),
         ];
+
+        if($this->input->post('changeApproved')){
+            $data['approval'] = 0;
+            $data['changes'] = null;
+            $stf = $this->db->where('staff_id', $id)->select('email, firstname')->get('staff');
+            $staffInfo = $stf->row_array();
+            $this->admission->changeApproved($staffInfo['firstname'], $staffInfo['email']);
+        }
+
+        if(!empty(trim($this->input->post('password')))){
+            $data['password'] = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+        }
         
         $this->db->where('staff_id', $id)->update('staff', $data);
     }
+
     public function assign_archive_staff($id , $data){
         $this->db->where('staff_id', $id)->update('staff', $data);
     }
+
     public function course($dpt = false){
         $this->db->join('departments', 'departments.department_id=courses.department_id', 'left');
         $this->db->join('staff', 'staff.staff_id=courses.course_leader', 'left');
@@ -276,6 +281,7 @@
         $result = $this->db->where('archive', 0)->get('courses');
         return $result->result_array();
     }
+
     public function getAssignableStaff($role, $id = false){
         if($id){
             $this->db->where('subject', $id);
@@ -287,6 +293,7 @@
         $result = $this->db->get('staff');
         return $result->result_array();
     }
+
     public function addCourse(){
         $course_leader = $this->input->post('course_leader');
         if($course_leader){
@@ -309,6 +316,7 @@
         }
         $this->db->insert('courses', $data);
     }
+
     public function updateCourse($id){
         $course_leader = $this->input->post('course_leader');
         if($course_leader){
@@ -328,12 +336,15 @@
         }
         $this->db->where('course_code', $id)->update('courses', $data);
     }
+
     public function archiveCourse($id , $data){
         $this->db->where('course_code', $id)->update('courses', $data);
     }
+
     public function deleteCourse($id){
         $this->db->where('course_code', $id)->delete('courses');
     }
+
     public function module($course = false){
         $this->db->join('courses', 'courses.course_code=modules.course_code', 'left');
         $this->db->join('staff', 'staff.staff_id=modules.module_leader', 'left');
@@ -355,6 +366,7 @@
         ];
         $this->db->insert('modules', $data);
     }
+
     public function updateModule($id){
         $module_leader = $this->input->post('module_leader');
         if($module_leader){
@@ -376,12 +388,42 @@
         }
 
     }
+
     public function archiveModule($id , $data){
         $this->db->where('module_code', $id)->update('modules', $data);
     }
+
     public function deleteModule($id){
         $this->db->where('module_code', $id)->delete('modules');
     }
+
+    public function staffRequests()
+    {
+        $result = $this->db->where('approval', 1)->select('staff_id, changes, firstname, surname')->get('staff');
+        return $result->result_array();
+        
+    }
+
+    public function studentRequests()
+    {
+        $this->db->join('admissions', 'admissions.assigned_id = students.assigned_id', 'left');
+        $result = $this->db->where('approval', 1)->select('admission_id, changes, firstname, surname')->get('students');
+        return $result->result_array();
+        
+    }
+
+    public function addAnnouncement()
+    {
+        $data = [
+            'title' => $this->input->post('title'),
+            'content' => $this->input->post('content'),
+            'announced_from' => $this->session->userdata('type')
+        ];
+
+        $this->db->insert('announcements', $data);
+        
+    }
+
 }
 
 /* End of file Admin.php */
