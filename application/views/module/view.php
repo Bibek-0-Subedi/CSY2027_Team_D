@@ -6,19 +6,19 @@
         </div>
     <!-- Upload Assignment Button -->
     <div class="row mt-5 mb-5">
-        <a href="<?= site_url() .'tutor/' ?>module/add/<?= $modules['module_code'] ?>" class="btn btn-outline-primary big-icon mr-3 px-5"> 
+        <a href="<?= site_url() .'tutor/' ?>module/add/<?= $modules['module_code'] ?>" class="btn btn-outline-primary big-icon mr-3 mb-3 px-5"> 
             <i class="fa fa-plus"></i>
             <h5>Add Material</h5>
         </a>
-        <a href="<?= site_url().'tutor/module' ?>/takeAttendance/<?= $modules['module_code'].'/'.date('Y-m-d') ?>" class="btn btn-outline-primary big-icon mr-3 px-5">
+        <a href="<?= site_url().'tutor/module' ?>/takeAttendance/<?= $modules['module_code'].'/'.date('Y-m-d') ?>" class="btn btn-outline-primary big-icon mr-3 mb-3 px-5">
             <i class="fa fa-list-alt"></i>
             <h5>Take attendance</h5>
         </a>
-        <a class="btn btn-outline-primary big-icon mr-3 px-5" href="<?= site_url(). 'tutor/module' ?>/assignment/index/<?=$modules['module_code']?>">
+        <a class="btn btn-outline-primary big-icon mr-3 mb-3 px-5" href="<?= site_url(). 'tutor/module' ?>/assignment/index/<?=$modules['module_code']?>">
             <i class="fa fa-folder"></i>
             <h5>View Assignment</h5>
         </a>
-        <a class="btn btn-outline-primary big-icon mr-3 px-5" href="<?= site_url(). 'tutor/module' ?>/studentList/<?= $modules['module_code'] ?>"> 
+        <a class="btn btn-outline-primary big-icon mr-3 mb-3 px-5" href="<?= site_url(). 'tutor/module' ?>/studentList/<?= $modules['module_code'] ?>"> 
             <i class="fas fa-user-graduate"></i>
             <h5>View Student</h5>
         </a>

@@ -19,7 +19,7 @@
         <div class="form-group col-md-6 mb-4">
             <label>Upload Materials Here: </label>
             <div class="custom-file">
-                <input type="file" class="custom-file-input" name="file" id="inputGroupFile02">
+                <input type="file" class="custom-file-input" name="assignmentFile" id="inputGroupFile02">
                 <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
             </div>
             <small class="form-text text-muted">Assignment files for students</small>

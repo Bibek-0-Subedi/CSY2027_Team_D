@@ -49,18 +49,20 @@ class Assignment extends CI_model{
    }
     public function add(){
 
-            $config['upload_path'] = './assets/module_files/';
-            $config['allowed_types'] = '.jpg|.jpeg|.png|.pdf|.doc|.zip|.ppt|.pptx|.docx';
-            
-            $this->load->library('upload', $config);
-            
-            if($this->upload->do_upload('file')){
-                echo 'file not uploaded';
-            }
-            else{
-                $uploadData = $this->upload->data();
-                $file = $uploadData['file_name'];
-            }
+        $config['upload_path'] = './assets/module_files/';
+        $config['allowed_types'] = 'jpg|png|pdf|zip|doc|docx|ppt|pptx';
+        $config['max_size'] = '4096';
+
+        
+        $this->load->library('upload', $config);
+        
+        if(!$this->upload->do_upload('assignmentFile')){
+            echo 'file not uploaded'; //Change this line to something else
+        }
+        else{
+            $uploadData = $this->upload->data();
+            $file = $uploadData['file_name'];
+        }
 
         $data = array(
             'type' => 1,

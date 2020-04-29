@@ -153,22 +153,19 @@ class Students extends CI_Controller {
     public function uploadAssignment()
     {
         $config['upload_path'] = './assets/assignment_submissions/';
-        //Create Folders if not exists
-        $config['allowed_types'] = '.jpg|.jpeg|.png|.pdf|.doc|.zip|.ppt|.pptx|.docx';
+        $config['allowed_types'] = 'jpg|png|pdf|zip|doc|docx|ppt|pptx';
+        $config['max_size'] = '4096';
         
         $this->load->library('upload', $config);
         
-        if($this->upload->do_upload('assignmentFile')){
-            
+        if(!$this->upload->do_upload('assignmentFile')){
             $this->session->set_flashdata('assignmentUpload', 'Upload Failed');
-
         }
         else{
-            
             $this->session->set_flashdata('assignmentUpload', 'Upload Successful');
             $uploadData = $this->upload->data();
             $file = $uploadData['file_name'];
-                    }
+        }
 
         $data = array(
             'grade' => null,

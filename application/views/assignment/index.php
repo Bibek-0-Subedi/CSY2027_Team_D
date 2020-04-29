@@ -4,12 +4,12 @@
             <h2>Assignment</h2>
         </div>
     <!-- Upload Assignment Button -->
-    <div class="mt-3">
-        <a href="<?= site_url(). 'tutor/module' ?>/assignment/view/<?= $modules['module_code'] ?>" class="btn btn-outline-primary big-icon mr-3 px-5">
+    <div class="mt-3 mb-5">
+        <a href="<?= site_url(). 'tutor/module' ?>/assignment/view/<?= $modules['module_code'] ?>" class="btn btn-outline-primary big-icon mr-3 mb-3 px-5">
             <i class="fa fa-folder"></i>
             <h5>View Uploaded Assignments</h5>
         </a>
-        <a href="<?= site_url(). 'tutor/module' ?>/assignment/add/<?= $modules['module_code'] ?>" class="btn btn-outline-primary big-icon mr-3 px-5">
+        <a href="<?= site_url(). 'tutor/module' ?>/assignment/add/<?= $modules['module_code'] ?>" class="btn btn-outline-primary big-icon mr-3 mb-3 px-5">
             <i class="fa fa-plus"></i>
             <h5>Upload Assignment</h5>
         </a>
