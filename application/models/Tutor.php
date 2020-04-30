@@ -123,6 +123,7 @@ class Tutor extends CI_model{
     }
     public function insertDiary(){
     	 $data = array(
+    	 	'title' => $this->input->post('title'),
             'description' => $this->input->post('information') ,
             'staff_id' => $this->session->userdata('id') ,
         );
@@ -130,6 +131,7 @@ class Tutor extends CI_model{
     }
     public function updateDiary($id){
          $data = array(
+         	'title' => $this->input->post('title'),
             'description' => $this->input->post('information') ,
             'staff_id' => $this->session->userdata('id') ,
         );

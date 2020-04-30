@@ -174,6 +174,7 @@ class Tutors extends CI_Controller {
         $this->loadViews('diaryList', 'PAT', $data);
     }
     public function addDiary(){
+        $this->form_validation->set_rules('title', 'Title', 'required');
         $this->form_validation->set_rules('information', 'Information', 'required');
     
         if ($this->form_validation->run() === FALSE) {
@@ -190,6 +191,7 @@ class Tutors extends CI_Controller {
         }
     }
     public function editDiary($id){
+        $this->form_validation->set_rules('title', 'Title', 'required');
         $this->form_validation->set_rules('information', 'Information', 'required');
     
         if ($this->form_validation->run() === FALSE) {    

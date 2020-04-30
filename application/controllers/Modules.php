@@ -45,7 +45,7 @@ class Modules extends CI_Controller {
     }
 
    public function add($id) {
-        $this->form_validation->set_rules('module_date', 'Title', 'required');
+        $this->form_validation->set_rules('name', 'Title', 'required');
         $this->form_validation->set_rules('description', 'Description', 'required');
         // $this->form_validation->set_rules('file', 'File', 'required');
 
@@ -70,7 +70,7 @@ class Modules extends CI_Controller {
     }
     public function update($module_id, $file_id){
     
-        $this->form_validation->set_rules('module_date', 'Title', 'required');
+        $this->form_validation->set_rules('name', 'Title', 'required');
          $this->form_validation->set_rules('description', 'Description', 'required');
 
         if($this->form_validation->run() === FALSE){
@@ -83,14 +83,11 @@ class Modules extends CI_Controller {
                 $this->loadViews('update', 'Edit File', $data);
         }   
         else{   
-              if($this->session->userdata('approval') == 0){
                   $this->Module->updateMaterials($file_id); 
                      redirect('tutor/module/' . $module_id);
               }
         }
-    }
-
-
+    
     public function attendance()
     {
         $moduleCode = $this->uri->segment(4);

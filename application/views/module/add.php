@@ -10,7 +10,7 @@
 
         <div class="form-group col-md-6">
              <label>Week/Title: </label>
-             <input type="text" class="form-control" name="module_date"> 
+             <input type="text" class="form-control" name="name">  
         </div>
         <div class="form-group col-md-6">
              <label>Description: </label>
@@ -19,8 +19,9 @@
         <div class="form-group col-md-6">
             <label>Upload Materials Here: </label>
             <div class="custom-file">
-                <input type="file" name="file" class="custom-file-input" id="inputGroupFile02">
-                <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+            <input type="file" class="custom-file-input" name="moduleFile" id="inputGroupFile02">
+            <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+
             </div>
             <small class="form-text text-muted">Module files for students</small>
         </div>

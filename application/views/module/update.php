@@ -10,7 +10,7 @@
 
         <div class="form-group col-md-6">
              <label for="week">Week/Title: </label>
-             <input type="text" class="form-control " value="<?= $modules['filename']?>" name="module_date"> 
+             <input type="text" class="form-control " value="<?= $modules['filename']?>" name="name"> 
         </div>
         <div class="form-group col-md-6">
              <label for="description">Description: </label>
@@ -19,7 +19,7 @@
         <div class="form-group col-md-6">
             <label for="materials">Upload Materials Here: </label>
             <div class="custom-file">
-                <input type="file" name="file" class="custom-file-input" value="<?= $modules['file']?>" id="inputGroupFile02">
+                <input type="file" name="moduleFile" class="custom-file-input" value="<?= $modules['file']?>" id="inputGroupFile02">
                 <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02"><?= $modules['file']?></label>
             </div>
             <small class="form-text text-muted">Module files for students</small>

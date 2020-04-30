@@ -12,7 +12,7 @@
         <?php endif;?>
         <?php if (($this->session->userdata('type')) == 3) :?>
             <h3><?php echo $this->session->userdata('name') ;?></h3>
-            <form class="form layout-search" method="post" action="<?php echo base_url();?>tutor/logout">
+            <form class="form layout-search" method="post" action="<?php echo base_url();?>admin/logout">
                 <button class="btn" type="submit"><i class="fa fa-power-off" style="font-size: 20px; color: red"></i></button>
             </form>                                            
         <?php endif;?>

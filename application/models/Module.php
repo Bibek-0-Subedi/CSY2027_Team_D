@@ -30,60 +30,64 @@ class Module extends CI_model{
 
 	public function addMaterials(){
 
-			$config['upload_path'] = './assets/module_files/';
-			$config['allowed_types'] = '.jpg|.jpeg|.png|.pdf|.doc|.zip|.ppt|.pptx';
-            
-            $this->load->library('upload', $config);
-			
-			if($this->upload->do_upload('file')){
-				echo 'file not uploaded';
-			}
-			else{
-                $uploadData = $this->upload->data();
-                $file = $uploadData['file_name'];
-			}
+        $config['upload_path'] = './assets/module_files/';
+        $config['allowed_types'] = 'jpg|png|pdf|zip|doc|docx|ppt|pptx';
+        $config['max_size'] = '4096';
 
-    	$data = array(
+        $this->load->library('upload', $config);
+        
+        if(!$this->upload->do_upload('moduleFile')){
+             echo 'file not uploaded'; //Change this line to something else
+        }
+        else{
+             $uploadData = $this->upload->data();
+            $file = $uploadData['file_name'];
+        }
+
+        $data = array(
             'type' => 0,
-    		'module_id' => $this->input->post('module_code'),
-    		'filename' => $this->input->post('module_date'),
-    		'description' => $this->input->post('description'),
-    		'file' => $file
-    	);
-    	return $this->db->insert('module_files', $data);
+            'module_id' => $this->input->post('module_code'),
+            'filename' => $this->input->post('name'),
+            'description' => $this->input->post('description'),
+            'file' => $file
+        );
+        return $this->db->insert('module_files', $data);
     }
     public function updateMaterials($id){
+        $config['upload_path'] = './assets/module_files/';
+        $config['allowed_types'] = 'jpg|png|pdf|zip|doc|docx|ppt|pptx';
+        $config['max_size'] = '4096';
+
+        $this->load->library('upload', $config);
         
-            $config['upload_path'] = './assets/module_files/';
-            $config['allowed_types'] = '.jpg|.jpeg|.png|.pdf|.doc|.zip|.ppt|.pptx';
-            
-            $this->load->library('upload', $config);
+        if(!$this->upload->do_upload('moduleFile')){
+             echo 'file not uploaded'; //Change this line to something else
+        }
+        else{
+             $uploadData = $this->upload->data();
+            $file = $uploadData['file_name'];
+        }
 
-            if($this->upload->do_upload('file')){
-                echo 'file not uploaded';
-            }
-            else{
-               $uploadData = $this->upload->data();
-                $file = $uploadData['file_name'];
-            }
-
-        $data = [
+        $data = array(
             'type' => 0,
-           	'module_id' => $this->input->post('module_code'),
-    		'filename' => $this->input->post('module_date'),
-    		'description' => $this->input->post('description'),
-    		'file' => $file
-        ];
+            'module_id' => $this->input->post('module_code'),
+            'filename' => $this->input->post('name'),
+            'description' => $this->input->post('description'),
+            'file' => $file
+        );
         $this->db->where('file_id', $id)->update('module_files', $data);
     }
     public function deleteFile($id){
+        $result = $this->db->where('file_id', $id)->get('module_files');
+        $rows = $result->result_array();
+        foreach ($rows as $row) {
+           unlink("./assets/module_files/". $row['file']);
+        }
         $this->db->where('file_id', $id)->delete('module_files');
     }
     public function archiveFile($id , $data){
         $this->db->where('file_id', $id)->update('module_files', $data);
 	}
-	
-
 	public function attendance($moduleCode, $attendanceDate)
 	{
 		$this->db->join('students', 'students.student_id = student_modules.student_id', 'left');
