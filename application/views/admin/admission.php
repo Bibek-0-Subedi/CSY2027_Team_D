@@ -44,7 +44,7 @@
       <!-- begin filter and search post -->
       <div class="row mt-5 mb-3">
         <div class="col-md-7 ml-n3">
-        <?php echo form_open('admin/admission/', ['class' => 'form-inline']); ?>
+        <?php echo form_open('admin/admission', ['class' => 'form-inline']); ?>
             <select class="custom-select col-sm-2 mr-2" name="assigned">
                 <option value="3" <?php if (!isset($_POST['assigned'])) echo "selected"; ?>>CaseFile</option>
                 <option value="1" <?php if (isset($_POST['assigned']) && $_POST['assigned'] == 1) echo "selected"; ?>>Created</option>

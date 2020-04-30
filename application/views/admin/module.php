@@ -45,7 +45,7 @@
         <?php } ?>
         <div class="row mt-4">
             <div class="col-lg-9 mb-4">
-            <?php echo form_open('admin/module/', ['class' => 'form-inline']); ?>
+            <?php echo form_open('admin/module', ['class' => 'form-inline']); ?>
                     <select class="custom-select col-sm-2 mr-3" name='course_code'>
                             <option value="null" >Course</option>
                             <?php foreach ($course as $crse) { ?>
@@ -65,7 +65,7 @@
                         class="table table-striped  table-bordered table-hover" 
                         data-url="json/data1.json" 
                         data-filter-control="true">
-                    <thead>
+                    <thead class="thead-light">
                         <tr>
                             <th>Module Code</th>
                             <th data-filter-control="select">Module Name</th>

@@ -49,7 +49,7 @@
         <?php } ?>
         <div class="row mt-4">
             <div class="col-lg-9 mb-4">
-            <?php echo form_open('admin/course/', ['class' => 'form-inline']); ?>
+            <?php echo form_open('admin/course', ['class' => 'form-inline']); ?>
                     <select class="custom-select col-sm-2 mr-3" name='department_id'>
                         <option value="0" >Department</option>
                         <?php foreach ($department as $dpt) { ?>
@@ -69,7 +69,7 @@
                         class="table table-striped  table-bordered table-hover" 
                         data-url="json/data1.json" 
                         data-filter-control="true">
-                    <thead>
+                    <thead class="thead-light">
                         <tr>
                             <th>Course Code</th>
                             <th data-filter-control="select">Course Name</th>

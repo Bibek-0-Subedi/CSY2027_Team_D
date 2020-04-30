@@ -197,6 +197,7 @@ class Admin extends CI_Model{
     public function filterStudent($status, $course){
         $this->db->join('admissions', 'admissions.assigned_id=students.assigned_id', 'left');
         $this->db->join('courses', 'admissions.course_code=courses.course_code', 'left');
+        $this->db->join('staff', 'staff.staff_id=students.pat_tutor', 'right');
         $this->db->where('students.archive = 0');
 
         if($status == 'null' && $course == 'null'){
@@ -212,9 +213,7 @@ class Admin extends CI_Model{
             $this->db->where('admissions.course_code', $course);
             $this->db->where('admissions.status', $status);
         }
-
-        $students = $this->db->get('students');
- 
+        $students = $this->db->select('students.*, admissions.*, courses.*, staff.firstname as tfname, staff.surname as tsname')->get('students'); 
         return $students->result_array();
     }
 
@@ -273,12 +272,13 @@ class Admin extends CI_Model{
         ];
 
         if($this->input->post('changeApproved')){
-            $data['approval'] = 0;
-            $data['changes'] = null;
+            $approve['approval'] = 0;
+            $approve['changes'] = null;
             $this->db->join('admissions', 'admissions.assigned_id = students.student_id', 'left');
-            $stf = $this->db->where('student_id', $id)->select('students.email, firstname')->get('students');
-            $studentInfo = $stf->row_array();
-            $this->admission->changeApproved($studentInfo['firstname'], $studentInfo['students.email']);
+            $std = $this->db->where('student_id', $id)->select('students.email, firstname')->get('students');
+            $studentInfo = $std->row_array();
+            $this->admission->changeApproved($studentInfo['firstname'], $studentInfo['email']);
+            $this->db->where('student_id', $id)->update('students', $approve);
         }
 
 
@@ -508,7 +508,7 @@ class Admin extends CI_Model{
     }
 
     public function deleteCourse($id){
-        if(!$this->db->where('course_code', $id)->delete('courses')){
+        if(!$this->db->delete('courses', array('course_code' => $id))){
             return $this->db->error();
         }
         return false;

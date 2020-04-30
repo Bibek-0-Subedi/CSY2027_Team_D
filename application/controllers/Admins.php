@@ -370,7 +370,7 @@ class Admins extends CI_Controller
             }elseif(isset($_POST['delete'])){
                 $delete  = $this->admin->deleteCourse($id); 
                 if($delete){
-                    $this->session->set_flashdata('cannotDelete', 'Course could not be Deleted  !');
+                    // $this->session->set_flashdata('cannotDelete', 'Course could not be Deleted  !');
                     exit();
                 }
                 else{
@@ -493,7 +493,6 @@ class Admins extends CI_Controller
             $course  = $this->admin->getTable('','','courses');
             if ($id) {
                 $moduleLeader = $this->admin->getAssignableStaff('3', $module['course_code']);
-                print_r($module);
                 $data = [
                     'module' => $module,
                     'course' => $course,

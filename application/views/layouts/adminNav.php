@@ -7,14 +7,8 @@
         <a href="#" class="navbar-brand d-block bt-border text-black text-center py-2"><img src="<?php echo base_url();?>assets/img/logo-icon.jpg" alt="logoIcon">  Woodlands University College</a>
     </div>
     <div class="logout-link mt-2">
-        <?php if (($this->session->userdata('type')) == 1 || $this->session->userdata('type') == 2 ) :?>
+        <?php if (($this->session->userdata('type')) == 1 || $this->session->userdata('type') == 2 || $this->session->userdata('type') == 3 ) :?>
             <h4 class="mr-3 mt-1"><i class="fas fa-user-shield mr-2"></i><?php echo $this->session->userdata('name') . ' '. $this->session->userdata('surname') ;?></h4>
-        <?php endif;?>
-        <?php if (($this->session->userdata('type')) == 3) :?>
-            <h3><?php echo $this->session->userdata('name') ;?></h3>
-            <form class="form layout-search" method="post" action="<?php echo base_url();?>admin/logout">
-                <button class="btn" type="submit"><i class="fa fa-power-off" style="font-size: 20px; color: red"></i></button>
-            </form>                                            
         <?php endif;?>
     </div>
 </div>

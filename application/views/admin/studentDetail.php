@@ -50,7 +50,7 @@
             </div>
             <div class="form-group col-md-6">
                 <label for="Email">Email</label>
-                <input type="text" class="form-control <?php echo form_error('email') ? 'is-invalid' : '' ?>" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : $student['email']?>">
+                <input type="email" class="form-control <?php echo form_error('email') ? 'is-invalid' : '' ?>" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : $student['email']?>">
                 <?= form_error('email') ?>
             </div>
             <div class="form-group col-md-6">

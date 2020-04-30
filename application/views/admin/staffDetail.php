@@ -57,7 +57,7 @@
         </div>
         <div class="form-group col-md-6">
             <label for="Email">Email</label>
-            <input type="text" class="form-control mr-3 <?php echo form_error('email') ? 'is-invalid' : '' ?>" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : $staff['email'] ?>">
+            <input type="email" class="form-control mr-3 <?php echo form_error('email') ? 'is-invalid' : '' ?>" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : $staff['email'] ?>">
             <?= form_error('email') ?>
         </div>
 

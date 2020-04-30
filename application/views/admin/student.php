@@ -45,7 +45,7 @@
 
     <div class="row my-4">
         <div class="col-lg-7 ml-n3">
-            <?php echo form_open('admin/student/', ['class' => 'form-inline']); ?>
+            <?php echo form_open('admin/student', ['class' => 'form-inline']); ?>
             <select class="custom-select col-sm-2 mr-2" name="status">
                 <option value="3" <?php if (!isset($_POST['status'])) echo "selected"; ?>>Status</option>
                 <option value="1" <?php if (isset($_POST['status']) && $_POST['status'] == 1) echo "selected"; ?>>Active</option>
