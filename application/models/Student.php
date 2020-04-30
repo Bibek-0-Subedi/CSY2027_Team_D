@@ -33,6 +33,11 @@ class Student extends CI_Model{
         return $student->row_array();
     }
 
+    public function getTimeTable($id){
+        $course = $this->getStudent($id);
+        $timetable = $this->db->get_where('timetables', ['course_name' => $course['course_code']]);
+        return $timetable->result_array();
+    }
     public function modules()
     {
         $this->db->join('modules', 'modules.module_code = student_modules.module_code', 'left');

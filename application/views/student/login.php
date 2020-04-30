@@ -1,6 +1,10 @@
 <div class="container loginform mt-20 mb-20 col-md-3" style="min-height: 450px; margin-top: 100px">
     <h2 class="text-center" style=" margin-bottom: 30px">Student Login</h2>
-    <span style="color: red"><?php echo $this->session->flashdata('invalid');?></span>
+    <?php if (!empty($this->session->flashdata('invalid'))) { ?>
+        <div class="alert alert-danger" role="alert">
+            <span><?php echo $this->session->flashdata('invalid');?></span>
+        </div>
+    <?php } ?>
     <?php echo form_open('student/login',['class' => '']) ;?>
         <div class="form-group">
             <label class="h4">Username</label>

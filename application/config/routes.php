@@ -61,6 +61,8 @@ $route['student/module/announcement/(:any)'] = 'students/announcement/$1';
 $route['student/module/(:any)'] = 'students/module/$1';
 $route['student/login'] = 'students/login';
 $route['student/logout'] = 'students/logout';
+$route['student/viewTimeTable/(:any)'] = 'students/viewTimeTable/$1';
+
 // $route['student/attendance'] = 'students/attendance';
 $route['student/logout'] = 'students/logout';
 

@@ -77,8 +77,10 @@
                                         <a href="createTimeTable/<?php echo $timetable['routine_id']; ?>" class="btn btn-success">Create</a>
                                         <?php } ?>
                                 </td>
-                                <td style="display: flex; justify-content: space-around;">
-                                    <a href="editTimeTable/<?php echo $timetable['routine_id']; ?>" class="btn btn-success">Edit</a>
+                                <td style="display: flex; justify-content: space-around;">    
+                                    <?php if($timetable['timetable']){?>
+                                        <a href="editTimeTable/<?php echo $timetable['routine_id']; ?>" class="btn btn-success">Edit</a>
+                                    <?php }?>
                                     <?php echo form_open('admin/timeTable/'.$timetable['routine_id'] ); ?>
                                         <input type="submit" class="btn btn-info" name="archive" value="Archive">
                                     </form>

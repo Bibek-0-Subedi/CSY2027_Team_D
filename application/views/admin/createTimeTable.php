@@ -1,5 +1,3 @@
-<?php if (($this->session->userdata('type')) == 1) { ?>
-
     <div class="container-fluid ml-2 mr-2">
         <!-- begin create table header  -->
         <div class="row border-bottom my-2">
@@ -162,6 +160,3 @@
             </div>
         </div>
     </div>
-<?php } else {
-    redirect('admin/login');
-} ?>

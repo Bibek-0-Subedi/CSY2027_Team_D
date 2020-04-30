@@ -48,7 +48,7 @@
         </div>
         <div class="form-group col-md-6">
             <small class="text-muted">The course will be added to the courses list after submitting the form.</small>
-            <input type="submit" name="add" value="Add Course" class="form-control btn btn-primary mt-2">
+            <input type="submit" name="add" value="Save Course" class="form-control btn btn-primary mt-2">
         </div>
         </form>
         <!-- end Course form -->

@@ -51,10 +51,10 @@
                 <option value="1" <?php if (isset($_POST['status']) && $_POST['status'] == 1) echo "selected"; ?>>Active</option>
                 <option value="0" <?php if (isset($_POST['status']) && $_POST['status'] == 0) echo "selected"; ?>>Dormant</option>
             </select>
-            <select class="custom-select col-sm-3 mr-3" name='subject'>
+            <select class="custom-select col-sm-3 mr-3" name='course'>
                 <option value="null">Course</option>
                 <?php foreach ($courses as $crse) { ?>
-                    <option value="<?= $crse['course_code'] ?>" <?php if (isset($_POST['subject']) && $_POST['subject'] == $crse['course_code']) echo "selected"; ?>><?= $crse['course_name'] ?></option>
+                    <option value="<?= $crse['course_code'] ?>" <?php if (isset($_POST['course']) && $_POST['course'] == $crse['course_code']) echo "selected"; ?>><?= $crse['course_name'] ?></option>
                 <?php } ?>
             </select>
             <button class="btn btn-info my-2 my-sm-0 mr-2" type="submit" name="filter">Filter</button>
@@ -96,8 +96,8 @@
                         if ($row['pat_tutor'] == 0) {
                             echo '<button  . data-id="' . $row['student_id'] . '" class="btn btn-secondary" data-toggle="modal"  data-target="#assignPatTutor" >Assign</button>';
                         } else {
-                            echo $row['pat_tutor'];
-                            // echo $row['firstname'] . $row['surname'];
+                            echo $row['tfname'] .' ' .$row['tsname'];
+                            echo '<br>';
                             echo '<button  . data-id="' . $row['student_id'] . '" class="btn btn-secondary" data-toggle="modal"  data-target="#assignPatTutor" >Re Assign</button>';
                         }
                         echo '</td>';

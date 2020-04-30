@@ -40,9 +40,65 @@ class Admin extends CI_Model{
     }
 
     public function getAdmissions(){
-        $result = $this->db->where("status != 3")->get('admissions');
+        $this->db->join('courses', 'courses.course_code = admissions.course_code', 'left');
+        $this->db->where("status != 3");
+        $result = $this->db->get('admissions');
         return $result->result_array();
         
+    }
+
+    public function filterAdmission($assigned, $status, $course){
+        $this->db->join('courses', 'courses.course_code = admissions.course_code', 'left');
+
+        if($assigned == 'null' && $status == 'null' && $course == 'null'){
+            $this->db->where("status != 3");
+        }
+        else if ($assigned == 'null' && $status == 'null' && $course != 'null') {
+            $this->db->where('admissions.course_code', $course);
+        }
+        else if ($assigned == 'null' && $status != 'null' && $course == 'null') {
+            $this->db->where('status', $status);
+        }
+        else if ($assigned != 'null' && $status == 'null' && $course == 'null') {
+            if($assigned == 1){
+                $this->db->where_not_in('assigned_id', 0);
+            }else{
+                $this->db->where('assigned_id', $assigned);
+            }
+        }
+        else if ($assigned != 'null' && $status != 'null' && $course == 'null') {
+            $this->db->where('status', $status);
+            if($assigned == 1){
+                $this->db->where_not_in('assigned_id', 0);
+            }else{
+                $this->db->where('assigned_id', $assigned);
+            }
+        }
+        else if ($assigned != 'null' && $status == 'null' && $course != 'null') {
+            if($assigned == 1){
+                $this->db->where_not_in('assigned_id', 0);
+            }else{
+                $this->db->where('assigned_id', $assigned);
+            }
+            $this->db->where('admissions.course_code', $course);
+        }
+        else if ($assigned == 'null' && $status != 'null' && $course != 'null') {
+            $this->db->where('admissions.course_code', $course);
+            $this->db->where('status', $status);
+        }
+        else if ($assigned != 'null' && $status != 'null' && $course != 'null') {
+            $this->db->where('admissions.course_code', $course);
+            $this->db->where('status', $status);
+            if($assigned == 1){
+                $this->db->where_not_in('assigned_id', 0);
+            }else{
+                $this->db->where('assigned_id', $assigned);
+            }
+        }
+
+        $students = $this->db->get('admissions');
+ 
+        return $students->result_array();
     }
 
     public function createCaseFile($id){
@@ -130,11 +186,36 @@ class Admin extends CI_Model{
 
         $this->db->join('admissions', 'admissions.assigned_id=students.assigned_id', 'left');
         $this->db->join('courses', 'admissions.course_code=courses.course_code', 'left');
-        // $this->db->join('staff', 'staff.staff_id=students.pat_tutor', 'left');
+        $this->db->join('staff', 'staff.staff_id=students.pat_tutor', 'right');
         $this->db->where('students.archive = 0');
-        $result = $this->db->get('students');
+        $result = $this->db->select('students.*, admissions.*, courses.*, staff.firstname as tfname, staff.surname as tsname')->get('students');
+        // $result = $this->db->get('students');
         return $result->result_array();
 
+    }
+
+    public function filterStudent($status, $course){
+        $this->db->join('admissions', 'admissions.assigned_id=students.assigned_id', 'left');
+        $this->db->join('courses', 'admissions.course_code=courses.course_code', 'left');
+        $this->db->where('students.archive = 0');
+
+        if($status == 'null' && $course == 'null'){
+
+        }
+        else if ($status == 'null' && $course != 'null') {
+            $this->db->where('admissions.course_code', $course);
+        }
+        else if ($status != 'null' && $course == 'null') {
+            $this->db->where('admissions.status', $status);
+        }
+        else if ($status != 'null' && $course != 'null') {
+            $this->db->where('admissions.course_code', $course);
+            $this->db->where('admissions.status', $status);
+        }
+
+        $students = $this->db->get('students');
+ 
+        return $students->result_array();
     }
 
     public function studentEditData($id){
@@ -190,6 +271,15 @@ class Admin extends CI_Model{
             'qualification' => $this->input->post('qualification'),
             'course_code' => $this->input->post('courseCode'),
         ];
+
+        if($this->input->post('changeApproved')){
+            $data['approval'] = 0;
+            $data['changes'] = null;
+            $this->db->join('admissions', 'admissions.assigned_id = students.student_id', 'left');
+            $stf = $this->db->where('student_id', $id)->select('students.email, firstname')->get('students');
+            $studentInfo = $stf->row_array();
+            $this->admission->changeApproved($studentInfo['firstname'], $studentInfo['students.email']);
+        }
 
 
         if(!empty(trim($this->input->post('password')))){
@@ -418,7 +508,10 @@ class Admin extends CI_Model{
     }
 
     public function deleteCourse($id){
-        $this->db->where('course_code', $id)->delete('courses');
+        if(!$this->db->where('course_code', $id)->delete('courses')){
+            return $this->db->error();
+        }
+        return false;
     }
 
     public function module($course = false){

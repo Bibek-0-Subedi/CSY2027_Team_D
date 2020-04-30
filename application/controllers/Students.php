@@ -22,10 +22,20 @@ class Students extends CI_Controller {
         }
     }
     public function dashboard(){
+        $data['timetable'] = $this->student->getTimeTable($this->session->userdata('student_id'));
         $data['student'] = $this->student->getStudent($this->session->userdata('student_id'));
         $data['announcements'] = $this->student->getAnnouncement();
         $this->loadViews('dashboard', 'Dashboard', $data);
     }
+
+    public function viewTimeTable($id){
+
+        $timetable = $this->admin->getTableData($id,'routine_id',  'timetables');
+        $deser_timetable = unserialize($timetable['timetable']); 
+        $data =['timetable' => $deser_timetable]; 
+        $this->loadViews('viewTimeTable', 'View Table', $data);
+    }
+
 
     public function login() {
 
@@ -55,6 +65,7 @@ class Students extends CI_Controller {
                 $this->session->set_userdata($student_data);
                 redirect('student/dashboard');
             }else {
+                $this->session->set_flashdata('invalid', 'Email or password is incorrect ! Try Again');
                 redirect('student/login');
             }
         }

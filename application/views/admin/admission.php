@@ -46,20 +46,19 @@
         <div class="col-md-7 ml-n3">
         <?php echo form_open('admin/admission/', ['class' => 'form-inline']); ?>
             <select class="custom-select col-sm-2 mr-2" name="assigned">
-                <option value="3" <?php if (!isset($_POST['status'])) echo "selected"; ?>>CaseFile</option>
-                <option value="1" <?php if (isset($_POST['status']) && $_POST['status'] == 1) echo "selected"; ?>>Created</option>
-                <option value="0" <?php if (isset($_POST['status']) && $_POST['status'] == 0) echo "selected"; ?>>Pending</option>
+                <option value="3" <?php if (!isset($_POST['assigned'])) echo "selected"; ?>>CaseFile</option>
+                <option value="1" <?php if (isset($_POST['assigned']) && $_POST['assigned'] == 1) echo "selected"; ?>>Created</option>
+                <option value="0" <?php if (isset($_POST['assigned']) && $_POST['assigned'] == 0) echo "selected"; ?>>Pending</option>
             </select>
             <select class="custom-select col-sm-2 mr-2" name="status">
                 <option value="3" <?php if (!isset($_POST['status'])) echo "selected"; ?>>Status</option>
-                <option value="1" <?php if (isset($_POST['status']) && $_POST['status'] == 1) echo "selected"; ?>>Provisional</option>
-                <option value="1" <?php if (isset($_POST['status']) && $_POST['status'] == 1) echo "selected"; ?>>Active</option>
-                <option value="0" <?php if (isset($_POST['status']) && $_POST['status'] == 0) echo "selected"; ?>>Dormant</option>
+                <option value="1" <?php if (isset($_POST['status']) && $_POST['status'] == 2) echo "selected"; ?>>Provisional</option>
+                <option value="2" <?php if (isset($_POST['status']) && $_POST['status'] == 0) echo "selected"; ?>>Dormant</option>
             </select>
-            <select class="custom-select col-sm-3 mr-3" name='subject'>
+            <select class="custom-select col-sm-3 mr-3" name='course'>
                 <option value="null">Course</option>
                 <?php foreach ($courses as $crse) { ?>
-                    <option value="<?= $crse['course_code'] ?>" <?php if (isset($_POST['subject']) && $_POST['subject'] == $crse['course_code']) echo "selected"; ?>><?= $crse['course_name'] ?></option>
+                    <option value="<?= $crse['course_code'] ?>" <?php if (isset($_POST['course']) && $_POST['course'] == $crse['course_code']) echo "selected"; ?>><?= $crse['course_name'] ?></option>
                 <?php } ?>
             </select>
             <button class="btn btn-info my-2 my-sm-0 mr-2" type="submit" name="filter">Filter</button>
@@ -100,7 +99,7 @@
                     echo '<td>' . $row['firstname'].' '.$row['middlename'].' '.$row['surname'].'</td>';
                     echo '<td>' . $row['permanent_address'].'</td>';
                     echo '<td>' . $row['contact'].'</td>';
-                    echo '<td>' . $row['course_code'].'</td>';
+                    echo '<td>' . $row['course_name'].'</td>';
                     echo '<td>' . $row['email'].'</td>';
                     echo '<td>' . $row['qualification'].'</td>';
                     echo '</tr>'; 

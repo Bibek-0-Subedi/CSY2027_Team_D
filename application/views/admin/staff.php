@@ -75,7 +75,7 @@
     <div class="row mt-3 ">
         <div class="container-fluid">
             <table id="staffTable" class="table table-striped  table-bordered table-hover" data-url="json/data1.json" data-filter-control="true">
-                <thead>
+                <thead  class="thead-light">
                     <tr>
                         <th>Staff Id</th>
                         <th data-filter-control="select">Status</th>
@@ -85,7 +85,6 @@
                         <th data-filter-control="select">Email</th>
                         <th data-filter-control="select">Subject</th>
                         <th data-filter-control="select">Role</th>
-                        <th data-filter-control="select">Approval</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -127,7 +126,6 @@
                                 }
                                 ?>
                             </td>
-                            <td><?php echo $staff['approval'] ?></td>
                             <td style="display: flex; justify-content: space-around;">
                                 <a href="staffDetail/<?php echo $staff['staff_id']; ?>" class="btn btn-success mr-2">Edit</a>
                                 <?php echo form_open('admin/staff/' . $staff['staff_id']); ?>

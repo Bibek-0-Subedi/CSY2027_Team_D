@@ -81,7 +81,13 @@
                                 <td><?= $module['module_code'] ?></td>
                                 <td><?= $module['module_name'] ?></td>
                                 <td><?= $module['module_duration'] ?></td>
-                                <td><?= $module['firstname'] .' ' . $module['surname'] ?></td>
+                                <td>
+                                    <?php if ($module['module_leader']) {
+                                            echo $module['firstname'] .' ' . $module['surname'] ;
+                                    }else {
+                                            echo "Not Assigned";
+                                    } ?>
+                                </td>
                                 <td><?= $module['course_name'] ?></td>
                                 <td style="display: flex; justify-content: space-around;">
                                     <a href="moduleDetail/<?php echo $module['module_code']; ?>" class="btn btn-success">Edit</a>

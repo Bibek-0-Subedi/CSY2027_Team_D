@@ -12,12 +12,11 @@ class Admins extends CI_Controller
          
         // This section works but commented for now
         
-        // if($this->router->fetch_method() != 'login' && $this->session->userdata('type') != 1){
-        //     header('Location: login');
-        // } 
-        if($this->router->fetch_method() != 'login' && $this->session->userdata('type') != 2){
-            header('Location: login');
-        } 
+        if($this->router->fetch_method() != 'login'){
+            if(!($this->session->userdata('type') == 1 || $this->session->userdata('type') == 2)){
+                header('Location: login');
+            }
+        }
     }
 
 
@@ -53,16 +52,37 @@ class Admins extends CI_Controller
     {
         // $data['admissions'] = $this->admin->tableGenerator($this->admin->getAdmissions());
         $data['courses'] = $this->admin->getAssignableCourse();
-        $data['admissions'] = $this->admin->getAdmissions();
-        $this->loadViews('admission', 'Admission', $data);
+        if (isset($_POST['filter'])){
+            if($_POST['assigned'] == 3){
+                $assigned = "null";
+            }
+            else{
+                $assigned = $_POST['assigned'];
+            }
+            if($_POST['status'] == 3 ){
+                $status = "null";
+            }
+            else{
+                $status = $_POST['status'];
+            }
+            if($_POST['course'] == 0){
+                $course = "null";
+            }
+            else{
+                $course = $_POST['course'];
+            }
+            $data['admissions'] = $this->admin->filterAdmission($assigned, $status, $course);
+            $this->loadViews('admission', 'Admission', $data);
+        }
+        else{
+            $data['admissions'] = $this->admin->getAdmissions();
+            $this->loadViews('admission', 'Admission', $data);
+        }
     }
 
     public function login()
     {
-        if($this->session->userdata('type') == 1){
-            header('Location:dashboard');
-        }
-        if($this->session->userdata('type') == 2){
+        if($this->session->userdata('type') == 1 || $this->session->userdata('type') == 2){
             header('Location:dashboard');
         }
 
@@ -134,6 +154,24 @@ class Admins extends CI_Controller
             $this->admin->assign_archive_student($id , $assign);
             $this->session->set_flashdata('assigned', 'Pat Tutor Assigned Successfully !');
             redirect('admin/student');            
+        }elseif (isset($_POST['filter'])){
+            if($_POST['status'] == 3){
+                $status = "null";
+            }
+            else{
+                $status = $_POST['status'];
+            }
+            if($_POST['course'] == 'null'){
+                $course = "null";
+            }
+            else{
+                $course = $_POST['course'];
+            }
+
+            $data['tutors'] = $this->admin->getAssignablePatTutor();
+            $data['courses'] = $this->admin->getAssignableCourse();
+            $data['students'] = $this->admin->filterStudent($status, $course);
+           $this->loadViews('student', 'students', $data);
         }else{
             $data['tutors'] = $this->admin->getAssignablePatTutor();
             $data['courses'] = $this->admin->getAssignableCourse();
@@ -330,8 +368,14 @@ class Admins extends CI_Controller
                 $this->session->set_flashdata('archived', 'Course Archived Successfully !');
                 redirect('admin/course');
             }elseif(isset($_POST['delete'])){
-                $this->admin->deleteCourse($id);
-                $this->session->set_flashdata('deleted', 'Course Deleted Successfully !');
+                $delete  = $this->admin->deleteCourse($id); 
+                if($delete){
+                    $this->session->set_flashdata('cannotDelete', 'Course could not be Deleted  !');
+                    exit();
+                }
+                else{
+                    $this->session->set_flashdata('deleted', 'Course Deleted Successfully !');
+                }
                 redirect('admin/course');            
             }
         }
@@ -433,7 +477,7 @@ class Admins extends CI_Controller
     public function moduleDetail($id = false)
     {
         $module = $this->admin->getTableData($id, 'module_code', 'modules');
-
+    
         $this->form_validation->set_rules('module_name', 'Module Name', 'required');
         $this->form_validation->set_rules('module_duration', 'Module Duration', 'required');
         $this->form_validation->set_rules('course_code', 'Course', 'required');
@@ -449,6 +493,7 @@ class Admins extends CI_Controller
             $course  = $this->admin->getTable('','','courses');
             if ($id) {
                 $moduleLeader = $this->admin->getAssignableStaff('3', $module['course_code']);
+                print_r($module);
                 $data = [
                     'module' => $module,
                     'course' => $course,

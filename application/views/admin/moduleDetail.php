@@ -36,9 +36,9 @@
         <div class="form-group col-md-6">
             <label for="Course">Course</label>
             <select class="form-control  mr-3 <?php echo form_error('course_code') ? 'is-invalid' : '' ?>" name='course_code'>
-                <option value="" disabled <?php if (!isset($_POST['course_code']) && $module['course_code'] == "") echo "selected" ?>>Select Course</option>
+                <option value="" <?php if (!isset($_POST['course_code']) && $module['course_code'] == ""){ echo "selected";} ?>>Select Course</option>
                 <?php foreach ($course as $crse) { ?>
-                    <option value="<?= $crse['course_code'] ?>"><?= $crse['course_name'] ?></option>
+                    <option value="<?= $crse['course_code'] ?>" <?php if (($module['course_code']) == $crse['course_code']){ echo "selected" ;} ?>><?= $crse['course_name'] ?></option>
                 <?php } ?>
             </select>
             <?= form_error('course_code') ?>
