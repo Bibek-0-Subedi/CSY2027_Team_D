@@ -12,7 +12,9 @@
                                 <div class="card-body">
                                 <!-- <a> Description: </a><br> -->
                                 <a href="<?= site_url() ?>tutor/pat/view/<?= $student['student_id']?>" class="mt-2"><?= $student['firstname'] . ' ' . $student['middlename'] . ' ' . $student['surname']?></a><br>
-                                <!-- <a class="pull-right">Student Id: <?= $student['student_id'] ?></a>  -->
+                               <?php if($student['pat_request'] == 1){ ?>
+                                <a class="pull-right text-danger ">Requested for the PAT Session!</a> 
+                                <?php } ?>
                             </div>
                         </div> 
                 <?php } ?>

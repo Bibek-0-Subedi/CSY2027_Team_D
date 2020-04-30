@@ -37,8 +37,6 @@ class Assignment extends CI_model{
         $result = $this->db->get('module_files');
         return $result->row_array();
     }
-
-    
    public function viewAssignment($assignment)
    {
         $assignments = $this->db->where('type', 1)->get_where(
@@ -75,18 +73,19 @@ class Assignment extends CI_model{
     }
     public function update($module_id, $file_id){
 
-            $config['upload_path'] = './assets/module_files/';
-            $config['allowed_types'] = '.jpg|.jpeg|.png|.pdf|.doc|.zip|.ppt|.pptx';
+             $config['upload_path'] = './assets/module_files/';
+            $config['allowed_types'] = 'jpg|png|pdf|zip|doc|docx|ppt|pptx';
+            $config['max_size'] = '4096';
             
-            $this->load->library('upload', $config);
-
-            if($this->upload->do_upload('file')){
-                echo 'file not uploaded';
-            }
-            else{
-               $uploadData = $this->upload->data();
-                $file = $uploadData['file_name'];
-            }
+             $this->load->library('upload', $config);
+        
+        if(!$this->upload->do_upload('assignmentFile')){
+             echo 'file not uploaded'; //Change this line to something else
+        }
+        else{
+             $uploadData = $this->upload->data();
+             $file = $uploadData['file_name'];
+        }
 
         $data =[
             'type' => 1,
@@ -105,12 +104,22 @@ class Assignment extends CI_model{
         $this->db->update('assignments', $data);
     }
     public function deleteFile($id){
+        $result = $this->db->where('file_id', $id)->get('module_files');
+        $rows = $result->result_array();
+        foreach ($rows as $row) {
+           unlink("./assets/module_files/". $row['file']);
+        }
         $this->db->where('file_id', $id)->delete('module_files');
     }
     public function archiveFile($id , $data){
         $this->db->where('file_id', $id)->update('module_files', $data);
     }
-    public function deleteAssignment($id){
+     public function deleteAssignment($id){
+       $result = $this->db->where('assignment_id', $id)->get('assignments');
+        $rows = $result->result_array();
+        foreach ($rows as $row) {
+           unlink("./assets/assignment_submissions/". $row['assignment_file']);
+        }
         $this->db->where('assignment_id', $id)->delete('assignments');
     }
 }

@@ -13,6 +13,8 @@
                  <?php foreach ($diaries as $diary) { ?>
                             <div class="card">
                                 <div class="card-body">
+                                <a> Title: </a><br>
+                                <a class="ml-5"><?= $diary['title'] ?></a><br>
                                 <a> Description: </a><br>
                                 <a class="ml-5"><?= $diary['description'] ?></a><br>
                                 <a class="pull-right"> <?= $diary['date'] ?></a>
