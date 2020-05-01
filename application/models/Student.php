@@ -157,7 +157,7 @@ class Student extends CI_Model{
 	{
         $this->db->join('modules', 'modules.module_code = announcements.module_code', 'left');
         
-		$result = $this->db->where('module_code', $module_code)->get('announcements');
+		$result = $this->db->where('announcements.module_code', $module_code)->get('announcements');
 
 		return $result->result_array();
     }
