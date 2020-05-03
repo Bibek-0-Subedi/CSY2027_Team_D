@@ -38,6 +38,10 @@
             <div class="alert alert-success" role="alert">
                 <?php echo $this->session->flashdata('added'); ?>
             </div>
+        <?php }elseif (!empty($this->session->flashdata('cannotDelete'))) { ?>
+            <div class="alert alert-danger" role="alert">
+                <?php echo $this->session->flashdata('cannotDelete'); ?>
+            </div>    
         <?php } elseif (!empty($this->session->flashdata('deleted'))) { ?>
             <div class="alert alert-success" role="alert">
                 <?php echo $this->session->flashdata('deleted'); ?>

@@ -465,8 +465,13 @@ class Admins extends CI_Controller
                 $this->session->set_flashdata('archived', 'Module Archived Successfully !');
                 redirect('admin/module');
             }elseif(isset($_POST['delete'])){
-                $this->admin->deleteModule($id);
-                $this->session->set_flashdata('archived', 'Module Deleted Successfully !');
+                $delete  = $this->admin->deleteModule($id); 
+                if($delete){
+                    $this->session->set_flashdata('deleted', 'Module Deleted Successfully !');
+                }
+                else{
+                    $this->session->set_flashdata('cannotDelete', 'Module could not be Deleted  !');
+                }
                 redirect('admin/module');            
             }
         }elseif (isset($_POST['filter'])) {

@@ -522,18 +522,9 @@ class Admin extends CI_Model{
     }
     //function to delete the course from the courses table
     public function deleteCourse($id){
-        try{
-            $this->db->where('course_code', $id);
-            $this->db->delete('courses');
-            if($this->db->_error_number() == 1451){
-                throw new Exception("Error Processing Request");
-            }
-        }
-        catch(Exception $e)
-        {
-            return false;
-        }
-        return true;
+        $this->db->where('course_code', $id);
+        $del = $this->db->delete('courses');
+        return $del;
     }
     //function to get all the modules
     public function module($course = false){
@@ -585,7 +576,9 @@ class Admin extends CI_Model{
     }
     //function to delete the module from the modules table
     public function deleteModule($id){
-        $this->db->where('module_code', $id)->delete('modules');
+        $this->db->where('module_code', $id);
+        $del = $this->db->delete('modules');
+        return $del;
     }
     //function to view all the timetable assigned to the course
     public function timetable(){
