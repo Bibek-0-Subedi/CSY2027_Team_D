@@ -159,6 +159,19 @@ class Admission extends CI_Model {
 
         $this->send_mail($email, 'Request Approved by the Administrator', $letter);
     }
+
+
+    public function lowAttendance($firstname, $moduleName, $email)
+    {
+        $letter = "<p>Dear ".$firstname.",</p>
+        <p>Your attendance is very low in the module ".$moduleName.".</p>
+        <p>This email is to inform you to visit the administration department and share your reason for not attending the classes. As there may be consequences. You may not be able to submit the assignments and give examinations.</p> 
+        <p>If you have any other queries please visit the Woodlands University College Online Site ’link’, you can certainly email us or notify us via the system.</p> 
+        <p>Sincerely,</p>
+        <p>Woodlands Univerysity College</p>";
+
+        $this->send_mail($email, 'Low Attendance in Module', $letter);
+    }
 }
 
 /* End of file Admission.php */

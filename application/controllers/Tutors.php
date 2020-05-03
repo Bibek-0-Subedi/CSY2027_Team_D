@@ -247,4 +247,14 @@ class Tutors extends CI_Controller {
         $data =['timetable' => $deser_timetable]; 
         $this->loadViews('viewTimeTable', 'View Table', $data);
     }
+
+    public function lowAttendance($studentId, $module_id)
+    {
+        $student = $this->student->getStudent($studentId);
+        $module = $this->module->select($module_id);
+        $this->admission->lowAttendance($student['firstname'], $module['module_name'], $student['email']);
+        
+        redirect('tutor/module/attendance/'.$studentId.'/'.$module_id);
+        
+    }
 }

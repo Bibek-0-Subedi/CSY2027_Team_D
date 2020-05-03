@@ -79,6 +79,7 @@ $route['(:any)'] = 'pages/view/$1';
 $route['tutor/dashboard'] = 'tutors/dashboard';
 $route['tutor/announcement'] = 'tutors/announcement';
 $route['tutor/addAnnouncement'] = 'tutors/addAnnouncement';
+$route['tutor/lowAttendance/(:any)/(:any)'] = 'tutors/lowAttendance/$1/$2';
 $route['tutor/deleteAnnouncement/(:any)'] = 'tutors/deleteAnnouncement/$1';
 $route['tutor/profile'] = 'tutors/profile';
 $route['tutor/module/addAttendance'] = 'modules/addAttendance';
