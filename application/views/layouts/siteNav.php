@@ -1,14 +1,3 @@
-<div class="timebar">
-    <div>
-        <p class="pt-2 m-0 ml-3 text-white"><?= date("d").'th '.date("M Y") ?></p>
-    </div>
-    <div class="logout-link">
-        <form class="form layout-search ">
-            <input class="form-control mr-sm-2 search-input" type="search" placeholder="Search">
-            <button class="btn" type="submit"><i class="fa fa-search" style="font-size: 20px; color: #8AC6B7"></i></button>
-        </form>            
-    </div>
-</div>
 <!-- nav bar -->
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #8AC6B7;">
     <div class="container-fluid">
@@ -73,10 +62,10 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo base_url();?>support">Support</a>
+                        <a class="nav-link" href="#">Support</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo base_url();?>about">About Us</a>
+                        <a class="nav-link" href="#">About Us</a>
                     </li>
                 <!-- end for guest user -->                                                      
                 <?php } ?>

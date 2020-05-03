@@ -7,21 +7,6 @@ $this->load->view('layouts/siteNav');
 	<div class="row mt-2">
 		<div class="container-fluid">
 			<div class="row">
-				<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-					<div class="carousel-inner">
-						<div class="carousel-item active">
-							<img src="..." class="d-block w-100" alt="...">
-						</div>
-						<div class="carousel-item">
-							<img src="..." class="d-block w-100" alt="...">
-						</div>
-						<div class="carousel-item">
-							<img src="..." class="d-block w-100" alt="...">
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
 				<!-- begin first column -->
 				<div class="col-lg-5 p-3">
 
