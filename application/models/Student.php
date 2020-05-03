@@ -156,7 +156,7 @@ class Student extends CI_Model{
     public function getModuleAnnouncement($module_code)
 	{
         $this->db->join('modules', 'modules.module_code = announcements.module_code', 'left');
-        
+        $this->db->order_by('announcements.created_at', 'DESC');
 		$result = $this->db->where('announcements.module_code', $module_code)->get('announcements');
 
 		return $result->result_array();

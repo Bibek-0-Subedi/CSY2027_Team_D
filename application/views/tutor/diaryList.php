@@ -1,30 +1,29 @@
 <?php if(($this->session->userdata('type')) == 3) {?>
 
-<div class="container-fluid">
-    <div class="pl-sm-2 pr-sm-2 mt-2">
-        <div class="row bg-content">
-            <h4> Your Diary </h4>
+<div class="container-fluid mx-3">
+        <div class="row border-bottom my-2">
+            <h2>Your Diary</h2>
         </div>
-        <div class="row mt-3">
-         <a href="<?= site_url().'tutor/diary/add'?>" class="btn btn-primary ml-5">Add Information</a>
-     </div>
+        <div class="row mt-3 pl-3">
+            <a href="<?= site_url().'tutor/diary/add'?>" class="btn btn-outline-primary big-icon mr-3 mb-3 px-5"> 
+                <i class="fa fa-plus"></i>
+                <h5>Add a new Diary Page</h5>
+            </a>
+        </div>
         <div class="row mt-3 ">
             <div class="container-fluid">
                  <?php foreach ($diaries as $diary) { ?>
                             <div class="card">
                                 <div class="card-body">
-                                <a> Title: </a><br>
-                                <a class="ml-5"><?= $diary['title'] ?></a><br>
-                                <a> Description: </a><br>
-                                <a class="ml-5"><?= $diary['description'] ?></a><br>
-                                <a class="pull-right"> <?= $diary['date'] ?></a>
-                                <a href="<?= site_url() ?>tutor/diary/edit/<?= $diary['diary_id']?>" class="">Edit</a> 
+                                <h3><?= $diary['title'] ?></h3>
+                                <p><?= $diary['description'] ?></p>
+                                <p>Created at: <?= $diary['date'] ?></p>
+                                <a href="<?= site_url() ?>tutor/diary/edit/<?= $diary['diary_id']?>" class="btn btn-outline-primary pull-right">Edit</a> 
                             </div>
                         </div> 
                 <?php } ?>
             </div>
         </div>
-    </div>
 </div>
 
 <?php }

@@ -1,8 +1,9 @@
 <?php if(($this->session->userdata('type')) == 3) {?>
 
-<div class="container-fluid">
-    <div class="pl-sm-2 pr-sm-2 mt-2">
-        <div class="row bg-content"> <h4> Add Information In Your Diary  </h4></div>
+  <div class="container-fluid mx-3">
+        <div class="row border-bottom my-2">
+            <h2>Add Information In Your Diary</h2>
+        </div>
           <?php echo validation_errors(); ?>  
           <?php echo form_open('tutor/diary/add'); ?>
 
@@ -23,7 +24,6 @@
           <div class="form-group col-md-3">   
                 <input type="submit" name="add" value="Add" class="form-control btn btn-primary mt-2">
           </div>
-      </div>
 </div>
 
  <?php }

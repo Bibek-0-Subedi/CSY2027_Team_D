@@ -1,6 +1,7 @@
-<div class="container-fluid">
-    <div class="pl-sm-2 pr-sm-2 mt-2">
-        <h2 class="bg-content">Module Detail Form</h2>
+<div class="container-fluid mx-3">
+        <div class="row border-bottom my-2">
+            <h2>Module Detail Form</h2>
+        </div>
         <!-- begin Course form -->
         <?php echo form_open('admin/moduleDetail/' . $module['module_code'], ['class' => 'pl-sm-2 pr-sm-2 mt-4 row']); ?>
         <div class="form-group col-md-6">
@@ -49,5 +50,4 @@
         </div>
         </form>
         <!-- end Course form -->
-    </div>
 </div>

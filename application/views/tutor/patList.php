@@ -1,9 +1,8 @@
 <?php if(($this->session->userdata('type')) == 3) {?>
 
-<div class="container-fluid">
-    <div class="pl-sm-2 pr-sm-2 mt-2">
-        <div class="row bg-content">
-            <h4> PAT Session Student List</h4>
+    <div class="container-fluid mx-3">
+        <div class="row border-bottom my-2">
+            <h2>Pat Session Student</h2>
         </div>
         <div class="row mt-3 ">
             <div class="container-fluid">
@@ -20,7 +19,6 @@
                 <?php } ?>
             </div>
         </div>
-    </div>
 </div>
 
 <?php }

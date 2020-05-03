@@ -21,7 +21,7 @@ $route['admin/module/(:any)'] = 'admins/module/$1';
 $route['admin/announcement'] = 'admins/announcement';
 $route['admin/addAnnouncement'] = 'admins/addAnnouncement';
 $route['admin/deleteAnnouncement/(:any)'] = 'admins/deleteAnnouncement/$1';
-$route['admin/add'] = 'admins/add';
+$route['admin/add'] = 'admins/studentDetail';
 
 
 $route['admin/uploadCSV'] = 'admins/uploadCSV';
@@ -66,6 +66,8 @@ $route['student/viewTimeTable/(:any)'] = 'students/viewTimeTable/$1';
 // $route['student/attendance'] = 'students/attendance';
 $route['student/logout'] = 'students/logout';
 
+
+$route['tests'] = 'tests/index';
 //route for the pages
 $route['(:any)'] = 'pages/view/$1';
 
@@ -119,6 +121,8 @@ $route['tutor/module/(:any)'] = 'modules/view/$1';
 //module tutor pages
 
 
+
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+

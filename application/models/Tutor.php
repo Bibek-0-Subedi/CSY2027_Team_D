@@ -154,6 +154,7 @@ class Tutor extends CI_model{
 	
 	public function getAnnouncement()
 	{
+		$this->db->order_by('announcements.created_at', 'DESC');
 		$result = $this->db->where('announced_from', 1)->get('announcements');
 
 		return $result->result_array();
@@ -163,6 +164,7 @@ class Tutor extends CI_model{
 	public function getTutorAnnouncement()
 	{
 		$this->db->join('modules', 'modules.module_code = announcements.module_code', 'left');
+		$this->db->order_by('announcements.created_at', 'DESC');
 		$result = $this->db->where('announced_from', '3')->where('staff',$this->session->userdata('id'))->get('announcements');
 
 		return $result->result_array();
