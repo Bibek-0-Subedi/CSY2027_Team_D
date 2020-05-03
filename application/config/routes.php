@@ -80,6 +80,9 @@ $route['tutor/module/addAttendance'] = 'modules/addAttendance';
 $route['tutor/module/takeAttendance/(:any)/(:any)'] = 'modules/attendance/$1/$2';
 $route['tutor/module/attendance/(:any)/(:any)'] = 'tutors/attendance/$1/$2';
 $route['tutor/modules'] = 'tutors/modules';
+$route['tutor/timetable'] = 'tutors/timetable';
+$route['tutor/viewTimeTable/(:any)'] = 'tutors/viewTimeTable/$1';
+
 
 //route for assignment
 $route['tutor/module/assignment/index/(:any)'] = 'assignments/index/$1';

@@ -370,11 +370,10 @@ class Admins extends CI_Controller
             }elseif(isset($_POST['delete'])){
                 $delete  = $this->admin->deleteCourse($id); 
                 if($delete){
-                    // $this->session->set_flashdata('cannotDelete', 'Course could not be Deleted  !');
-                    exit();
+                    $this->session->set_flashdata('deleted', 'Course Deleted Successfully !');
                 }
                 else{
-                    $this->session->set_flashdata('deleted', 'Course Deleted Successfully !');
+                    $this->session->set_flashdata('cannotDelete', 'Course could not be Deleted  !');
                 }
                 redirect('admin/course');            
             }

@@ -227,4 +227,16 @@ class Tutors extends CI_Controller {
         redirect('tutor/announcement');
     }
 
+    public function timetable(){
+        $data['timetable'] = $this->Tutor->getTimeTable($this->session->userdata('id'));
+        $this->loadViews('timetable', 'Timetable' , $data);
+    }
+
+    public function viewTimeTable($id){
+
+        $timetable = $this->Tutor->getTimeTableData($id);
+        $deser_timetable = unserialize($timetable['timetable']); 
+        $data =['timetable' => $deser_timetable]; 
+        $this->loadViews('viewTimeTable', 'View Table', $data);
+    }
 }

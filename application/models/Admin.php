@@ -508,10 +508,18 @@ class Admin extends CI_Model{
     }
 
     public function deleteCourse($id){
-        if(!$this->db->delete('courses', array('course_code' => $id))){
-            return $this->db->error();
+        try{
+            $this->db->where('course_code', $id);
+            $this->db->delete('courses');
+            if($this->db->_error_number() == 1451){
+                throw new Exception("Error Processing Request");
+            }
         }
-        return false;
+        catch(Exception $e)
+        {
+            return false;
+        }
+        return true;
     }
 
     public function module($course = false){

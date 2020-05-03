@@ -173,6 +173,25 @@ class Tutor extends CI_model{
 		$this->db->where('id', $id)->delete('announcements');
 		
 	}
+
+	public function getStaff($id)
+	{
+		$staff = $this->db->get_where('staff', ['staff_id' => $id]);
+		return $staff->row_array();
+	}
+	
+	public function getTimeTable($id)
+	{
+		$course = $this->getStaff($id);
+		$timetable = $this->db->get_where('timetables', ['course_name' => $course['subject']]);
+		return $timetable->result_array();
+	}
+
+	public function getTimeTableData($id)
+	{
+		$timetable = $this->db->get_where('timetables', ['routine_id' => $id]);
+		return $timetable->row_array();
+	}
 }   
 
 
