@@ -22,7 +22,7 @@
           <div class="col-md-1">
           </div>
           <div class="col-md-3">
-              <a href="add" class="btn text-primary border border-primary">
+              <a href="studentDetail" class="btn text-primary border border-primary">
                   <div class="big-icon px-5">
                       <i class="fa fa-user-plus"></i>
                   </div>    

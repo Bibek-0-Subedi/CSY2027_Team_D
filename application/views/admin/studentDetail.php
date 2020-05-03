@@ -73,7 +73,7 @@
                     <option value="<?= $course['course_code'] ?>"<?php if ((isset($_POST['course_code'])) || ($course['course_code'] == $student['course_code'])){ echo "selected" ;} ?>><?= $course['course_name'] ?></option>
             <?php } ?>
             </select>
-                <?= form_error('courseCode') ?>
+                <?= form_error('course_code') ?>
             </div>
             <div class="form-group col-md-6">
                 <small class="text-muted">The student will be added to the admission list after submitting the form.</small>

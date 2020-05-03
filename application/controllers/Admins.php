@@ -195,14 +195,14 @@ class Admins extends CI_Controller
         $this->form_validation->set_rules('email', 'Email', 'trim|required');
 
         if ($this->form_validation->run() === FALSE) {
-            $data['courses'] = $this->admin->add();
+            $data['courses'] = $this->admin->getAssignableCourse();
             if($id){
                 $data['student'] = $this->admin->studentEditData($id);
                 $this->loadViews('studentDetail', 'Edit Student', $data);
             }
             else{
                 $data['student'] = ['student_id' => '', 'firstname' => '', 'middlename' => '' , 'surname' => '', 'temporary_address' => '', 'permanent_address' => '', 
-                'contact' => '', 'email' => '','qualification' => '', 'courseCode' => ''];
+                'contact' => '', 'email' => '','qualification' => '', 'course_code' => ''];
                 $this->loadViews('studentDetail', 'Add Student', $data);
             }
         }elseif ($id) {
