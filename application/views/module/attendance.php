@@ -16,7 +16,7 @@
     foreach ($students as $student) { 
         $status = -1;
         foreach ($attendance as $attend) {
-            if($attend['student_id'] == $student['student_id']){
+            if($attend['assigned_id'] == $student['assigned_id']){
                 $status = $attend['status'];
             }
         }  
@@ -26,7 +26,7 @@
             <div class="form-group pull right my-1">
                 <form class="attendance-form" action="<?php echo site_url();?>tutor/module/addAttendance" method="POST">
                     <input type="hidden" name="module_code" value="<?= $student['module_code'] ?>">
-                    <input type="hidden" name="student_id" value="<?= $student['student_id'] ?>">
+                    <input type="hidden" name="assigned_id" value="<?= $student['assigned_id'] ?>">
                     <input type="hidden" name="staff_id" value="<?= $this->session->userdata('id') ?>">
                     <input type="hidden" name="date" value="<?= $this->uri->segment(5) ?>">
                     <?php 

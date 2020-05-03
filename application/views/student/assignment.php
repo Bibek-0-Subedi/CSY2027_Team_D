@@ -10,7 +10,8 @@
             <p class="card-text"><?= $assignment['description'] ?></p>
             <?php $deadline = date_create($assignment['deadline'])  ?>
             <p class="card-text">Submission Deadline: <strong><?= date_format($deadline,"dS F Y \a\\t H:m:s") ?></strong></p>
-            <a href="" class="btn btn-primary pull-right">Download Brief</a>
+            <p></p>
+            <a href="<?= site_url() ?>assets/module_files/<?= $assignment['file'] ?>" download="<?= $assignment['file'] ?>" class="btn btn-primary pull-right">Download Brief</a>
         </div>
     </div>
 <?php 

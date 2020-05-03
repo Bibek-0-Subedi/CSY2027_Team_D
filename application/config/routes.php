@@ -53,6 +53,9 @@ $route['student/dashboard'] = 'students/dashboard';
 $route['student/updateData'] = 'students/updateData';
 $route['student/modules'] = 'students/modules';
 $route['student/grades'] = 'students/grades';
+$route['student/diary'] = 'students/diaryList';
+$route['student/diary/add'] = 'students/addDiary';
+$route['student/diary/edit/(:any)'] = 'students/editDiary/$1';
 $route['student/patRequest'] = 'students/patRequest';
 $route['student/module/assignment/(:any)'] = 'students/assignment/$1';
 $route['student/module/uploadAssignment'] = 'students/uploadAssignment';
@@ -82,6 +85,9 @@ $route['tutor/module/addAttendance'] = 'modules/addAttendance';
 $route['tutor/module/takeAttendance/(:any)/(:any)'] = 'modules/attendance/$1/$2';
 $route['tutor/module/attendance/(:any)/(:any)'] = 'tutors/attendance/$1/$2';
 $route['tutor/modules'] = 'tutors/modules';
+$route['tutor/timetable'] = 'tutors/timetable';
+$route['tutor/viewTimeTable/(:any)'] = 'tutors/viewTimeTable/$1';
+
 
 //route for assignment
 $route['tutor/module/assignment/index/(:any)'] = 'assignments/index/$1';

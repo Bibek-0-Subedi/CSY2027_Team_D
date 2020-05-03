@@ -2,10 +2,12 @@
 
 class Admin extends CI_Model{
 
+    //function to load the database
     public function __construct(){
         $this->load->database();
     }
 
+    //function to login to the system
     public function login($email, $password){
         // extracting the staff with given email and password
         $staff = $this->db->get_where('staff', array(
@@ -24,6 +26,7 @@ class Admin extends CI_Model{
         }
     }
 
+    //function to insert csv into the admission table
     public function csvUpload($csvFile){
         $csvHandle = fopen($csvFile['tmp_name'], "r");
         $mydata = fgetcsv($csvHandle);
@@ -34,11 +37,12 @@ class Admin extends CI_Model{
                 $arr[$mydata[$count]] = $value;
                 $count++;
             }
+            
             $this->db->replace('admissions',$arr);
         }
  
     }
-
+    //function to get all the admissions and courses 
     public function getAdmissions(){
         $this->db->join('courses', 'courses.course_code = admissions.course_code', 'left');
         $this->db->where("status != 3");
@@ -46,7 +50,7 @@ class Admin extends CI_Model{
         return $result->result_array();
         
     }
-
+    //function to filter admission according to the status assigned id and courses
     public function filterAdmission($assigned, $status, $course){
         $this->db->join('courses', 'courses.course_code = admissions.course_code', 'left');
 
@@ -100,7 +104,7 @@ class Admin extends CI_Model{
  
         return $students->result_array();
     }
-
+    //function to create case file
     public function createCaseFile($id){
 
         $this->db->set('assigned_id', rand(1000,1999).substr(time(), 6));
@@ -110,7 +114,7 @@ class Admin extends CI_Model{
             return true;
         }
     }
-
+    //function to insert data as a live 
     public function liveDormant($id)
     {
         if($this->input->post('liveDor') == 'live'){
@@ -125,6 +129,18 @@ class Admin extends CI_Model{
 
             $this->db->insert('students', $data);
             $this->db->reset_query();
+
+            $modules = $this->module($info['course_code']);
+
+            foreach ($modules as $module) {
+                $moduleData = [
+                    'student_id' => $info['assigned_id'],
+                    'module_code' => $module['module_code']
+                ];
+                $this->db->insert('student_modules', $moduleData);
+            }
+
+            $this->db->reset_query();
             $this->db->set('status', 3);
             $this->admission->acceptance_letter($info['firstname'], $info['assigned_id'], $info['assigned_id'], $info['email']);
 
@@ -137,67 +153,39 @@ class Admin extends CI_Model{
             return true;
         }
     }
-
+    //function to reject the application
     public function rejectApplication($id)
     {
         $info = $this->getStudentData($id);
         $this->db->where('admission_id', $id)->delete('admissions');
         $this->admission->rejection_letter($info['firstname'], $info['course_name'], $info['email']);
     }
-    
-    public function tableGenerator($data){
-        $tableHead = [
-            'Id',
-            'Assigned Id',
-            'Status',
-            'Firstname',
-            'Middle',
-            'Surname',
-            'Temporary Address  ',
-            'Permanent Address',
-            'Contact',
-            'Course Code',
-            'Email',
-            'qualification',
-        ];
-        
-        $this->load->model('TableGenerator');
-
-        $this->TableGenerator->setHeadings($tableHead);
-            
-        foreach($data as $row){
-            if(is_string(key($row))){
-                $this->TableGenerator->addRow($row);
-            }       
-        }
-        return $this->TableGenerator->getHTML();
-    }
-
+    //function to get the data of the student
     public function getStudentData($id){
         $this->db->join('courses', 'courses.course_code = admissions.course_code', 'left');
         $result = $this->db->where('admission_id', $id)->get('admissions');
         return $result->row_array();
         
     }
-
+    //function to get all the students from the students table
     public function getStudents()
     {
         // $result = $this->db->where('assigned_id != 0')->get('admissions'); //Students table should be used
 
         $this->db->join('admissions', 'admissions.assigned_id=students.assigned_id', 'left');
         $this->db->join('courses', 'admissions.course_code=courses.course_code', 'left');
-        $this->db->join('staff', 'staff.staff_id=students.pat_tutor', 'right');
+        $this->db->join('staff', 'staff.staff_id=students.pat_tutor', 'left');
         $this->db->where('students.archive = 0');
         $result = $this->db->select('students.*, admissions.*, courses.*, staff.firstname as tfname, staff.surname as tsname')->get('students');
         // $result = $this->db->get('students');
         return $result->result_array();
 
     }
-
+    //function to filter the student according to the course and status
     public function filterStudent($status, $course){
         $this->db->join('admissions', 'admissions.assigned_id=students.assigned_id', 'left');
         $this->db->join('courses', 'admissions.course_code=courses.course_code', 'left');
-        $this->db->join('staff', 'staff.staff_id=students.pat_tutor', 'right');
+        $this->db->join('staff', 'staff.staff_id=students.pat_tutor', 'left');
         $this->db->where('students.archive = 0');
 
         if($status == 'null' && $course == 'null'){
@@ -216,7 +204,7 @@ class Admin extends CI_Model{
         $students = $this->db->select('students.*, admissions.*, courses.*, staff.firstname as tfname, staff.surname as tsname')->get('students'); 
         return $students->result_array();
     }
-
+    //function to update the student details
     public function studentEditData($id){
         $this->db->join('admissions', 'admissions.assigned_id = students.student_id', 'left');
         $this->db->join('courses', 'admissions.course_code = courses.course_code', 'left');
@@ -224,14 +212,14 @@ class Admin extends CI_Model{
         return $result->row_array();
         
     }
-
+    //function to get all the aasignable pat tutor
     public function getAssignablePatTutor(){
         $this->db->where('role', '3');
         $this->db->where('archive', 0);
         $result = $this->db->get('staff');
         return $result->result_array();
     }
-
+    //function to archive the student
     public function assign_archive_student($id, $data){
         $this->db->where('student_id', $id)->update('students', $data);               
     }
@@ -240,7 +228,7 @@ class Admin extends CI_Model{
         $result = $this->db->get('courses');
         return $result->result_array();
     }
-
+    //functin to add the student details into the student table
     public function addStudent(){
         $data = [
             'assigned_id' => '0',
@@ -258,6 +246,7 @@ class Admin extends CI_Model{
 
         $this->db->insert('admissions', $data); // Not sure could be students table too
     }
+    //function to update the student details from the student table
     public function updateStudent($id){
         $data = [
             'firstname' => $this->input->post('firstname'),
@@ -288,8 +277,28 @@ class Admin extends CI_Model{
 
 
         $this->db->where('assigned_id', $id)->update('admissions', $data);
-    }
+        
+        $this->db->reset_query();
+        $info = $this->db->where('assigned_id', $id)->get('admissions');
+        $info = $info->row_array();
 
+        if($info['course_code'] != $this->input->post('courseCode')){
+            $this->db->where('student_id', $info['assigned_id'])->delete('student_modules');
+
+            $modules = $this->module($this->input->post('courseCode'));
+
+            foreach ($modules as $module) {
+                $moduleData = [
+                    'student_id' => $info['assigned_id'],
+                    'module_code' => $module['module_code']
+                ];
+                $this->db->insert('student_modules', $moduleData);
+            }
+
+        }
+
+    }
+    //function to delete the student from the students table
     public function deleteStudent($id){
         $this->db->where('student_id', $id)->delete('students');
     }
@@ -309,6 +318,7 @@ class Admin extends CI_Model{
         return $result->row_array();
     }
 
+    //function to get all the staff from the staff table
     public function staff(){
         $this->db->join('courses', 'courses.course_code=staff.subject', 'left');
         $this->db->join('modules', 'modules.module_code=staff.subject', 'left');
@@ -324,6 +334,7 @@ class Admin extends CI_Model{
         return $staff->result_array();
     }
 
+    //function to filter the staff according to the status, subject and role 
     public function filterStaff($status, $sub, $role){
         $this->db->join('courses', 'courses.course_code=staff.subject', 'left');
         $this->db->join('modules', 'modules.module_code=staff.subject', 'left');
@@ -370,7 +381,7 @@ class Admin extends CI_Model{
  
         return $staff->result_array();
     }
-    
+     //function to add the staff details into the staff table
     public function addStaff(){
         $data =[
             'staff_id' => $this->input->post('staff_id'),
@@ -388,7 +399,7 @@ class Admin extends CI_Model{
         ];
         $this->db->insert('staff', $data);
     }
-
+     //function to update the staff details from the staff table
     public function updateStaff($id){
         $data =[
             'status' => $this->input->post('status'),
@@ -416,11 +427,12 @@ class Admin extends CI_Model{
         
         $this->db->where('staff_id', $id)->update('staff', $data);
     }
-
+     //function to archive the staff from the staff table
     public function assign_archive_staff($id , $data){
         $this->db->where('staff_id', $id)->update('staff', $data);
     }
 
+    //function to get all the course from the courses table
     public function course($dpt = false){
         $this->db->join('departments', 'departments.department_id=courses.department_id', 'left');
         $this->db->join('staff', 'staff.staff_id=courses.course_leader', 'left');
@@ -433,21 +445,23 @@ class Admin extends CI_Model{
         return $courses->result_array();
     }
 
+    //function to assign staff to the course
     public function assign_to_staff($staff_id, $staff_data, $course_code, $course_data){
         $this->db->where('staff_id', $staff_id)->update('staff', $staff_data);
         $this->db->where('course_code', $course_code)->update('courses', $course_data);
     }
     
+    //function to assign staff to the module
     public function assignModule($staff_id, $staff_data, $module_code, $module_data){
         $this->db->where('staff_id', $staff_id)->update('staff', $staff_data);
         $this->db->where('module_code', $module_code)->update('modules', $module_data);
     }
-
+    //function to get all the assignable courses from the courses table
     public function getAssignableCourse(){
         $result = $this->db->where('archive', 0)->get('courses');
         return $result->result_array();
     }
-
+    //function to get all the assignable staff from the staffs table
     public function getAssignableStaff($role, $id = false){
         if($id){
             $this->db->where('subject', $id);
@@ -459,7 +473,7 @@ class Admin extends CI_Model{
         $result = $this->db->get('staff');
         return $result->result_array();
     }
-
+    //function to add the course details from the courses table
     public function addCourse(){
         $course_leader = $this->input->post('course_leader');
         if($course_leader){
@@ -482,7 +496,7 @@ class Admin extends CI_Model{
         }
         $this->db->insert('courses', $data);
     }
-
+    //function to update the course details from the courses table
     public function updateCourse($id){
         $course_leader = $this->input->post('course_leader');
         if($course_leader){
@@ -502,18 +516,26 @@ class Admin extends CI_Model{
         }
         $this->db->where('course_code', $id)->update('courses', $data);
     }
-
+    //function to archive the course from the courses table
     public function archiveCourse($id , $data){
         $this->db->where('course_code', $id)->update('courses', $data);
     }
-
+    //function to delete the course from the courses table
     public function deleteCourse($id){
-        if(!$this->db->delete('courses', array('course_code' => $id))){
-            return $this->db->error();
+        try{
+            $this->db->where('course_code', $id);
+            $this->db->delete('courses');
+            if($this->db->_error_number() == 1451){
+                throw new Exception("Error Processing Request");
+            }
         }
-        return false;
+        catch(Exception $e)
+        {
+            return false;
+        }
+        return true;
     }
-
+    //function to get all the modules
     public function module($course = false){
         $this->db->join('courses', 'courses.course_code=modules.course_code', 'left');
         $this->db->join('staff', 'staff.staff_id=modules.module_leader', 'left');
@@ -525,7 +547,7 @@ class Admin extends CI_Model{
         }
         return $courses->result_array();
     }
-
+    //function to add the module details from the modules table
     public function addModule(){
         $data =[
             'module_code' => $this->input->post('module_code'),
@@ -535,7 +557,7 @@ class Admin extends CI_Model{
         ];
         $this->db->insert('modules', $data);
     }
-
+    //function to update the module details from the modules table
     public function updateModule($id){
         $module_leader = $this->input->post('module_leader');
         if($module_leader){
@@ -557,21 +579,21 @@ class Admin extends CI_Model{
         }
 
     }
-
+    //function to archive the module from the modules table
     public function archiveModule($id , $data){
         $this->db->where('module_code', $id)->update('modules', $data);
     }
-
+    //function to delete the module from the modules table
     public function deleteModule($id){
         $this->db->where('module_code', $id)->delete('modules');
     }
-
+    //function to view all the timetable assigned to the course
     public function timetable(){
         $this->db->join('courses', 'courses.course_code=timetables.course_name', 'left');
         $timetables = $this->db->get_where('timetables', ['timetables.archive'=> 0]);
         return $timetables->result_array();
     }
-
+    //function to add timetable
     public function addTimeTable(){
 
         $data = [
@@ -580,6 +602,7 @@ class Admin extends CI_Model{
         ];
         $this->db->insert('timetables', $data);
     }
+    //function to create timetable
     public function createTimeTable($id){
         //indexed Array for the Day row
         $row[] = array(
@@ -666,19 +689,22 @@ class Admin extends CI_Model{
         ];
         $this->db->where('routine_id', $id)->update('timetables', $data);
     }
+    //function to archive the timetable from the timetables table
     public function archiveTimeTable($id , $data){
         $this->db->where('routine_id', $id)->update('timetables', $data);
     }
+    //function to delete the timetable from the timetables table
     public function deleteTimeTable($id){
         $this->db->where('routine_id', $id)->delete('timetables');
     }
+    //function to view request sent by the staff
     public function staffRequests()
     {
         $result = $this->db->where('approval', 1)->select('staff_id, changes, firstname, surname')->get('staff');
         return $result->result_array();
         
     }
-
+    //function to view request sent by the students
     public function studentRequests()
     {
         $this->db->join('admissions', 'admissions.assigned_id = students.assigned_id', 'left');
@@ -686,7 +712,7 @@ class Admin extends CI_Model{
         return $result->result_array();
         
     }
-
+    //function to insert the announcement into the announcements table
     public function addAnnouncement()
     {
         $data = [
@@ -698,7 +724,7 @@ class Admin extends CI_Model{
         $this->db->insert('announcements', $data);
         
     }
-
+    //function to delete the announcement from the announcement table
     public function deleteAnnouncement($id)
 	{
 		$this->db->where('id', $id)->delete('announcements');

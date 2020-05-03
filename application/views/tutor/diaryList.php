@@ -10,6 +10,16 @@
                 <h5>Add a new Diary Page</h5>
             </a>
         </div>
+        <?php
+            if (!empty($this->session->flashdata('added'))) { ?>
+            <div class="alert alert-success mt-2" role="alert">
+                <?php echo $this->session->flashdata('added'); ?>
+            </div>
+        <?php } elseif (!empty($this->session->flashdata('edited'))) {?> 
+            <div class="alert alert-success mt-2" role="alert">
+                <?php echo $this->session->flashdata('edited'); ?>
+            </div>
+        <?php }?>    
         <div class="row mt-3 ">
             <div class="container-fluid">
                  <?php foreach ($diaries as $diary) { ?>

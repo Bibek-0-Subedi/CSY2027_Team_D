@@ -2,8 +2,7 @@
 
 class Admins extends CI_Controller
 {
-
-
+    //contructor to load the model
     public function __construct()
     {
         parent::__construct();
@@ -18,8 +17,7 @@ class Admins extends CI_Controller
             }
         }
     }
-
-
+    //loads the view page of the admin
     public function loadViews($page, $title, $data = [])
     {
         $this->load->view('layouts/header', ['title' => $title]);
@@ -35,19 +33,19 @@ class Admins extends CI_Controller
             $this->load->view('layouts/adminfooter');
         }
     }
-
+    //loads the index page of the admin
     public function index()
     {
         
     }
-
+    //function to show all the announcements, student/staff request data or any notifications in the dashboard
     public function dashboard()
     {     
         $data['staffRequests'] = $this->admin->staffRequests();
         $data['studentRequests'] = $this->admin->studentRequests();
         $this->loadViews('dashboard', 'Dashboard', $data);
     }
-
+    //function to load admission
     public function admission()
     {
         // $data['admissions'] = $this->admin->tableGenerator($this->admin->getAdmissions());
@@ -79,7 +77,7 @@ class Admins extends CI_Controller
             $this->loadViews('admission', 'Admission', $data);
         }
     }
-
+    //function to login to the system
     public function login()
     {
         if($this->session->userdata('type') == 1 || $this->session->userdata('type') == 2){
@@ -128,6 +126,7 @@ class Admins extends CI_Controller
             }
         }
     }
+    //function to logout from the system
     public function logout()
     {
         $this->session->unset_userdata('id');
@@ -137,9 +136,10 @@ class Admins extends CI_Controller
 
         redirect('/');
     }
-
+    //function to list all the students in the student view page of admin
     public function student($id = false)
     {
+        //to archive the student
         if($id){
             if (isset($_POST['archive'])) {
                 $archive = ['archive' => '1'];
@@ -148,12 +148,14 @@ class Admins extends CI_Controller
                 redirect('admin/student');
             }
         }
+        //to assign the pat tutor to the student
         elseif(isset($_POST['assignPatTutor'])){
             $id = $this->input->post('student_id'); 
             $assign = ['pat_tutor' => $this->input->post('pat_tutor')];
             $this->admin->assign_archive_student($id , $assign);
             $this->session->set_flashdata('assigned', 'Pat Tutor Assigned Successfully !');
-            redirect('admin/student');            
+            redirect('admin/student'); 
+        //to filter the student according to the status           
         }elseif (isset($_POST['filter'])){
             if($_POST['status'] == 3){
                 $status = "null";
@@ -179,6 +181,7 @@ class Admins extends CI_Controller
             $this->loadViews('student', 'Students', $data);    
         }    
     }
+    //function to add and edit the student details 
     public function studentDetail($id = false)
     {
         $this->form_validation->set_rules('firstname', 'Firstname', 'trim|required');
@@ -213,7 +216,7 @@ class Admins extends CI_Controller
             redirect('admin/admission');
         }
     }
-
+    //function to upload the csv
     public function uploadCSV()
     {
         if ($this->input->post('upload')) {
@@ -225,6 +228,7 @@ class Admins extends CI_Controller
         redirect('admin/admission');
     }
 
+    //function to create the casefile
     public function casefile($id)
     {
         $data = $this->admin->getStudentData($id);
@@ -253,21 +257,23 @@ class Admins extends CI_Controller
         }
 
     }
-
+    //function to create the case file
     public function createCaseFile($id)
     {
         
         // $this->loadViews('casefile', 'Case File',$data);
     }
-
+    //function to upload the documents
     public function uploadDoc()
     {
         if($this->input->post('studentDoc')){
             $this->admission->docUpload($_FILES['studentDoc']);
         }
     }
+    //function to list all the staff in the staff view page of admin
     public function staff($id = false)
     {
+        //to archive the student
         if($id){
             if (isset($_POST['archive'])) {
                 $archive = ['archive' => '1'];
@@ -276,12 +282,14 @@ class Admins extends CI_Controller
                 redirect('admin/staff');   
             }
         }
+        //to assign the course to the staff
         elseif(isset($_POST['assignCourse'])){
             $id = $this->input->post('staff_id'); 
             $assign = ['subject' => $this->input->post('subject')];
             $this->admin->assign_archive_staff($id , $assign);
             $this->session->set_flashdata('assigned', 'Course Assigned Successfully !');
-            redirect('admin/staff');            
+            redirect('admin/staff'); 
+        //to filter according to the status           
         }elseif (isset($_POST['filter'])){
             if($_POST['status'] == 3){
                 $status = "null";
@@ -310,8 +318,8 @@ class Admins extends CI_Controller
             $data['course'] = $this->admin->getAssignableCourse();
             $this->loadViews('staff', 'Staff', $data);
         }
-
     }
+    //function to add and edit the staff details 
     public function staffDetail($id = false)
     {
 
@@ -358,27 +366,29 @@ class Admins extends CI_Controller
             redirect('admin/staff');
         }
     }
-
+    //function to list all the courses in the course view page of admin
     public function course($id = false)
     {
+        //to archive the course
         if($id){
             if (isset($_POST['archive'])) {
                 $data = ['archive' => '1'];
                 $this->admin->archiveCourse($id , $data);
                 $this->session->set_flashdata('archived', 'Course Archived Successfully !');
                 redirect('admin/course');
+                //to delete the course
             }elseif(isset($_POST['delete'])){
                 $delete  = $this->admin->deleteCourse($id); 
                 if($delete){
-                    // $this->session->set_flashdata('cannotDelete', 'Course could not be Deleted  !');
-                    exit();
+                    $this->session->set_flashdata('deleted', 'Course Deleted Successfully !');
                 }
                 else{
-                    $this->session->set_flashdata('deleted', 'Course Deleted Successfully !');
+                    $this->session->set_flashdata('cannotDelete', 'Course could not be Deleted  !');
                 }
                 redirect('admin/course');            
             }
         }
+        //to filer
         elseif (isset($_POST['filter'])) {
             if($_POST['department_id'] == 0){
                 $department = "";
@@ -396,6 +406,7 @@ class Admins extends CI_Controller
             $this->loadViews('course', 'Course' , $data);
         }
     }
+    //to add or edit the course details
     public function courseDetail($id = false)
     {
         $course = $this->admin->getTableData($id, 'course_code', 'courses');
@@ -444,6 +455,7 @@ class Admins extends CI_Controller
             redirect('admin/course');
         }
     }
+    //function to list all the modules in the module view page of the admin
     public function module($id = false)
     {
         if($id){
@@ -474,6 +486,7 @@ class Admins extends CI_Controller
             $this->loadViews('module', 'Module' , $data);    
         }
     }
+    //function to add or edit the module details
     public function moduleDetail($id = false)
     {
         $module = $this->admin->getTableData($id, 'module_code', 'modules');
@@ -519,18 +532,22 @@ class Admins extends CI_Controller
             redirect('admin/module');
         }
     }
+    //function to list the timetable in the timetable view page of the admin
     public function timeTable($id = false){
+        //to archive
         if($id){
             if (isset($_POST['archive'])) {
                 $data = ['archive' => '1'];
                 $this->admin->archiveTimeTable($id , $data);
                 $this->session->set_flashdata('archived', 'TimeTable Archived Successfully !');
                 redirect('admin/timeTable');
+                //to delete
             }elseif(isset($_POST['delete'])){
                 $this->admin->deleteTimeTable($id);
                 $this->session->set_flashdata('archived', 'TimeTable Deleted Successfully !');
                 redirect('admin/timeTable');            
             }
+            //to create
         }elseif (isset($_POST['createTimetable'])) {
             unset($_POST['createTimetable']);
             
@@ -540,15 +557,17 @@ class Admins extends CI_Controller
         }
         else{
             $data['courses'] = $this->admin->course();
-            $data['timetables'] = $this->admin->timetable();    
+            $data['timetables'] = $this->admin->timetable();  
+
+            //to load the pages
             $this->loadViews('timetable', 'Time Table', $data);
         }
     }
-
+    //function to add the timetable
     public function addTimeTable(){
             $this->admin->addTimeTable();
     }
-
+    //function to create the timetable
     public function createTimeTable($id){
         if(isset($_POST['createTable'])){
             unset($_POST['createTable']);
@@ -563,7 +582,7 @@ class Admins extends CI_Controller
         $data['modules'] = $module;
         $this->loadViews('createTimeTable', 'Create Table', $data);
     }
-
+    //function to edit the timetable
     public function editTimeTable($id){
         if(isset($_POST['editTable'])){
             unset($_POST['editTable']);
@@ -582,7 +601,7 @@ class Admins extends CI_Controller
         ];     
         $this->loadViews('editTimeTable', 'Edit TimeTable', $data);
     }
-
+    //function to view the timetable
     public function timeTableView($id){
 
         $timetable = $this->admin->getTableData($id,'routine_id',  'timetables');
@@ -590,18 +609,19 @@ class Admins extends CI_Controller
         $data =['timetable' => $deser_timetable]; 
         $this->loadViews('timeTableView', 'View Table', $data);
     }
+    //function to list all the announcements added by the tutor
     public function announcement()
     {
         $data['announcements'] = $this->tutor->getAnnouncement();
         $this->loadViews('announcement', 'Announcements' , $data);
     }
-
+    //function to add the announcements
     public function addAnnouncement()
     {
         $this->admin->addAnnouncement();
         redirect('admin/announcement');
     }
-
+    //function to delete the added announcements
     public function deleteAnnouncement($id)
     {
         $this->tutor->deleteAnnouncement($id);

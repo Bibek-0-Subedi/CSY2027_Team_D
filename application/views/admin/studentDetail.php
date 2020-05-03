@@ -67,11 +67,12 @@
             <!-- Select Will be used for  -->
             <div class="form-group col-md-6">
                 <label for="CourseCode">Course Code</label>
-                <select name="courseCode" class="form-control <?php echo form_error('courseCode') ? 'is-invalid' : '' ?>" name='courseCode' <?php echo isset($_POST['courseCode']) ? $_POST['courseCode'] : ''?>>
-                    <?php foreach ($courses as $course) { ?>
-                        <option value="<?= $course['course_code'] ?>"><?= $course['course_name'] ?></option>
-                    <?php } ?>
-                </select>
+                <select class="form-control  mr-3 <?php echo form_error('subject') ? 'is-invalid' : '' ?>" name='courseCode'>
+                <option value=""  <?php if (!isset($_POST['course_code']) && $student['course_code'] == "") echo "selected" ?>>Select Course</option>
+                <?php foreach($courses as $course) { ?>
+                    <option value="<?= $course['course_code'] ?>"<?php if ((isset($_POST['course_code'])) || ($course['course_code'] == $student['course_code'])){ echo "selected" ;} ?>><?= $course['course_name'] ?></option>
+            <?php } ?>
+            </select>
                 <?= form_error('courseCode') ?>
             </div>
             <div class="form-group col-md-6">

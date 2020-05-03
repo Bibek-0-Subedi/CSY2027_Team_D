@@ -114,6 +114,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-between" href="<?= site_url() ?>tutor/timetable">
+                            <span>TimeTable</span>
+                            <i class="fas fa-calendar"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link d-flex justify-content-between" href="<?= site_url() ?>admin/logout">
                             <span>Logout</span>
                             <i class="fas fa-sign-out-alt"></i>
