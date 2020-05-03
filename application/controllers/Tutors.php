@@ -2,13 +2,14 @@
 
 class Tutors extends CI_Controller {
     
+    //contructor to load the model 
     public function __construct()
     {
         parent::__construct();
         $this->load->model('Tutor');
     }
+    //loads the view page of the tutor
     public function loadViews($page, $title, $data = []){
-
         if(($this->session->userdata('type')) != 3){
             redirect('admin/login');
         }
@@ -17,24 +18,25 @@ class Tutors extends CI_Controller {
         $this->load->view('tutor/'.$page, $data);
         $this->load->view('layouts/adminfooter');
     }
+    //function to show all the announcements in the dashboard view page of the tutor
     public function dashboard(){
         $data['announcements'] = $this->tutor->getAnnouncement();
         $this->loadViews('dashboard', 'Dashboard', $data);
     }
-
+    //function to show all the details in the profile view page of the tutor
     public function profile(){
         $data['tutor'] = $this->tutor->selectTutor();
         $this->loadViews('profile', 'Profile', $data);
     }
+    //function to list modules which are assigned to the tutor in the tutor's module view page 
     public function modules(){
-
             $module = $this->tutor->select();
             $data = [
                 'modules' => $module
             ];
         $this->loadViews('module', 'Module', $data);
     }
-
+    //function to list modules which are assigned to the tutor in the tutor's module view page
     public function module(){
         $module = $this->tutor->select();
         $data = [
@@ -42,15 +44,16 @@ class Tutors extends CI_Controller {
         ];
         $this->loadViews('module', 'Module', $data);
     }
-
-     public function student(){
+    //function to list the student which are assigned to the tutor  
+    public function student(){
             $module = $this->tutor->selectStudent();
             $data = [
                 'modules' => $module
             ];
         $this->loadViews('student', 'Student', $data); 
     }
-     public function studentList($id){
+    //function to list of student which are assigned to the module in the tutor's module student view page and 
+    public function studentList($id){
             $module = $this->tutor->selectStudent($id);
             $data = [
                 'students' => $module,
@@ -58,11 +61,13 @@ class Tutors extends CI_Controller {
             ];
         $this->loadViews('studentList', 'Student List', $data); 
     }
+    //function to load the form in order to update the data 
     public function getForm() {
 
         $data['module'] = $this->Tutor->select();
         $this->loadViews('module', 'Module', $data);
     }
+    //function to update the data of the tutor
     public function updateData(){
         $data = $this->tutor->selectTutor();
         $data['courses'] = $this->admin->getTable('archive', 0, 'courses');    
@@ -92,6 +97,7 @@ class Tutors extends CI_Controller {
     //     $this->loadViews('attendanceRecord', 'Attendance Record', $data);
     // }
 
+    //function to take the attendance
     public function attendance()
     {
         
@@ -103,23 +109,21 @@ class Tutors extends CI_Controller {
             $data['attendances'] = $this->student->attendance($studentId, $moduleCode);
             $this->loadViews('attendance', 'Attendance', $data);
         // }
-
-
-        
     }
+    //function to view all the grade records of the student assigned to the tutor's module in the student's grade record view page
     public function grade($module_id, $student_id)
     {
         $data['grades'] = $this->Tutor->grade($module_id, $student_id);
         $data['module'] = $this->module->select($module_id);
         $this->loadViews('gradeRecord', 'Grade Record', $data);
     } 
-
-
+    //function to list the student which are assigned to the tutor as a pat tutor in the tutor's pat student view page
     public function patList()
     {
         $data['students'] = $this->Tutor->selectStudentPat();
         $this->loadViews('patList', 'PAT', $data);
     }
+    //function to list the student pat information in the pat tutor's student pat information  view page
     public function patInfo($id)
     {
         $data = [
@@ -129,6 +133,7 @@ class Tutors extends CI_Controller {
 
         $this->loadViews('viewPat','PAT Information', $data);
     }
+    //function to add the pat information of the student
     public function addPat($id){
         $this->form_validation->set_rules('student_id', 'Student Id', 'required');
         $this->form_validation->set_rules('information', 'Information', 'required');
@@ -144,9 +149,11 @@ class Tutors extends CI_Controller {
         }
         else {
             $this->Tutor->addInfo($id);
+            $this->session->set_flashdata('added', 'PAT Information Added Successfully!');
             redirect('tutor/pat/');
         }
     }
+    //function to edit the added pat information of the student
     public function editPat($student_id, $pat_id){
         $this->form_validation->set_rules('information', 'Information', 'required');
     
@@ -163,16 +170,17 @@ class Tutors extends CI_Controller {
         }
         else {
             $success = $this->Tutor->updateInfo($pat_id);
-            if($success){
+            $this->session->set_flashdata('added', 'PAT Information Updated Successfully!');
             redirect('tutor/pat');
-            }
         }
     }
+    //function to list all the diary information added by the tutor
     public function diaryList()
     {
         $data['diaries'] = $this->Tutor->selectDiary();
-        $this->loadViews('diaryList', 'PAT', $data);
+        $this->loadViews('diaryList', 'Diary', $data);
     }
+    //function to add the diary information
     public function addDiary(){
         $this->form_validation->set_rules('title', 'Title', 'required');
         $this->form_validation->set_rules('information', 'Information', 'required');
@@ -184,12 +192,13 @@ class Tutors extends CI_Controller {
 
         }
         else {
-            $success = $this->Tutor->insertDiary();
-            if($success){
+            $this->Tutor->insertDiary();
+            $this->session->set_flashdata('added', 'Diary Information Added Successfully!');
             redirect('tutor/diary');
-            }
+            
         }
     }
+    //function to edit the added diary information
     public function editDiary($id){
         $this->form_validation->set_rules('title', 'Title', 'required');
         $this->form_validation->set_rules('information', 'Information', 'required');
@@ -201,26 +210,25 @@ class Tutors extends CI_Controller {
              $this->loadViews('editDiary', 'Edit Information', $data); 
         }
         else {
-            $success = $this->Tutor->updateDiary($id);
-            if($success){
+            $this->Tutor->updateDiary($id);
+            $this->session->set_flashdata('edited', 'Diary Information Updated Successfully!');
             redirect('tutor/diary');
             }
-        }
     }
-
+    //function to list all the announcements added by the tutor
     public function announcement()
     {
         $data['modules'] = $this->tutor->select();
         $data['announcements'] = $this->tutor->getTutorAnnouncement();
         $this->loadViews('announcement', 'Announcements' , $data);
     }
-
+    //function to add the announcements
     public function addAnnouncement()
     {
         $this->tutor->addAnnouncement();
         redirect('tutor/announcement');
     }
-
+    //function to delete the added announcements
     public function deleteAnnouncement($id)
     {
         $this->tutor->deleteAnnouncement($id);

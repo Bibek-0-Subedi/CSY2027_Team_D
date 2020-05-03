@@ -1,22 +1,10 @@
-<?php if(($this->session->userdata('type')) == 3) {?>
-
-<div class="container-fluid">
+<div class="container mt-5">
     <div class="pl-sm-2 pr-sm-2 mt-2">
         <div class="row bg-content">
             <h4> Your Diary </h4>
         </div>
-        <?php
-            if (!empty($this->session->flashdata('added'))) { ?>
-            <div class="alert alert-success mt-2" role="alert">
-                <?php echo $this->session->flashdata('added'); ?>
-            </div>
-        <?php } elseif (!empty($this->session->flashdata('edited'))) {?> 
-            <div class="alert alert-success mt-2" role="alert">
-                <?php echo $this->session->flashdata('edited'); ?>
-            </div>
-        <?php }?>    
         <div class="row mt-3">
-         <a href="<?= site_url().'tutor/diary/add'?>" class="btn btn-primary ml-5">Add Information</a>
+         <a href="<?= site_url().'student/diary/add'?>" class="btn btn-primary ml-5">Add Information</a>
      </div>
         <div class="row mt-3 ">
             <div class="container-fluid">
@@ -37,11 +25,6 @@
     </div>
 </div>
 
-<?php }
-
-else {
-    redirect('admin/login');
-}?>
 
 
        

@@ -15,6 +15,30 @@
         </a>
     </div>
     <!-- end filter and search post  -->
+    <!-- add module button  -->
+        <?php
+            if (!empty($this->session->flashdata('archived'))) { ?>
+            <div class="alert alert-success" role="alert">
+                <?php echo $this->session->flashdata('archived'); ?>
+            </div>
+        <?php } elseif (!empty($this->session->flashdata('edited'))) {?> 
+            <div class="alert alert-success" role="alert">
+                <?php echo $this->session->flashdata('edited'); ?>
+            </div>
+            <?php }elseif (!empty($this->session->flashdata('added'))) { ?>
+            <div class="alert alert-success" role="alert">
+                <?php echo $this->session->flashdata('added'); ?>
+            </div>
+           <?php }elseif (!empty($this->session->flashdata('unarchived'))) { ?>
+            <div class="alert alert-success" role="alert">
+                <?php echo $this->session->flashdata('unarchived'); ?>
+            </div>
+        <?php } elseif (!empty($this->session->flashdata('deleted'))) { ?>
+            <div class="alert alert-success" role="alert">
+                <?php echo $this->session->flashdata('deleted'); ?>
+            </div>
+        <?php } ?>
+   
     <!-- begin table structure -->
     <div class="row mt-3 ">
         <div class="container-fluid">

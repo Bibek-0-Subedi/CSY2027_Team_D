@@ -29,6 +29,9 @@
                         <a class="nav-link" href="<?= site_url() ?>student/grades">Grades</a>
                     </li>  
                     <li class="nav-item">
+                        <a class="nav-link" href="<?= site_url() ?>student/diary">Diary</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="<?= site_url() ?>student/logout">Logout</a>
                     </li>  
                 <?php } elseif(($this->session->userdata('type') == 2)) { ?>

@@ -25,6 +25,16 @@
         </div>
     </div>
     <!-- end filter and search post  -->
+     <?php
+            if (!empty($this->session->flashdata('graded'))) { ?>
+            <div class="alert alert-success mt-3" role="alert">
+                <?php echo $this->session->flashdata('archived'); ?>
+            </div>
+        <?php } elseif (!empty($this->session->flashdata('deleted'))) {?> 
+            <div class="alert alert-success mt-3" role="alert">
+                <?php echo $this->session->flashdata('deleted'); ?>
+            </div>
+            <?php }?>
     <!-- begin table structure -->
     <div class="row mt-3 ">
         <div class="container-fluid">
@@ -51,7 +61,7 @@
                                 <td><?= $assignment['assignment_file'] ?></td>
                                 <td><?= $assignment['created_date'] ?></td>
                                 <td style="display: flex; justify-content: space-around;">
-                                    <a href="<?= site_url(). 'tutor/module'?>/assignment/grade/<?= $assignment['module_code'] ?>/<?= $assignment['assignment_id']; ?>" class="btn btn-info">Grade</a>
+                                    <?php echo '<button  . data-id="'. $assignment['assignment_id'] .'" class="btn btn-info" data-toggle="modal"  data-target="#gradeStudent" >Grade</button>'; ?>
                                     <?php echo form_open('tutor/module/assignment/view/'. $assignment['module_code'] .'/'.$assignment['assignment_id'] ); ?>
                                         <input type="submit" class="btn btn-danger" name="delete" value="Delete">
                                     </form>
@@ -77,3 +87,65 @@ else {
     redirect('admin/login');
 }?>
 
+<!-- Modal for the Grading students -->
+<div class="modal fade" id="gradeStudent" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Grade Student</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <?php echo form_open(base_url('tutor/module/assignment/view/'. $module_id)) ;?>
+                    <div class="form-group">
+                        <textarea style="display: none" class="form-control" name="assignment_id" id="message-text"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Grades</label>
+                    
+                         <select class="form-control col-sm-6" name='grade'>
+                                <option value="">Choose</option>
+                                <option value="A+">A+</option>
+                                <option value="A">A</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B">B</option>
+                                <option value="B-">B-</option>
+                                <option value="C+">C+</option>
+                                <option value="C">C</option>
+                                <option value="C-">C-</option>
+                                <option value="D+">D+</option>
+                                <option value="D">D</option>
+                                <option value="D-">D-</option>
+                                <option value="E">E</option>
+                                <option value="F">F</option>
+                                <option value="G">G</option>
+                        </select>
+                    </div>
+                    <input type="submit" class="btn uniBtn mx-sm-4" name="gradeStudent" value="Grade">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal for the grading Student ends -->
+<script>
+    $(document).ready(function() {
+        $('#assignmentTable').DataTable();
+    });
+    $('#gradeStudent').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget)
+        var assignment_id = button.data('id') // Extract info from data-id attributes
+
+        var modal = $(this)
+        modal.find('.modal-body textarea').val(assignment_id)
+        modal.find('.modal-body form').val(assignment_id)
+    })
+
+    function checkDelete() {
+        return confirm('Do you really want to delete this File ?');
+    }
+
+</script>
