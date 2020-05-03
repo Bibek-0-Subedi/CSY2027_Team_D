@@ -2,7 +2,7 @@
 
 class Students extends CI_Controller {
     
-    
+    //contructor to load the model
     public function __construct()
     {
         parent::__construct();
@@ -10,8 +10,7 @@ class Students extends CI_Controller {
             redirect('student/login');
         }
     }
-    
-
+    //loads the view page of the student
     public function loadViews($page, $title, $data = []){
         
         $this->load->view('layouts/header', ['title' => $title]);
@@ -21,13 +20,14 @@ class Students extends CI_Controller {
             $this->load->view('layouts/footer');
         }
     }
+    //function to show all the announcements, student data and timetable or any nofication in the dashboard view page of the student
     public function dashboard(){
         $data['timetable'] = $this->student->getTimeTable($this->session->userdata('student_id'));
         $data['student'] = $this->student->getStudent($this->session->userdata('student_id'));
         $data['announcements'] = $this->student->getAnnouncement();
         $this->loadViews('dashboard', 'Dashboard', $data);
     }
-
+    //function to show the timetable
     public function viewTimeTable($id){
 
         $timetable = $this->admin->getTableData($id,'routine_id',  'timetables');
@@ -35,8 +35,7 @@ class Students extends CI_Controller {
         $data =['timetable' => $deser_timetable]; 
         $this->loadViews('viewTimeTable', 'View Table', $data);
     }
-
-
+    //function to login to the system
     public function login() {
 
         if($this->session->userdata('student_logged')){
@@ -70,6 +69,7 @@ class Students extends CI_Controller {
             }
         }
     }
+    //function to logout from the system
     public function logout()
     {
         $this->session->unset_userdata('id');
@@ -79,13 +79,13 @@ class Students extends CI_Controller {
 
         redirect('/');
     }
-
+    //function to list all the modules assigned to the student
     public function modules()
     {
         $data['modules'] = $this->student->modules();
         $this->loadViews('modules', 'Student Modules', $data);
     }
-    
+    //function to load modules and its files
     public function module($id)
     {
         if(!isset($id) || empty($id)){
@@ -103,7 +103,7 @@ class Students extends CI_Controller {
         $this->loadViews('module', $data['module']['module_name'].' Module', $data);
 
     }
-
+    //function to load the attendance record
     public function attendance($id)
     {
         
@@ -118,7 +118,7 @@ class Students extends CI_Controller {
 
         
     }
-
+    //function to update the data of the student
     public function updateData(){
         $data = $this->student->getStudent($this->session->userdata('student_id'));
 
@@ -141,11 +141,13 @@ class Students extends CI_Controller {
               }
         }
     }
+    //function to list all the diary information added by the student
     public function diaryList()
     {
         $data['diaries'] = $this->student->selectDiary();
         $this->loadViews('diaryList', 'Diary', $data);
     }
+    //function to add the diary information
     public function addDiary(){
         $this->form_validation->set_rules('title', 'Title', 'required');
         $this->form_validation->set_rules('information', 'Information', 'required');
@@ -163,6 +165,7 @@ class Students extends CI_Controller {
             }
         }
     }
+    //function to edit the added diary information
     public function editDiary($id){
         $this->form_validation->set_rules('title', 'Title', 'required');
         $this->form_validation->set_rules('information', 'Information', 'required');
@@ -180,11 +183,13 @@ class Students extends CI_Controller {
             }
         }
     }
+    //function to view the student's grades
     public function grades()
     {
         $data['grades'] = $this->student->getAllGrades();
         $this->loadViews('grades', 'Grades', $data);
     }
+    //function to view the assignments uploaded by the tutor
     public function assignment($module_code)
     {
         $data['assignment'] = $this->student->getAssignmentFileInfo($module_code);
@@ -196,7 +201,7 @@ class Students extends CI_Controller {
             redirect('student/module/'.$module_code);
         }
     }
-
+    //function to upload/add the assignment
     public function uploadAssignment()
     {
         $config['upload_path'] = './assets/assignment_submissions/';
@@ -224,13 +229,13 @@ class Students extends CI_Controller {
 
         redirect('student/module/assignment/'.$data['module_code']);
     }
-
+    //function to send the request for the pat session
     public function patRequest()
     {
         $this->student->patRequest($this->session->userdata('student_id'));
         redirect('student/dashboard');
     }
-
+    //function to view the announcements
     public function announcement($model_code){
         $data['announcements'] = $this->student->getModuleAnnouncement($model_code);
         $this->loadViews('announcement', 'Announcments', $data);

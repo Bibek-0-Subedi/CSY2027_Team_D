@@ -12,7 +12,7 @@ class Admission extends CI_Model {
         
     }
 
-
+    //function to send email
     public function send_mail($to, $subject, $content, $from = 'shadyrock101@gmail.com')
     {
         $emailContent = "<!DOCTYPE><html><head></head><body><div>".$content."</div></body></html>";
@@ -43,7 +43,7 @@ class Admission extends CI_Model {
         }
     }
 
-
+    //function to send non-conditional letter 
     public function non_conditional_letter($firstname, $course, $date, $email)
     {   
         $letter = "<p> Dear <strong>".$firstname."</strong>,</p>
@@ -59,6 +59,8 @@ class Admission extends CI_Model {
         $this->send_mail($email, 'Unconditonal letter to join Woodland University', $letter);
     }
 
+
+    //function to send conditional letter 
     public function conditional_letter($firstname, $course, $date, $email)
     {   
         $letter = "<p> Dear <strong>".$firstname."</strong>,</p>
@@ -74,6 +76,7 @@ class Admission extends CI_Model {
         $this->send_mail($email, 'Conditonal letter to join Woodland University', $letter);
     }
 
+    //function to send follow up letter
     public function follow_up_letter($firstname, $course, $date, $email)
     {   
         $letter = "<p> Dear <strong>".$firstname."</strong>,</p>
@@ -89,6 +92,7 @@ class Admission extends CI_Model {
         $this->send_mail($email, 'Follow up letter form Woodland University', $letter);
     }
 
+    //function to send acceptance letter
     public function acceptance_letter($firstname, $student_id, $password, $email)
     {   
         $letter = "<p> Dear <strong>".$firstname."</strong>,</p>
@@ -108,6 +112,7 @@ class Admission extends CI_Model {
         $this->send_mail($email, 'Acceptance letter form Woodland University', $letter);
     }
 
+    //function to send rejection letter
     public function rejection_letter($firstname, $course, $email)
     {   
         $letter = "<p> Dear <strong>".$firstname."</strong>,</p>
@@ -124,6 +129,7 @@ class Admission extends CI_Model {
         $this->send_mail($email, 'Acceptance letter form Woodland University', $letter);
     }
 
+    //function to send request change
     public function requestChange($name, $post, $content, $email)
     {
         $letter = "<p> Dear <strong>Administrator</strong>,</p>
@@ -140,6 +146,7 @@ class Admission extends CI_Model {
         $this->send_mail('shadyrock101@gmail.com', 'Request for Information Change', $letter, $email);
     }
 
+    //function to send change approve
     public function changeApproved($firstname, $email){
         $letter = "<p> Dear <strong>".$firstname."</strong>,</p>
         <p>Your Request has been approved by the administrator.</p>

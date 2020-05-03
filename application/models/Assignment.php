@@ -2,6 +2,7 @@
 
 class Assignment extends CI_model{
     
+     //function to load the database
     public function __construct()
     {
         parent::__construct();
@@ -19,6 +20,7 @@ class Assignment extends CI_model{
         }
         return $result->result_array();
     }
+    //function to select all the assignment files from the assignments table and order them in decending order
     public function assignmentFiles($module_id)
     {
         $this->db->join('module_files', 'module_files.module_id = assignments.module_code', 'left');
@@ -31,18 +33,21 @@ class Assignment extends CI_model{
         $result = $this->db->where($field, $id)->where('type',1)->get($table);
         return $result->row_array();
     }
+     //function to select the module from the modules table
     public function selectModule($id){
 
         $this->db->where('module_code', $id);
         $result = $this->db->get('modules');
         return $result->row_array();
     }
+    //function to select the module files from the module_files table
     public function selectFile($id){
 
         $this->db->where('file_id', $id);
         $result = $this->db->get('module_files');
         return $result->row_array();
     }
+    //function to select all the assignment files from the module_files table and order them in decending order
    public function viewAssignment($assignment)
    {
         $assignments = $this->db->where('type', 1)->order_by('file_id', 'DESC')->get_where('module_files', array(
@@ -50,6 +55,7 @@ class Assignment extends CI_model{
         ));
         return $assignments->result_array();
    }
+   //function to add/insert assignment files into the module_files table
     public function add(){
 
         $config['upload_path'] = './assets/module_files/';
@@ -76,6 +82,7 @@ class Assignment extends CI_model{
         );
         return $this->db->insert('module_files', $data);
     }
+    //function to update the assignment file from the module_files table
     public function update($module_id, $file_id){
 
              $config['upload_path'] = './assets/module_files/';
@@ -101,6 +108,7 @@ class Assignment extends CI_model{
         ];
         $this->db->where('file_id', $file_id)->update('module_files', $data);
     }
+    //function to grade the assignment file from the assignments table
     public function grade($id){
         $data = array(
             'grade' => $this->input->post('grade')
@@ -108,6 +116,7 @@ class Assignment extends CI_model{
         $this->db->where('assignment_id', $id);
         $this->db->update('assignments', $data);
     }
+    //function to delete the assignment file from the module_files table
     public function deleteFile($id){
         $result = $this->db->where('file_id', $id)->get('module_files');
         $rows = $result->result_array();
@@ -116,9 +125,11 @@ class Assignment extends CI_model{
         }
         $this->db->where('file_id', $id)->delete('module_files');
     }
+    //function to archive the assignment file from the module_files table
     public function archiveFile($id , $data){
         $this->db->where('file_id', $id)->update('module_files', $data);
     }
+    //function to delete the assignment file from the assignments table
      public function deleteAssignment($id){
        $result = $this->db->where('assignment_id', $id)->get('assignments');
         $rows = $result->result_array();
