@@ -5,6 +5,16 @@
         <div class="row bg-content">
             <h4> PAT Session Student List</h4>
         </div>
+        <?php
+            if (!empty($this->session->flashdata('added'))) { ?>
+            <div class="alert alert-success" role="alert">
+                <?php echo $this->session->flashdata('added'); ?>
+            </div>
+        <?php } elseif (!empty($this->session->flashdata('edited'))) {?> 
+            <div class="alert alert-success" role="alert">
+                <?php echo $this->session->flashdata('edited'); ?>
+            </div>
+        <?php }?>
         <div class="row mt-3">
          <a href="<?= site_url() ?>tutor/pat/add/<?= $student_id?>" class="btn btn-primary ml-5">Add Information</a>
         </div>

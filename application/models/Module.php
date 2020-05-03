@@ -10,8 +10,7 @@ class Module extends CI_model{
 
 	public function select($id){
 
-		$this->db->where('module_code', $id);
-		$result = $this->db->get('modules');
+		$result = $this->db->where('module_code', $id)->get('modules');
 		return $result->row_array();
 	}
 	public function selectFile($id){
@@ -22,7 +21,7 @@ class Module extends CI_model{
 	}
 	public function module_files($module)
 	{
-   		 $module_files = $this->db->where('type', 0)->get_where('module_files', array(
+   		 $module_files = $this->db->where('type', 0)->order_by('file_id', 'DESC')->get_where('module_files', array(
         	'module_id' => $module
     	));
     	return $module_files->result_array();

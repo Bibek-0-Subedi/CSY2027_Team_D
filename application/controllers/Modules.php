@@ -24,13 +24,16 @@ class Modules extends CI_Controller {
             if(isset($_POST['archive'])) {
                 $data = ['archive' => '1'];
                 $this->Module->archiveFile($file_id , $data);
+                $this->session->set_flashdata('archived', 'Module Materials Archived Successfully !');
                 redirect('tutor/module/'. $module_id);
            }elseif(isset($_POST['unarchive'])) {
                 $data = ['archive' => '0'];
                 $this->Module->archiveFile($file_id , $data);
+                $this->session->set_flashdata('unarchived', 'Module Materials Unarchived Successfully !');
                 redirect('tutor/module/'. $module_id);
             }elseif(isset($_POST['delete'])){
                 $this->Module->deleteFile($file_id);
+                $this->session->set_flashdata('deleted', 'Module Materials Deleted Successfully !');
                 redirect('tutor/module/'. $module_id);             
             }
         }
@@ -62,10 +65,9 @@ class Modules extends CI_Controller {
             $this->loadViews('add', 'Add Module', $data);
         }
         else {
-            $success = $this->Module->addMaterials();
-            if($success){
+            $this->Module->addMaterials();
+            $this->session->set_flashdata('added', 'Module Materials Added Successfully !');
             redirect('tutor/module/' . $id);
-            }
         }
     }
     public function update($module_id, $file_id){
@@ -83,9 +85,10 @@ class Modules extends CI_Controller {
                 $this->loadViews('update', 'Edit File', $data);
         }   
         else{   
-                  $this->Module->updateMaterials($file_id); 
-                     redirect('tutor/module/' . $module_id);
-              }
+                $this->Module->updateMaterials($file_id); 
+                $this->session->set_flashdata('edited', 'Module Materials Updated Successfully !');
+                redirect('tutor/module/' . $module_id);
+            }
         }
     
     public function attendance()

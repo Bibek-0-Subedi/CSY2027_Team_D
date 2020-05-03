@@ -8,15 +8,21 @@ class Assignment extends CI_model{
         $this->load->database();
         
     }
-    public function getTable($field = false, $value = false, $table)
+    public function getTable($field = false, $value = false,$order ,$table)
     {
         $this->db->join('module_files', 'module_files.module_id = '.$table.'.module_code', 'left');
         if($field){
-            $result = $this->db->where($field, $value)->where('type',1)->get($table);
+            $result = $this->db->where($field, $value)->where('type',1)->order_by($order,'DESC')->get($table);
         }
         else{
             $result = $this->db->get($table);
         }
+        return $result->result_array();
+    }
+    public function assignmentFiles($module_id)
+    {
+        $this->db->join('module_files', 'module_files.module_id = assignments.module_code', 'left');
+        $result = $this->db->where('module_code', $module_id)->where('type',1)->order_by('assignment_id','DESC')->get('assignments');
         return $result->result_array();
     }
     public function getTableData($id, $field , $table)
@@ -39,10 +45,9 @@ class Assignment extends CI_model{
     }
    public function viewAssignment($assignment)
    {
-        $assignments = $this->db->where('type', 1)->get_where(
-            'module_files', array(
-            'module_id' => $assignment)
-        );
+        $assignments = $this->db->where('type', 1)->order_by('file_id', 'DESC')->get_where('module_files', array(
+            'module_id' => $assignment
+        ));
         return $assignments->result_array();
    }
     public function add(){

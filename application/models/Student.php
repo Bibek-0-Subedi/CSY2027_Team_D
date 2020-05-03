@@ -161,7 +161,26 @@ class Student extends CI_Model{
 
 		return $result->result_array();
     }
-    
+    public function selectDiary(){
+        $result = $this->db->where('student_id', $this->session->userdata('id') )->get('diaries');
+        return $result->result_array();
+    }  
+    public function insertDiary(){
+         $data = array(
+            'title' => $this->input->post('title'),
+            'description' => $this->input->post('information') ,
+            'staff_id' => $this->session->userdata('id') ,
+        );
+        return $this->db->insert('diaries', $data);
+    }
+    public function updateDiary($id){
+         $data = array(
+            'title' => $this->input->post('title'),
+            'description' => $this->input->post('information') ,
+            'staff_id' => $this->session->userdata('id') ,
+        );
+        return $this->db->where('diary_id', $id)->update('diaries', $data);
+    }
 }
 /* End of file Student.php */
 

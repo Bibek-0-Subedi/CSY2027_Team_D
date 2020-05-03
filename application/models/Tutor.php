@@ -94,7 +94,7 @@ class Tutor extends CI_model{
         return $result->result_array();
     }
     public function patInfo($id){
-    	$result = $this->db->where('student_id', $id)->get('pat');
+    	$result = $this->db->where('student_id', $id)->order_by('pat_id', 'DESC')->get('pat');
         return $result->result_array();
     }
     public function selectInfo($id){
@@ -118,7 +118,7 @@ class Tutor extends CI_model{
 		return $this->db->where('pat_id', $id)->update('pat', $data);    	 
     }
     public function selectDiary(){
-    	$result = $this->db->where('staff_id', $this->session->userdata('id') )->get('diaries');
+    	$result = $this->db->where('staff_id', $this->session->userdata('id'))->order_by('diary_id', 'DESC')->get('diaries');
     	return $result->result_array();
     }
     public function insertDiary(){

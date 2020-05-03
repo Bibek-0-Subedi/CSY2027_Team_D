@@ -144,6 +144,7 @@ class Tutors extends CI_Controller {
         }
         else {
             $this->Tutor->addInfo($id);
+            $this->session->set_flashdata('added', 'PAT Information Added Successfully!');
             redirect('tutor/pat/');
         }
     }
@@ -163,15 +164,14 @@ class Tutors extends CI_Controller {
         }
         else {
             $success = $this->Tutor->updateInfo($pat_id);
-            if($success){
+            $this->session->set_flashdata('added', 'PAT Information Updated Successfully!');
             redirect('tutor/pat');
-            }
         }
     }
     public function diaryList()
     {
         $data['diaries'] = $this->Tutor->selectDiary();
-        $this->loadViews('diaryList', 'PAT', $data);
+        $this->loadViews('diaryList', 'Diary', $data);
     }
     public function addDiary(){
         $this->form_validation->set_rules('title', 'Title', 'required');
@@ -184,10 +184,10 @@ class Tutors extends CI_Controller {
 
         }
         else {
-            $success = $this->Tutor->insertDiary();
-            if($success){
+            $this->Tutor->insertDiary();
+            $this->session->set_flashdata('added', 'Diary Information Added Successfully!');
             redirect('tutor/diary');
-            }
+            
         }
     }
     public function editDiary($id){
@@ -201,26 +201,22 @@ class Tutors extends CI_Controller {
              $this->loadViews('editDiary', 'Edit Information', $data); 
         }
         else {
-            $success = $this->Tutor->updateDiary($id);
-            if($success){
+            $this->Tutor->updateDiary($id);
+            $this->session->set_flashdata('edited', 'Diary Information Updated Successfully!');
             redirect('tutor/diary');
             }
-        }
     }
-
     public function announcement()
     {
         $data['modules'] = $this->tutor->select();
         $data['announcements'] = $this->tutor->getTutorAnnouncement();
         $this->loadViews('announcement', 'Announcements' , $data);
     }
-
     public function addAnnouncement()
     {
         $this->tutor->addAnnouncement();
         redirect('tutor/announcement');
     }
-
     public function deleteAnnouncement($id)
     {
         $this->tutor->deleteAnnouncement($id);

@@ -141,14 +141,50 @@ class Students extends CI_Controller {
               }
         }
     }
+    public function diaryList()
+    {
+        $data['diaries'] = $this->student->selectDiary();
+        $this->loadViews('diaryList', 'Diary', $data);
+    }
+    public function addDiary(){
+        $this->form_validation->set_rules('title', 'Title', 'required');
+        $this->form_validation->set_rules('information', 'Information', 'required');
+    
+        if ($this->form_validation->run() === FALSE) {
+             
+             $data['diaries'] = $this->student->selectDiary();
+             $this->loadViews('diary', 'Add Information', $data); 
 
+        }
+        else {
+            $success = $this->student->insertDiary();
+            if($success){
+            redirect('student/diary');
+            }
+        }
+    }
+    public function editDiary($id){
+        $this->form_validation->set_rules('title', 'Title', 'required');
+        $this->form_validation->set_rules('information', 'Information', 'required');
+    
+        if ($this->form_validation->run() === FALSE) {    
+             $data = [
+                    'diary_id' => $id
+                ];
+             $this->loadViews('editDiary', 'Edit Information', $data); 
+        }
+        else {
+            $success = $this->Tutor->updateDiary($id);
+            if($success){
+            redirect('tutor/diary');
+            }
+        }
+    }
     public function grades()
     {
         $data['grades'] = $this->student->getAllGrades();
         $this->loadViews('grades', 'Grades', $data);
     }
-
-    
     public function assignment($module_code)
     {
         $data['assignment'] = $this->student->getAssignmentFileInfo($module_code);
